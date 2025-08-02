@@ -63,7 +63,7 @@ class ResponseBot:
             self.input_handler = InputHandler(self.config.source)
             self.preprocessor = ContextPreprocessor(self.config.filter)
             self.llm_engine = LLMEngine(self.config.llm)
-            self.reply_engine = ReplyEngine(self.config.reply)
+            self.reply_engine = ReplyEngine(self.config.reply, self.input_handler)  # Pass input_handler for Twitter posting
             self.scheduler = Scheduler(self.config.scheduler)
             
             # Initialize LLM engine (requires connection to Ollama)

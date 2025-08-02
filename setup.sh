@@ -22,13 +22,13 @@ fi
 
 # Install Python dependencies
 echo "📦 Installing Python dependencies..."
-pip install -r requirements.txt
+pip install -r requirements.txt --break-system-packages
 
 # Verify Ollama Python library
 echo "🔍 Verifying Ollama Python library..."
 python3 -c "import ollama; print('✅ Ollama Python library installed')" 2>/dev/null || {
     echo "📦 Installing Ollama Python library..."
-    pip install ollama
+    pip install ollama --break-system-packages
 }
 
 # Check if Ollama is installed

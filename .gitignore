@@ -16,6 +16,11 @@ responses/
 data/
 temp/
 
+# Test files (keep only official test directory)
+test_*.py
+*_test.py
+twitter_scraper.py
+
 ### Linux ###
 *~
 

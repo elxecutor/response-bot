@@ -112,11 +112,13 @@ class ContentFilter:
             if not created_at:
                 return True  # Allow if no timestamp
             
-            post_time = datetime.strptime(created_at, '%a %b %d %H:%M:%S %z %Y')
+            # Handle Twitter API v2 ISO format
+            post_time = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
             age_hours = (datetime.now(timezone.utc) - post_time).total_seconds() / 3600
             
             return age_hours <= self.config.max_age_hours
-        except Exception:
+        except Exception as e:
+            logger.debug(f"Error parsing timestamp {created_at}: {e}")
             return True  # Allow if parsing fails
     
     def _matches_language(self, post: Dict[str, Any]) -> bool:
@@ -124,17 +126,18 @@ class ContentFilter:
         if not self.config.language:
             return True
         
-        post_lang = post.get('metadata', {}).get('lang', '')
-        return post_lang.lower() == self.config.language.lower()
+        # For Twitter API v2, language detection would need to be done separately
+        # For now, we assume English tweets based on our search query
+        return True
     
     def _meets_engagement_threshold(self, post: Dict[str, Any]) -> bool:
         """Check if post meets minimum engagement"""
-        engagement = post.get('engagement', {})
+        metrics = post.get('metrics', {})
         total_engagement = (
-            engagement.get('retweet_count', 0) +
-            engagement.get('favorite_count', 0) +
-            engagement.get('reply_count', 0) +
-            engagement.get('quote_count', 0)
+            metrics.get('retweet_count', 0) +
+            metrics.get('like_count', 0) +
+            metrics.get('reply_count', 0) +
+            metrics.get('quote_count', 0)
         )
         
         return total_engagement >= self.config.min_engagement
@@ -163,30 +166,26 @@ class EngagementCalculator:
     
     @staticmethod
     def calculate_score(post: Dict[str, Any]) -> float:
-        """Calculate engagement score for a post"""
-        engagement = post.get('engagement', {})
-        user = post.get('user', {})
+        """Calculate engagement score for a post (updated for Twitter API v2)"""
+        metrics = post.get('metrics', {})
         
-        # Base engagement metrics
-        retweets = engagement.get('retweet_count', 0)
-        likes = engagement.get('favorite_count', 0)
-        replies = engagement.get('reply_count', 0)
-        quotes = engagement.get('quote_count', 0)
-        
-        # User metrics
-        followers = user.get('followers_count', 0)
+        # Base engagement metrics from Twitter API v2
+        retweets = metrics.get('retweet_count', 0)
+        likes = metrics.get('like_count', 0)
+        replies = metrics.get('reply_count', 0)
+        quotes = metrics.get('quote_count', 0)
         
         # Calculate weighted score
         # Replies are weighted higher as they indicate more meaningful engagement
         raw_score = (retweets * 2) + (likes * 1) + (replies * 3) + (quotes * 2)
         
-        # Normalize by follower count (log scale to prevent extreme values)
-        import math
-        if followers > 0:
-            follower_factor = math.log10(followers + 1) / 6  # Normalize to ~0-1 range
-            normalized_score = raw_score * (1 + follower_factor)
-        else:
-            normalized_score = raw_score
+        # Simple normalization since we don't have follower count in current implementation
+        # Could be enhanced to fetch user details separately if needed
+        normalized_score = raw_score
+        
+        # Bonus for verified users
+        if post.get('author_verified', False):
+            normalized_score *= 1.2
         
         return round(normalized_score, 2)
 
@@ -224,7 +223,7 @@ class ContextPreprocessor:
         return processed_posts
     
     def _process_single_post(self, post: Dict[str, Any]) -> Optional[ProcessedPost]:
-        """Process a single post"""
+        """Process a single tweet from Twitter API v2"""
         try:
             original_text = post.get('text', '')
             if not original_text:
@@ -241,8 +240,17 @@ class ContextPreprocessor:
             # Calculate engagement score
             engagement_score = self.engagement_calculator.calculate_score(post)
             
+            # Prepare user info in the expected format
+            user_info = {
+                'id': post.get('author_id', ''),
+                'screen_name': post.get('author_username', ''),
+                'name': post.get('author_name', ''),
+                'followers_count': 0,  # Not available in current API response
+                'verified': post.get('author_verified', False)
+            }
+            
             # Generate tags
-            tags = self._generate_tags(post, entities)
+            tags = self._generate_tags(post, entities, user_info)
             
             # Determine priority
             priority = self._calculate_priority(engagement_score, post)
@@ -251,10 +259,13 @@ class ContextPreprocessor:
                 id=post.get('id', ''),
                 original_text=original_text,
                 cleaned_text=cleaned_text,
-                user_info=post.get('user', {}),
+                user_info=user_info,
                 engagement_score=engagement_score,
                 metadata={
-                    **post.get('metadata', {}),
+                    'created_at': post.get('created_at'),
+                    'conversation_id': post.get('conversation_id'),
+                    'source': post.get('source', 'twitter'),
+                    'metrics': post.get('metrics', {}),
                     'entities': entities,
                     'processed_at': datetime.now(timezone.utc).isoformat()
                 },
@@ -266,13 +277,18 @@ class ContextPreprocessor:
             logger.error(f"Error processing single post: {e}")
             return None
     
-    def _generate_tags(self, post: Dict[str, Any], entities: Dict[str, List[str]]) -> List[str]:
+    def _generate_tags(self, post: Dict[str, Any], entities: Dict[str, List[str]], user_info: Dict[str, Any]) -> List[str]:
         """Generate tags for categorizing posts"""
         tags = []
         
         # Add engagement level tag
-        engagement = post.get('engagement', {})
-        total_engagement = sum(engagement.values()) if engagement else 0
+        metrics = post.get('metrics', {})
+        total_engagement = (
+            metrics.get('like_count', 0) +
+            metrics.get('retweet_count', 0) +
+            metrics.get('reply_count', 0) +
+            metrics.get('quote_count', 0)
+        )
         
         if total_engagement > 100:
             tags.append('high-engagement')
@@ -290,15 +306,15 @@ class ContextPreprocessor:
             tags.append('has-links')
         
         # Add user type tags
-        user = post.get('user', {})
-        followers = user.get('followers_count', 0)
+        if user_info.get('verified'):
+            tags.append('verified-user')
         
-        if followers > 10000:
-            tags.append('influential-user')
-        elif followers > 1000:
-            tags.append('popular-user')
-        else:
-            tags.append('regular-user')
+        # Add source tag
+        source = post.get('source', '')
+        if 'keywords' in source:
+            tags.append('keyword-match')
+        elif 'user:' in source:
+            tags.append('tracked-user')
         
         return tags
     

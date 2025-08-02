@@ -7,17 +7,50 @@ import os
 from typing import Dict, Any, Optional
 from dataclasses import dataclass, asdict
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file automatically
+load_dotenv()
 
 @dataclass
 class SourceConfig:
-    """Configuration for data source"""
+    """Configuration for Twitter data source"""
     type: str = "twitter"
-    api_url: str = ""
-    bearer_token: str = ""
-    cookie: str = ""
-    user_agent: str = ""
-    csrf_token: str = ""
+    
+    # Twitter API v2 credentials for writing (posting tweets)
+    api_key: str = ""
+    api_secret: str = ""
+    access_token: str = ""
+    access_token_secret: str = ""
+    write_bearer_token: str = ""
+    
+    # Twitter credentials for reading data (fetching tweets)
+    read_bearer_token: str = ""
+    read_cookie: str = ""
+    read_csrf_token: str = ""
+    read_user_agent: str = ""
+    read_api_url: str = ""
+    
+    # Tweet tracking configuration
+    track_keywords: list = None
+    track_users: list = None
+    track_hashtags: list = None
+    
+    # Tweet selection strategy
+    selection_strategy: str = "engagement_based"  # random, selective, engagement_based
+    max_tweets_per_fetch: int = 20
     fetch_interval: int = 300  # seconds
+    
+    # Rate limiting
+    rate_limit_buffer: float = 0.8  # Use 80% of rate limit
+    
+    def __post_init__(self):
+        if self.track_keywords is None:
+            self.track_keywords = ["AI", "machine learning", "python"]
+        if self.track_users is None:
+            self.track_users = []
+        if self.track_hashtags is None:
+            self.track_hashtags = ["#AI", "#MachineLearning"]
 
 @dataclass
 class LLMConfig:
@@ -81,30 +114,108 @@ class ConfigManager:
         self.config: Optional[BotConfig] = None
     
     def load_config(self) -> BotConfig:
-        """Load configuration from file or create default"""
+        """Load configuration from file and environment variables"""
         if self.config_path.exists():
             with open(self.config_path, 'r') as f:
                 config_data = yaml.safe_load(f)
-            
-            # Convert nested dicts to dataclass instances
-            source = SourceConfig(**config_data.get('source', {}))
-            llm = LLMConfig(**config_data.get('llm', {}))
-            filter_cfg = FilterConfig(**config_data.get('filter', {}))
-            reply = ReplyConfig(**config_data.get('reply', {}))
-            scheduler = SchedulerConfig(**config_data.get('scheduler', {}))
-            
-            self.config = BotConfig(
-                source=source,
-                llm=llm,
-                filter=filter_cfg,
-                reply=reply,
-                scheduler=scheduler
-            )
         else:
-            self.config = self._create_default_config()
-            self.save_config()
+            # Create default config data if file doesn't exist
+            config_data = {}
+        
+        # Merge environment variables into source config
+        source_data = config_data.get('source', {})
+        self._merge_env_vars(source_data)
+        
+        # Convert nested dicts to dataclass instances
+        source = SourceConfig(**source_data)
+        llm = LLMConfig(**config_data.get('llm', {}))
+        filter_cfg = FilterConfig(**config_data.get('filter', {}))
+        reply = ReplyConfig(**config_data.get('reply', {}))
+        scheduler = SchedulerConfig(**config_data.get('scheduler', {}))
+        
+        self.config = BotConfig(
+            source=source,
+            llm=llm,
+            filter=filter_cfg,
+            reply=reply,
+            scheduler=scheduler
+        )
+        
+        # Validate that we have required credentials
+        self._validate_credentials()
         
         return self.config
+    
+    def _merge_env_vars(self, source_data: Dict[str, Any]) -> None:
+        """Merge environment variables into source configuration"""
+        env_mapping = {
+            # Twitter write credentials (for posting)
+            'api_key': 'TWITTER_API_KEY',
+            'api_secret': 'TWITTER_API_SECRET', 
+            'access_token': 'TWITTER_ACCESS_TOKEN',
+            'access_token_secret': 'TWITTER_ACCESS_TOKEN_SECRET',
+            'write_bearer_token': 'TWITTER_WRITE_BEARER_TOKEN',
+            
+            # Twitter read credentials (for fetching data)
+            'read_bearer_token': 'TWITTER_READ_BEARER_TOKEN',
+            'read_cookie': 'TWITTER_READ_COOKIE',
+            'read_csrf_token': 'TWITTER_READ_CSRF_TOKEN',
+            'read_user_agent': 'TWITTER_READ_USER_AGENT',
+            'read_api_url': 'TWITTER_API_URL'  # Map TWITTER_API_URL to read_api_url
+        }
+        
+        for config_key, env_key in env_mapping.items():
+            env_value = os.getenv(env_key)
+            if env_value:
+                source_data[config_key] = env_value
+    
+    def _validate_credentials(self) -> None:
+        """Validate that required credentials are present"""
+        if not self.config:
+            return
+        
+        # Check Twitter write credentials (required for posting)
+        write_creds = ['api_key', 'api_secret', 'access_token', 'access_token_secret']
+        missing_write_creds = []
+        
+        for cred in write_creds:
+            if not getattr(self.config.source, cred, ''):
+                missing_write_creds.append(cred)
+        
+        # Check bearer tokens (at least one required)
+        write_bearer = getattr(self.config.source, 'write_bearer_token', '')
+        read_bearer = getattr(self.config.source, 'read_bearer_token', '')
+        
+        if not write_bearer and not read_bearer:
+            missing_write_creds.append('write_bearer_token or read_bearer_token')
+        
+        # Check read credentials (optional but recommended for better rate limiting)
+        read_creds = ['read_bearer_token', 'read_cookie', 'read_csrf_token']
+        missing_read_creds = []
+        read_provided = 0
+        
+        for cred in read_creds:
+            if getattr(self.config.source, cred, ''):
+                read_provided += 1
+            else:
+                missing_read_creds.append(cred)
+        
+        # Report validation results
+        if missing_write_creds:
+            env_vars = [f"TWITTER_{cred.upper()}" for cred in missing_write_creds if cred != 'write_bearer_token or read_bearer_token']
+            if 'write_bearer_token or read_bearer_token' in missing_write_creds:
+                env_vars.extend(['TWITTER_WRITE_BEARER_TOKEN', 'TWITTER_READ_BEARER_TOKEN'])
+            print(f"⚠️  Missing Twitter API credentials: {', '.join(missing_write_creds)}")
+            print(f"💡 Set these environment variables in .env file: {', '.join(env_vars)}")
+            print(f"📖 Or add them to {self.config_path}")
+        
+        if 0 < read_provided < len(read_creds):
+            print(f"⚠️  Partial read credentials provided: {read_provided}/{len(read_creds)}")
+            print(f"💡 For optimal performance, provide all read credentials: {', '.join(missing_read_creds)}")
+            print("🔄 The bot will fall back to write credentials for reading data")
+        elif read_provided == 0 and write_bearer:
+            print("ℹ️  Using write credentials for both reading and writing data")
+            print("💡 Consider setting up separate read credentials for better rate limit management")
     
     def save_config(self) -> None:
         """Save current configuration to file"""
@@ -126,23 +237,14 @@ class ConfigManager:
         )
     
     def update_from_env(self) -> None:
-        """Update configuration from environment variables"""
+        """Update configuration from environment variables (legacy method - now automatic)"""
         if self.config is None:
             self.load_config()
         
-        # Update source config from environment
-        if os.getenv('TWITTER_API_URL'):
-            self.config.source.api_url = os.getenv('TWITTER_API_URL')
-        if os.getenv('TWITTER_BEARER_TOKEN'):
-            self.config.source.bearer_token = os.getenv('TWITTER_BEARER_TOKEN')
-        if os.getenv('TWITTER_COOKIE'):
-            self.config.source.cookie = os.getenv('TWITTER_COOKIE')
-        if os.getenv('TWITTER_USER_AGENT'):
-            self.config.source.user_agent = os.getenv('TWITTER_USER_AGENT')
-        if os.getenv('TWITTER_CSRF_TOKEN'):
-            self.config.source.csrf_token = os.getenv('TWITTER_CSRF_TOKEN')
+        # Environment variables are now automatically loaded in load_config()
+        # This method is kept for backward compatibility
         
-        # Update LLM config from environment
+        # Update LLM config from environment (non-credential settings)
         if os.getenv('OLLAMA_BASE_URL'):
             self.config.llm.base_url = os.getenv('OLLAMA_BASE_URL')
         if os.getenv('OLLAMA_MODEL'):

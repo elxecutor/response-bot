@@ -198,12 +198,13 @@ class MockPoster:
 class ReplyEngine:
     """Main reply engine that coordinates response sending/logging"""
     
-    def __init__(self, config: ReplyConfig):
+    def __init__(self, config: ReplyConfig, input_handler=None):
         self.config = config
         self.logger = ResponseLogger()
         self.rate_limiter = RateLimiter(config.max_replies_per_hour)
         self.filter = ResponseFilter(config)
-        self.poster = MockPoster()  # Replace with real implementation
+        self.input_handler = input_handler  # For Twitter posting
+        self.poster = MockPoster()  # Fallback for when no input_handler provided
         self.stats = {
             'total_processed': 0,
             'responses_generated': 0,
@@ -276,7 +277,11 @@ class ReplyEngine:
                 delay = random.uniform(*self.config.delay_range)
                 await asyncio.sleep(delay)
             
-            success = await self.poster.post_response(post, response)
+            # Use Twitter API if input_handler available, otherwise use mock poster
+            if self.input_handler:
+                success = await self.input_handler.post_reply(post.id, response)
+            else:
+                success = await self.poster.post_response(post, response)
             
             if success:
                 self.rate_limiter.record_response()

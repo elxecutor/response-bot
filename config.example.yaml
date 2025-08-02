@@ -3,12 +3,44 @@
 
 source:
   type: "twitter"
-  api_url: ""  # Set from TWITTER_API_URL environment variable
-  bearer_token: ""  # Set from TWITTER_BEARER_TOKEN environment variable
-  cookie: ""  # Set from TWITTER_COOKIE environment variable
-  user_agent: ""  # Set from TWITTER_USER_AGENT environment variable
-  csrf_token: ""  # Set from TWITTER_CSRF_TOKEN environment variable
+  # Twitter API credentials - Create .env file with these variables:
+  # 
+  # FOR WRITING TWEETS (Required):
+  # TWITTER_API_KEY=your_api_key_here
+  # TWITTER_API_SECRET=your_api_secret_here  
+  # TWITTER_ACCESS_TOKEN=your_access_token_here
+  # TWITTER_ACCESS_TOKEN_SECRET=your_access_token_secret_here
+  # TWITTER_WRITE_BEARER_TOKEN=your_write_bearer_token_here
+  #
+  # FOR READING TWEETS (Optional - improves rate limiting):
+  # TWITTER_READ_BEARER_TOKEN=your_read_bearer_token_here
+  # TWITTER_READ_COOKIE=your_cookie_here
+  # TWITTER_READ_CSRF_TOKEN=your_csrf_token_here
+  # TWITTER_READ_USER_AGENT=your_user_agent_here
+  # TWITTER_READ_API_URL=your_api_url_here
+  
+  # Tweet tracking configuration
+  track_keywords:
+    - "AI"
+    - "machine learning"
+    - "python"
+    - "artificial intelligence"
+  track_users:
+    - "elonmusk"
+    - "OpenAI"
+    - "AndrewYNg"
+  track_hashtags:
+    - "#AI"
+    - "#MachineLearning"
+    - "#Python"
+  
+  # Tweet selection strategy
+  selection_strategy: "engagement_based"  # Options: random, selective, engagement_based
+  max_tweets_per_fetch: 20
   fetch_interval: 300  # seconds between data fetches
+  
+  # Rate limiting - Twitter allows 300 requests per 15-min window for most endpoints
+  rate_limit_buffer: 0.8  # Use 80% of rate limit to be safe
 
 llm:
   base_url: "http://localhost:11434"  # Ollama API URL
