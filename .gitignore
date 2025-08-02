@@ -9,6 +9,7 @@ logs/
 .env.local
 .env.*.local
 config.yaml
+replied_tweets.json
 response_dump.json
 data_dump.json
 responses.jsonl
