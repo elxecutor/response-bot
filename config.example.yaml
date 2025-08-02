@@ -1,0 +1,38 @@
+# Default configuration for AI Response Bot
+# Copy this file to config.yaml and customize as needed
+
+source:
+  type: "twitter"
+  api_url: ""  # Set from TWITTER_API_URL environment variable
+  bearer_token: ""  # Set from TWITTER_BEARER_TOKEN environment variable
+  cookie: ""  # Set from TWITTER_COOKIE environment variable
+  user_agent: ""  # Set from TWITTER_USER_AGENT environment variable
+  csrf_token: ""  # Set from TWITTER_CSRF_TOKEN environment variable
+  fetch_interval: 300  # seconds between data fetches
+
+llm:
+  base_url: "http://localhost:11434"  # Ollama API URL
+  model: "mistral:latest"  # Available models: llama2, mistral, phi, codellama, etc.
+  temperature: 0.7  # Randomness in responses (0.0-1.0)
+  max_tokens: 150  # Maximum response length
+  system_prompt: "You are a helpful AI assistant that generates engaging social media responses. Be concise, helpful, and add value to conversations."
+
+filter:
+  min_engagement: 5  # Minimum total engagement (likes + retweets + replies + quotes)
+  keywords_include: []  # Only process posts containing these keywords (empty = all)
+  keywords_exclude: ["spam", "bot", "fake", "scam"]  # Exclude posts with these keywords
+  language: "en"  # Language code (en, es, fr, etc.)
+  max_age_hours: 24  # Only process posts newer than this
+
+reply:
+  mode: "log"  # Options: "log", "post", "both"
+  randomize: true  # Apply randomization to responses
+  reply_probability: 0.3  # Probability of responding to eligible posts (0.0-1.0)
+  delay_range: [60, 300]  # Random delay range in seconds before posting
+  max_replies_per_hour: 10  # Rate limit for responses
+
+scheduler:
+  enabled: true  # Enable automatic scheduling
+  fetch_interval: 300  # seconds between data fetches (5 minutes)
+  process_interval: 600  # seconds between processing cycles (10 minutes)
+  cleanup_interval: 3600  # seconds between cleanup tasks (1 hour)
