@@ -1,6 +1,33 @@
 # Default configuration for AI Response Bot
 # Copy this file to config.yaml and customize as needed
 
+filter:
+  min_engagement: 5  # Minimum total engagement (likes + retweets + replies + quotes)
+  keywords_include: []  # Only process posts containing these keywords (empty = all)
+  keywords_exclude: ["spam", "bot", "fake", "scam"]  # Exclude posts with these keywords
+  language: "en"  # Language code (en, es, fr, etc.)
+  max_age_hours: 24  # Only process posts newer than this
+
+llm:
+  base_url: "http://localhost:11434"  # Ollama API URL
+  model: "mistral:latest"  # Available models: llama2, mistral, phi, codellama, etc.
+  temperature: 0.7  # Randomness in responses (0.0-1.0)
+  max_tokens: 150  # Maximum response length
+  system_prompt: "You are a helpful AI assistant that generates engaging social media responses. Be concise, helpful, and add value to conversations."
+
+reply:
+  mode: "post"  # Options: "log" (testing), "post" (production), "both" (log + post)
+  randomize: true  # Apply randomization to responses
+  reply_probability: 0.3  # Probability of responding to eligible posts (0.0-1.0)
+  delay_range: [60, 300]  # Random delay range in seconds before posting
+  max_replies_per_hour: 10  # Rate limit for responses
+
+scheduler:
+  enabled: true  # Enable automatic scheduling
+  fetch_interval: 300  # seconds between data fetches (5 minutes)
+  process_interval: 600  # seconds between processing cycles (10 minutes)
+  cleanup_interval: 3600  # seconds between cleanup tasks (1 hour)
+
 source:
   type: "twitter"
   # Twitter API credentials - Create .env file with these variables:
@@ -41,30 +68,3 @@ source:
   
   # Rate limiting - Twitter allows 300 requests per 15-min window for most endpoints
   rate_limit_buffer: 0.8  # Use 80% of rate limit to be safe
-
-llm:
-  base_url: "http://localhost:11434"  # Ollama API URL
-  model: "mistral:latest"  # Available models: llama2, mistral, phi, codellama, etc.
-  temperature: 0.7  # Randomness in responses (0.0-1.0)
-  max_tokens: 150  # Maximum response length
-  system_prompt: "You are a helpful AI assistant that generates engaging social media responses. Be concise, helpful, and add value to conversations."
-
-filter:
-  min_engagement: 5  # Minimum total engagement (likes + retweets + replies + quotes)
-  keywords_include: []  # Only process posts containing these keywords (empty = all)
-  keywords_exclude: ["spam", "bot", "fake", "scam"]  # Exclude posts with these keywords
-  language: "en"  # Language code (en, es, fr, etc.)
-  max_age_hours: 24  # Only process posts newer than this
-
-reply:
-  mode: "log"  # Options: "log", "post", "both"
-  randomize: true  # Apply randomization to responses
-  reply_probability: 0.3  # Probability of responding to eligible posts (0.0-1.0)
-  delay_range: [60, 300]  # Random delay range in seconds before posting
-  max_replies_per_hour: 10  # Rate limit for responses
-
-scheduler:
-  enabled: true  # Enable automatic scheduling
-  fetch_interval: 300  # seconds between data fetches (5 minutes)
-  process_interval: 600  # seconds between processing cycles (10 minutes)
-  cleanup_interval: 3600  # seconds between cleanup tasks (1 hour)

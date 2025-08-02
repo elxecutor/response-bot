@@ -59,20 +59,21 @@ class TwitterSource(DataSource):
             else:
                 logger.warning("Read credentials incomplete - GraphQL API unavailable")
             
-            # Initialize Twitter API v1.1 for posting (requires full OAuth credentials)
+            # Initialize Twitter API v2 for posting (requires OAuth 1.0a for write operations)
             if not all([self.config.api_key, self.config.api_secret, 
                        self.config.access_token, self.config.access_token_secret]):
                 raise ValueError("Missing required OAuth credentials for posting tweets")
                 
-            auth = tweepy.OAuth1UserHandler(
-                self.config.api_key,
-                self.config.api_secret,
-                self.config.access_token,
-                self.config.access_token_secret
+            self.api = tweepy.Client(
+                consumer_key=self.config.api_key,
+                consumer_secret=self.config.api_secret,
+                access_token=self.config.access_token,
+                access_token_secret=self.config.access_token_secret,
+                bearer_token=self.config.write_bearer_token,
+                wait_on_rate_limit=True
             )
-            self.api = tweepy.API(auth, wait_on_rate_limit=True)
             
-            logger.info("Twitter API initialized for posting tweets")
+            logger.info("Twitter API v2 initialized for posting tweets")
             
         except Exception as e:
             logger.error(f"Failed to initialize Twitter API clients: {e}")
@@ -335,13 +336,12 @@ class TwitterSource(DataSource):
         logger.info(f"Marked tweet {tweet_id} as replied")
     
     async def post_reply(self, tweet_id: str, reply_text: str) -> bool:
-        """Post a reply to a tweet"""
+        """Post a reply to a tweet using Twitter API v2"""
         try:
-            # Use API v1.1 for posting replies
-            response = self.api.update_status(
-                status=reply_text,
-                in_reply_to_status_id=tweet_id,
-                auto_populate_reply_metadata=True
+            # Use API v2 for posting replies
+            response = self.api.create_tweet(
+                text=reply_text,
+                in_reply_to_tweet_id=tweet_id
             )
             
             logger.info(f"Posted reply to tweet {tweet_id}: {reply_text[:50]}...")
@@ -384,11 +384,26 @@ class InputHandler:
             if self.data_dump_file.exists():
                 with open(self.data_dump_file, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    self.data_store = data.get('data', [])
-                    last_fetch_str = data.get('last_fetch')
-                    if last_fetch_str:
-                        self.last_fetch = datetime.fromisoformat(last_fetch_str)
-                logger.info(f"Loaded {len(self.data_store)} items from data dump")
+                    
+                    # Check if this is processed tweet data or raw GraphQL response
+                    if 'data' in data and isinstance(data['data'], list):
+                        # This is processed tweet data
+                        self.data_store = data['data']
+                        last_fetch_str = data.get('last_fetch')
+                        if last_fetch_str:
+                            self.last_fetch = datetime.fromisoformat(last_fetch_str)
+                        logger.info(f"Loaded {len(self.data_store)} processed tweets from data dump")
+                    elif 'data' in data and 'home' in data['data']:
+                        # This is raw GraphQL response - parse it
+                        logger.info("Found raw GraphQL response, parsing tweets...")
+                        tweets = self.source._parse_graphql_response(data)
+                        self.data_store = tweets
+                        logger.info(f"Loaded {len(self.data_store)} tweets from GraphQL data dump")
+                    else:
+                        # Unknown format
+                        logger.warning("Unknown data dump format, starting with empty store")
+                        self.data_store = []
+                        
         except Exception as e:
             logger.error(f"Error loading data dump: {e}")
             self.data_store = []
@@ -420,8 +435,11 @@ class InputHandler:
     
     def get_stored_data(self, limit: Optional[int] = None) -> List[Dict[str, Any]]:
         """Get stored tweets with optional limit"""
-        if limit:
-            return self.data_store[-limit:]
+        if not self.data_store:
+            return []
+        
+        if limit and limit > 0:
+            return self.data_store[-limit:] if len(self.data_store) >= limit else self.data_store.copy()
         return self.data_store.copy()
     
     def clear_old_data(self, max_age_hours: int = 24) -> None:

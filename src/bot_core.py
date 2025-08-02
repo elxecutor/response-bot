@@ -185,7 +185,7 @@ class ResponseBot:
             results['posts_processed'] = len(processed_posts)
             
             # Generate responses for top posts
-            top_posts = processed_posts[:10]  # Limit to top 10 posts
+            top_posts = processed_posts[:1]  # Pick only one tweet to respond to
             responses = await self.llm_engine.generate_batch_responses(top_posts)
             results['responses_generated'] = len(responses)
             
