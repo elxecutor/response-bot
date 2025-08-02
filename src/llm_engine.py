@@ -343,11 +343,40 @@ class LLMEngine:
             "Answer:",
             "Here's a response:",
             "I would respond with:",
+            "I would say:",
+            "My response:",
+            "Tweet:",
         ]
         
         for prefix in prefixes_to_remove:
             if response.startswith(prefix):
                 response = response[len(prefix):].strip()
+        
+        # Remove surrounding quotation marks (single or double)
+        response = response.strip()
+        if (response.startswith('"') and response.endswith('"')) or \
+           (response.startswith("'") and response.endswith("'")):
+            response = response[1:-1].strip()
+        
+        # Handle cases where quotes are only at the beginning or end
+        if response.startswith('"') and not response.endswith('"'):
+            response = response[1:].strip()
+        elif response.endswith('"') and not response.startswith('"'):
+            response = response[:-1].strip()
+        
+        # Remove additional unwanted formatting
+        response = response.replace('\"', '"')  # Fix escaped quotes
+        response = response.replace("\\'", "'")  # Fix escaped single quotes
+        response = response.replace('\\n', ' ')  # Convert escaped newlines to spaces
+        
+        # Remove extra whitespace
+        response = ' '.join(response.split())
+        
+        # Remove any trailing periods that might be artifacts
+        if response.endswith('."') and not response.endswith('..."'):
+            response = response[:-2] + '"'
+        elif response.endswith(".'") and not response.endswith("...'"):
+            response = response[:-2] + "'"
         
         # Ensure it's not too long (Twitter limit)
         if len(response) > 280:
