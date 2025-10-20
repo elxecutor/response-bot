@@ -140,6 +140,28 @@ def generate_reply(tweet_text):
         print(f"Error generating reply: {response.status_code} {response.text}")
         return "Sorry, couldn't generate a reply."
 
+def generate_quote(tweet_text):
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
+    prompt = f"Quote the tweet with a single, sharp sentence that delivers the insight or jab. No prefaces, no fluff—just one clean, cutting line. '{tweet_text}'. Keep it under 280 characters."
+    data = {
+        "contents": [
+            {
+                "parts": [
+                    {
+                        "text": prompt
+                    }
+                ]
+            }
+        ]
+    }
+    response = requests.post(url, json=data)
+    if response.status_code == 200:
+        result = response.json()
+        return result['candidates'][0]['content']['parts'][0]['text'].strip()
+    else:
+        print(f"Error generating quote: {response.status_code} {response.text}")
+        return "Interesting take! 🤔"
+
 def reply_to_tweet(tweet_id, reply_text):
     # Initialize Tweepy client
     client = tweepy.Client(
@@ -152,6 +174,20 @@ def reply_to_tweet(tweet_id, reply_text):
     client.create_tweet(text=reply_text, in_reply_to_tweet_id=tweet_id)
     print(f"Replied to tweet {tweet_id} with: {reply_text}")
 
+def quote_tweet(tweet_id, quote_text):
+    # Initialize Tweepy client
+    client = tweepy.Client(
+        bearer_token=bearer_token_write,
+        consumer_key=api_key,
+        consumer_secret=api_secret,
+        access_token=access_token,
+        access_token_secret=access_token_secret
+    )
+    # Use the proper quote_tweet_id parameter
+    response = client.create_tweet(text=quote_text, quote_tweet_id=tweet_id)
+    print(f"Quote tweeted {tweet_id} with: {quote_text}")
+    return response
+
 if __name__ == "__main__":
     tweets = fetch_home_timeline()
     if tweets:
@@ -159,11 +195,23 @@ if __name__ == "__main__":
         random_tweet = random.choice(tweets)
         print(f"Selected tweet: {random_tweet['text']} by @{random_tweet['user']}")
         
-        # Generate reply using Gemini
-        reply = generate_reply(random_tweet['text'])
-        print(f"Generated reply: {reply}")
+        # Randomly choose between replying or quoting
+        action = random.choice(['reply', 'quote'])
+        print(f"\nAction: {action.upper()}")
         
-        # Reply to the tweet
-        reply_to_tweet(random_tweet['id'], reply)
+        if action == 'reply':
+            # Generate reply using Gemini
+            reply = generate_reply(random_tweet['text'])
+            print(f"Generated reply: {reply}")
+            
+            # Reply to the tweet
+            reply_to_tweet(random_tweet['id'], reply)
+        else:  # action == 'quote'
+            # Generate quote tweet using Gemini
+            quote = generate_quote(random_tweet['text'])
+            print(f"Generated quote: {quote}")
+            
+            # Quote tweet
+            quote_tweet(random_tweet['id'], quote)
     else:
         print("No tweets fetched.")
