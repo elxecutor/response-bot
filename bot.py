@@ -3,6 +3,7 @@ import requests
 import random
 import tweepy
 from dotenv import load_dotenv
+from datetime import datetime, timedelta, timezone
 
 # Load environment variables from .env
 load_dotenv()
@@ -46,7 +47,7 @@ def fetch_home_timeline():
         payload = {
             "variables": {
                 "count": 20,
-                "includePromotedContent": True,
+                "includePromotedContent": False,
                 "latestControlAvailable": True,
                 "requestContext": "launch"
             },
@@ -101,11 +102,33 @@ def fetch_home_timeline():
             if instruction.get('type') == 'TimelineAddEntries':
                 entries = instruction.get('entries', [])
                 for entry in entries:
+                    # Skip promoted content
+                    if 'promotedMetadata' in entry.get('content', {}):
+                        continue
+                    
                     tweet = entry.get('content', {}).get('itemContent', {}).get('tweet_results', {}).get('result', {})
                     if tweet and tweet.get('__typename') == 'Tweet':
+                        legacy = tweet.get('legacy', {})
+                        created_at_str = legacy.get('created_at')
+                        if not created_at_str:
+                            continue
+                        try:
+                            created_at = datetime.strptime(created_at_str, "%a %b %d %H:%M:%S %z %Y")
+                        except ValueError:
+                            continue
+                        
+                        # Filter tweets from the last 1 hour
+                        now = datetime.now(timezone.utc)
+                        if created_at < now - timedelta(hours=1):
+                            continue
+                        
+                        # Exclude replies (to avoid threads)
+                        if legacy.get('in_reply_to_status_id_str'):
+                            continue
+                        
                         tweet_id = tweet.get('rest_id')
-                        full_text = tweet.get('legacy', {}).get('full_text')
-                        user = tweet.get('core', {}).get('user_results', {}).get('result', {}).get('core', {}).get('screen_name')
+                        full_text = legacy.get('full_text')
+                        user = tweet.get('core', {}).get('user_results', {}).get('result', {}).get('legacy', {}).get('screen_name')
                         if tweet_id and full_text and user:
                             tweets.append({
                                 'id': tweet_id,
