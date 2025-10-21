@@ -1,4 +1,4 @@
-# Response Bot 🤖
+# Response Bot
 
 [![Scheduled Bot Run](https://github.com/elxecutor/response-bot/actions/workflows/bot-schedule.yml/badge.svg)](https://github.com/elxecutor/response-bot/actions/workflows/bot-schedule.yml)
 
