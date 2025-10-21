@@ -181,7 +181,8 @@ def quote_tweet(tweet_id, quote_text):
         consumer_key=api_key,
         consumer_secret=api_secret,
         access_token=access_token,
-        access_token_secret=access_token_secret
+        access_token_secret=access_token_secret,
+        wait_on_rate_limit=True
     )
     # Use the proper quote_tweet_id parameter
     response = client.create_tweet(text=quote_text, quote_tweet_id=tweet_id)
