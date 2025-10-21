@@ -143,7 +143,7 @@ def fetch_home_timeline():
 
 def generate_reply(tweet_text):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
-    prompt = f"Respond to the tweet with a single, sharp sentence that cuts straight to the point. No prefaces like ‘agree’ or ‘disagree’—just the insight or jab itself. Be concise, direct, and, if it fits, clever. '{tweet_text}'. Keep it under 280 characters."
+    prompt = f"Respond to the tweet with a single, sharp sentence that cuts straight to the point. No prefaces like ‘agree’ or ‘disagree’—just the insight or jab itself. Be concise, direct, and, if it fits, clever. Do not wrap the reply in quotation marks. '{tweet_text}'. Keep it under 280 characters."
     data = {
         "contents": [
             {
@@ -165,7 +165,7 @@ def generate_reply(tweet_text):
 
 def generate_quote(tweet_text):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
-    prompt = f"Quote the tweet with a single, sharp sentence that delivers the insight or jab. No prefaces, no fluff—just one clean, cutting line. '{tweet_text}'. Keep it under 280 characters."
+    prompt = f"Quote the tweet with a single, sharp sentence that delivers the insight or jab. No prefaces, no fluff—just one clean, cutting line. Do not wrap the reply in quotation marks. '{tweet_text}'. Keep it under 280 characters."
     data = {
         "contents": [
             {
