@@ -4,6 +4,7 @@ import random
 import tweepy
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, timezone
+import time
 
 # Load environment variables from .env
 load_dotenv()
@@ -111,6 +112,9 @@ def fetch_home_timeline():
                         tweet_id = tweet.get('rest_id')
                         full_text = tweet.get('legacy', {}).get('full_text')
                         user = tweet.get('core', {}).get('user_results', {}).get('result', {}).get('core', {}).get('screen_name')
+                        # Skip retweets
+                        if tweet.get('legacy', {}).get('retweeted_status'):
+                            continue
                         if tweet_id and full_text and user:
                             tweets.append({
                                 'id': tweet_id,
@@ -174,7 +178,8 @@ def reply_to_tweet(tweet_id, reply_text):
         consumer_key=api_key,
         consumer_secret=api_secret,
         access_token=access_token,
-        access_token_secret=access_token_secret
+        access_token_secret=access_token_secret,
+        wait_on_rate_limit=True
     )
     client.create_tweet(text=reply_text, in_reply_to_tweet_id=tweet_id)
     print(f"Replied to tweet {tweet_id} with: {reply_text}")
@@ -195,6 +200,11 @@ def quote_tweet(tweet_id, quote_text):
     return response
 
 if __name__ == "__main__":
+    # Add random delay to spread out posts (up to 30 minutes)
+    delay = random.randint(0, 1200)
+    print(f"Sleeping for {delay} seconds to randomize posting time.")
+    time.sleep(delay)
+    
     tweets = fetch_home_timeline()
     if tweets:
         # Pick a random tweet
