@@ -241,16 +241,36 @@ def fetch_home_timeline():
             if instruction.get('type') == 'TimelineAddEntries':
                 entries = instruction.get('entries', [])
                 for entry in entries:
-                    # Skip promoted content
-                    if 'promotedMetadata' in entry.get('content', {}):
+                    content = entry.get('content', {})
+                    
+                    # Skip promoted content - comprehensive ad filtering
+                    if 'promotedMetadata' in content:
+                        print(f"⊘ Skipping promoted tweet (has promotedMetadata)")
                         continue
                     
-                    tweet = entry.get('content', {}).get('itemContent', {}).get('tweet_results', {}).get('result', {})
+                    # Skip entries that are marked as promoted/ads
+                    if content.get('entryType') == 'TimelineTimelineModule':
+                        # Sometimes ads come in modules
+                        continue
+                    
+                    # Skip if entry ID contains 'promoted'
+                    entry_id = entry.get('entryId', '')
+                    if 'promoted' in entry_id.lower() or 'ad-' in entry_id.lower():
+                        print(f"⊘ Skipping promoted entry: {entry_id}")
+                        continue
+                    
+                    tweet = content.get('itemContent', {}).get('tweet_results', {}).get('result', {})
                     if tweet and tweet.get('__typename') == 'Tweet':
                         legacy = tweet.get('legacy', {})
                         tweet_id = tweet.get('rest_id')
                         full_text = legacy.get('full_text')
-                        user = tweet.get('core', {}).get('user_results', {}).get('result', {}).get('core', {}).get('screen_name')
+                        user_result = tweet.get('core', {}).get('user_results', {}).get('result', {})
+                        user = user_result.get('core', {}).get('screen_name')
+                        
+                        # Skip if user has promoted/ad indicators
+                        if user_result.get('is_promoted', False):
+                            print(f"⊘ Skipping tweet from promoted user: @{user}")
+                            continue
                         
                         # Skip retweets
                         if legacy.get('retweeted_status'):
