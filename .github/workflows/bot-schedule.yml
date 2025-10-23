@@ -2,8 +2,8 @@ name: Scheduled Bot Run
 
 on:
   schedule:
-    # Run every 20 minutes to avoid rate limiting
-    - cron: '*/20 * * * *'
+    # Run every 90 minutes to avoid rate limiting
+    - cron: '*/90 * * * *'
   workflow_dispatch:  # Allow manual triggering
 
 jobs:

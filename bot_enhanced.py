@@ -688,14 +688,7 @@ if __name__ == "__main__":
         # Post daily summary at midnight
         print("Running daily summary task...")
         post_daily_summary()
-    else:
-        # Random delay to spread out posts and avoid detection
-        # Algorithm uses temporal signals, so timing matters
-        delay = random.randint(0, 1200)  # Up to 20 minutes
-        print(f"⏱️  Random delay: {delay} seconds ({delay/60:.1f} minutes)")
-        print(f"   (Spreading out posts to avoid patterns)\n")
-        time.sleep(delay)
-        
+    else:        
         print("Fetching home timeline...")
         tweets = fetch_home_timeline()
         print(f"✓ Fetched {len(tweets)} tweets\n")
