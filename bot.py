@@ -5,6 +5,7 @@ import tweepy
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, timezone
 import time
+import base64
 
 # Load environment variables from .env
 load_dotenv()
@@ -199,35 +200,84 @@ def quote_tweet(tweet_id, quote_text):
     print(f"Quote tweeted {tweet_id} with: {quote_text}")
     return response
 
-if __name__ == "__main__":
-    # Add random delay to spread out posts (up to 30 minutes)
-    delay = random.randint(0, 1200)
-    print(f"Sleeping for {delay} seconds to randomize posting time.")
-    time.sleep(delay)
+def post_daily_summary():
+    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+    url = f"https://api.github.com/repos/elxecutor/dev-log/contents/summaries/{yesterday}.md"
+    response = requests.get(url, timeout=10)
+    if response.status_code != 200:
+        print(f"Failed to fetch summary for {yesterday}")
+        return
+    data = response.json()
+    content = base64.b64decode(data['content']).decode('utf-8')
     
-    tweets = fetch_home_timeline()
-    if tweets:
-        # Pick a random tweet
-        random_tweet = random.choice(tweets)
-        print(f"Selected tweet: {random_tweet['text']} by @{random_tweet['user']}")
-        
-        # Randomly choose between replying or quoting
-        action = random.choice(['reply', 'quote'])
-        print(f"\nAction: {action.upper()}")
-        
-        if action == 'reply':
-            # Generate reply using Gemini
-            reply = generate_reply(random_tweet['text'])
-            print(f"Generated reply: {reply}")
-            
-            # Reply to the tweet
-            reply_to_tweet(random_tweet['id'], reply)
-        else:  # action == 'quote'
-            # Generate quote tweet using Gemini
-            quote = generate_quote(random_tweet['text'])
-            print(f"Generated quote: {quote}")
-            
-            # Quote tweet
-            quote_tweet(random_tweet['id'], quote)
+    # Generate summary with Gemini
+    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
+    prompt = f"Generate a bullet point summary of the following dev log. Each bullet should start with '> ' and be concise. Keep it under 280 characters total.\n\n{content}"
+    data = {
+        "contents": [
+            {
+                "parts": [
+                    {
+                        "text": prompt
+                    }
+                ]
+            }
+        ]
+    }
+    gemini_response = requests.post(gemini_url, json=data)
+    if gemini_response.status_code != 200:
+        print("Failed to generate summary")
+        return
+    summary = gemini_response.json()['candidates'][0]['content']['parts'][0]['text'].strip()
+    
+    # Post to community
+    client = tweepy.Client(
+        bearer_token=bearer_token_write,
+        consumer_key=api_key,
+        consumer_secret=api_secret,
+        access_token=access_token,
+        access_token_secret=access_token_secret,
+        wait_on_rate_limit=True
+    )
+    community_id = "1966214267428024753"
+    print(f"Posting summary to community: {summary}")
+    client.create_tweet(text=summary, community_id=community_id)
+    print(f"Posted daily summary to community: {summary}")
+
+if __name__ == "__main__":
+    now = datetime.now()
+    if now.hour == 0 and now.minute < 30:
+        # Post daily summary at midnight
+        post_daily_summary()
     else:
-        print("No tweets fetched.")
+        # Add random delay to spread out posts (up to 30 minutes)
+        delay = random.randint(0, 1800)
+        print(f"Sleeping for {delay} seconds to randomize posting time.")
+        time.sleep(delay)
+        
+        tweets = fetch_home_timeline()
+        if tweets:
+            # Pick a random tweet
+            random_tweet = random.choice(tweets)
+            print(f"Selected tweet: {random_tweet['text']} by @{random_tweet['user']}")
+            
+            # Randomly choose between replying or quoting
+            action = random.choice(['reply', 'quote'])
+            print(f"\nAction: {action.upper()}")
+            
+            if action == 'reply':
+                # Generate reply using Gemini
+                reply = generate_reply(random_tweet['text'])
+                print(f"Generated reply: {reply}")
+                
+                # Reply to the tweet
+                reply_to_tweet(random_tweet['id'], reply)
+            else:  # action == 'quote'
+                # Generate quote tweet using Gemini
+                quote = generate_quote(random_tweet['text'])
+                print(f"Generated quote: {quote}")
+                
+                # Quote tweet
+                quote_tweet(random_tweet['id'], quote)
+        else:
+            print("No tweets fetched.")
