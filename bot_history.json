@@ -1,3 +1,10 @@
 {
-  "replied_tweets": []
+  "replied_tweets": [
+    {
+      "tweet_id": "1981440627872321762",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-10-23T21:32:55.176722",
+      "action": "reply"
+    }
+  ]
 }
