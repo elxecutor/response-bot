@@ -17,6 +17,8 @@ A smart Twitter bot that automatically engages with your timeline by generating 
 - **Automated Timeline Monitoring**: Fetches tweets from your home timeline
 - **AI-Powered Responses**: Uses Gemini 2.0 Flash to generate sharp, concise responses
 - **Dual Engagement Modes**: Randomly chooses between replying or quote tweeting
+- **Git-Based History Tracking**: Tracks replied tweets in `bot_history.json` (no database needed!)
+- **Algorithm-Optimized**: Implements insights from Twitter's open-source recommendation algorithm
 - **Rate Limit Safe**: Runs every 20 minutes, staying well under Twitter's 100 tweets per 15-minute limit
 - **Scheduled Execution**: Automated via GitHub Actions
 
@@ -49,13 +51,31 @@ pip install -r requirements.txt
 
 2. Run the bot locally:
    ```bash
-   python bot.py
+   python bot_enhanced.py
    ```
 
-3. For automated execution, set up GitHub Actions secrets and the workflow will run every 20 minutes.
+3. For automated execution with GitHub Actions:
+   - Set up repository secrets for all environment variables
+   - The workflow will run every 20 minutes
+   - After each run, the bot commits updated `bot_history.json` back to the repository
+   - This ensures duplicate tweets are never replied to, even across multiple workflow runs
+
+### How History Tracking Works
+The bot uses a simple JSON file (`bot_history.json`) to track which tweets it has replied to. This file is:
+- ✅ Committed to git (tracked in version control)
+- ✅ Automatically updated after each run
+- ✅ Shared across all workflow runs (no database needed!)
+- ✅ Human-readable and easy to inspect
+
+When running via GitHub Actions, make sure your workflow:
+1. Checks out the repository
+2. Runs the bot
+3. Commits and pushes `bot_history.json` if it changed
 
 ## File Overview
-- `bot.py` - Main bot script with timeline fetching, AI response generation, and posting logic
+- `bot_enhanced.py` - Main bot script with algorithm-optimized selection and AI response generation
+- `bot.py` - Original bot script (legacy)
+- `bot_history.json` - Tracks replied tweets (git-friendly, no database!)
 - `requirements.txt` - Python dependencies
 - `.github/workflows/bot-schedule.yml` - GitHub Actions workflow for automated execution
 - `README.md` - Project documentation
