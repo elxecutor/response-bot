@@ -45,7 +45,7 @@ jobs:
     
     - name: Run bot
       run: python bot.py
-      timeout-minutes: 20
+      timeout-minutes: 25
     
     - name: Clean up
       if: always()
