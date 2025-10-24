@@ -71,6 +71,12 @@
       "user": "d4rsh_tw",
       "replied_at": "2025-10-24T12:36:22.854752",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1981728927413387318",
+      "user": "fidexcode",
+      "replied_at": "2025-10-24T18:23:40.357469",
+      "action": "reply"
     }
   ]
 }
