@@ -89,6 +89,12 @@
       "user": "serialdotai",
       "replied_at": "2025-10-24T20:18:34.467991",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1981735911760044542",
+      "user": "i2cjak",
+      "replied_at": "2025-10-24T21:14:25.542923",
+      "action": "reply"
     }
   ]
 }
