@@ -65,6 +65,12 @@
       "user": "yacineMTB",
       "replied_at": "2025-10-24T07:15:58.010907",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1981600565064016157",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-10-24T12:36:22.854752",
+      "action": "quote"
     }
   ]
 }
