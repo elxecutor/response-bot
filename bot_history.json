@@ -83,6 +83,12 @@
       "user": "Dissdude_",
       "replied_at": "2025-10-24T19:13:40.502959",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1981732682808573963",
+      "user": "serialdotai",
+      "replied_at": "2025-10-24T20:18:34.467991",
+      "action": "quote"
     }
   ]
 }
