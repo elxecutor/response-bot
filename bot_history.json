@@ -149,6 +149,12 @@
       "user": "amritwt",
       "replied_at": "2025-10-25T12:30:40.115103",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1982046163064046068",
+      "user": "fidexcode",
+      "replied_at": "2025-10-25T12:40:33.923487",
+      "action": "reply"
     }
   ]
 }
