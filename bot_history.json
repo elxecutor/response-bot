@@ -107,6 +107,12 @@
       "user": "fidexcode",
       "replied_at": "2025-10-24T23:15:09.287975",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1981814984578564419",
+      "user": "serialdotai",
+      "replied_at": "2025-10-25T01:14:01.447318",
+      "action": "reply"
     }
   ]
 }
