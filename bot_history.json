@@ -197,6 +197,12 @@
       "user": "serialdotai",
       "replied_at": "2025-10-25T20:17:24.304614",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1982133339222945988",
+      "user": "elxecutor",
+      "replied_at": "2025-10-25T21:13:51.920401",
+      "action": "reply"
     }
   ]
 }
