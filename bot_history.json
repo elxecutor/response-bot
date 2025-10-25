@@ -137,6 +137,12 @@
       "user": "10x_er",
       "replied_at": "2025-10-25T05:15:22.160354",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1981877707555140050",
+      "user": "damnGruz",
+      "replied_at": "2025-10-25T06:22:26.863479",
+      "action": "reply"
     }
   ]
 }
