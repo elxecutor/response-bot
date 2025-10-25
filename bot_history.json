@@ -185,6 +185,12 @@
       "user": "amritwt",
       "replied_at": "2025-10-25T17:13:09.131519",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1982119594857771299",
+      "user": "elxecutor",
+      "replied_at": "2025-10-25T19:12:20.075736",
+      "action": "reply"
     }
   ]
 }
