@@ -203,6 +203,12 @@
       "user": "elxecutor",
       "replied_at": "2025-10-25T21:13:51.920401",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1982170842508279995",
+      "user": "Dissdude_",
+      "replied_at": "2025-10-25T22:14:19.414091",
+      "action": "quote"
     }
   ]
 }
