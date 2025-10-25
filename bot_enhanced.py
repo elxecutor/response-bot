@@ -152,18 +152,18 @@ def calculate_text_quality_score(text):
         entropy_score = 0.0
     score_breakdown['entropy'] = entropy_score * 0.25
     
-    # Readability Score (10% weight) - sentence structure
+    # Readability Score (10% weight) - sentence structure (be more flexible)
     sentences = re.split(r'[.!?]+', text)
     avg_sentence_length = sum(len(s.split()) for s in sentences) / max(len(sentences), 1)
-    readability_score = 1.0 if 8 <= avg_sentence_length <= 20 else 0.5
+    readability_score = 1.0 if 5 <= avg_sentence_length <= 25 else 0.7  # Much more flexible range
     score_breakdown['readability'] = readability_score * 0.1
     
-    # Shout Score (10% weight) - caps usage (lower is better)
+    # Shout Score (10% weight) - caps usage (be more lenient for natural emphasis)
     caps_count = sum(1 for c in text if c.isupper())
     total_letters = sum(1 for c in text if c.isalpha())
     if total_letters > 0:
         caps_ratio = caps_count / total_letters
-        shout_score = max(0, 1.0 - caps_ratio * 3)  # Penalty for excessive caps
+        shout_score = max(0, 1.0 - caps_ratio * 2)  # Less penalty for caps - people use them naturally
     else:
         shout_score = 1.0
     score_breakdown['shout'] = shout_score * 0.1
@@ -385,35 +385,15 @@ def generate_reply(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Reply to this tweet naturally, like a real person would.
+    prompt = f"""Reply to this tweet like a real person would - casual, natural, and human.
 
-KEEP IT TIGHT:
-- 120-180 characters MAX - be concise
-- Sound human, not robotic or formal
-- Use contractions naturally (it's, that's, don't)
-- One clear thought - no rambling
-- Be direct - cut the fluff
+Just write a normal response that someone might actually say. Keep it conversational, use contractions, and don't worry about being perfect. Mix up your sentence structure sometimes - some short, some longer. Feel free to use a bit of punctuation or not, whatever feels right.
 
-MAKE IT REAL:
-- React genuinely or share quick insight
-- Make statements, observations, or share experience
-- Most replies should be statements, not questions
-- Only add a question if it's truly natural (rare)
-- Be specific when possible
-- Show personality but stay on topic
-- Natural humor/wit is fine
-
-DON'T:
-- No markdown (* _ `)
-- No hashtags
-- No emojis at all
-- No forced questions at the end
-- No corporate speak
-- No excessive enthusiasm
+Don't try to be clever or profound - just react naturally. Share a thought, observation, or quick take. Be specific when you can, but don't force it.
 
 Tweet: '{tweet_text}'
 
-Short natural reply (120-180 chars):"""
+Your casual reply:"""
 
     data = {
         "contents": [{
@@ -484,34 +464,15 @@ def generate_quote(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Add your take to this tweet naturally.
+    prompt = f"""Add your take to this tweet like you're chatting with a friend.
 
-KEEP IT TIGHT:
-- 120-180 characters MAX
-- Sound human and conversational
-- Use contractions (it's, don't, that's)
-- One clear angle or insight
-- Be direct and specific
+Write something casual and conversational - not trying to impress or be perfect. Use normal language, mix up sentence lengths, and don't worry about strict grammar all the time. Just share your genuine reaction or thought.
 
-MAKE IT REAL:
-- Add your own perspective or observation
-- Make statements or share insights
-- Questions should be rare - most takes are statements
-- Be genuine, not trying to impress
-- Natural wit is fine
-- Stay relevant to the topic
-
-DON'T:
-- No markdown (* _ `)
-- No hashtags
-- No emojis at all
-- No forced questions
-- No corporate speak
-- No rambling
+Be real, not polished. Sometimes people ramble a bit, or use fragments, or whatever feels natural.
 
 Original: '{tweet_text}'
 
-Your take (120-180 chars):"""
+Your casual take:"""
 
     data = {
         "contents": [{
