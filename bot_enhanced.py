@@ -46,6 +46,29 @@ gemini_key = os.getenv('GEMINI_API_KEY')
 # JSON file for tracking replied tweets (git-friendly)
 HISTORY_FILE = 'bot_history.json'
 
+# Bot's own username (fetched at runtime)
+BOT_USERNAME = None
+
+def get_bot_username():
+    """Get the bot's own username from Twitter API"""
+    global BOT_USERNAME
+    if BOT_USERNAME is None:
+        try:
+            client = tweepy.Client(
+                bearer_token=bearer_token_write,
+                consumer_key=api_key,
+                consumer_secret=api_secret,
+                access_token=access_token,
+                access_token_secret=access_token_secret
+            )
+            me = client.get_me()
+            BOT_USERNAME = me.data.username
+            print(f"Bot username: @{BOT_USERNAME}")
+        except Exception as e:
+            print(f"Error getting bot username: {e}")
+            BOT_USERNAME = None
+    return BOT_USERNAME
+
 def load_history():
     """Load bot history from JSON file"""
     if os.path.exists(HISTORY_FILE):
@@ -315,14 +338,22 @@ def select_optimal_tweet(tweets):
     - Avoid tweets likely to generate negative signals
     - Consider recency (temporal decay in algorithm)
     - Skip tweets we've already replied to
+    - Skip our own tweets
     """
     if not tweets:
         return None
     
     scored_tweets = []
+    bot_username = get_bot_username()
+    
     for tweet in tweets:
         # Skip if we've already replied to this tweet
         if has_replied_to_tweet(tweet['id']):
+            continue
+        
+        # Skip our own tweets
+        if bot_username and tweet.get('user') == bot_username:
+            print(f"⊘ Skipping own tweet from @{tweet['user']}")
             continue
         
 
@@ -636,6 +667,12 @@ if __name__ == "__main__":
     print("\n" + "="*60)
     print("Twitter Bot - Algorithm-Optimized Version")
     print("="*60 + "\n")
+    
+    # Get bot username early
+    bot_username = get_bot_username()
+    if bot_username:
+        print(f"Running as: @{bot_username}")
+    print()
     
     # Show stats
     stats = get_reply_stats()
