@@ -251,6 +251,12 @@
       "user": "rauchg",
       "replied_at": "2025-10-26T06:40:10.475319",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1982337446802342011",
+      "user": "forloopcodes",
+      "replied_at": "2025-10-26T07:14:43.300708",
+      "action": "reply"
     }
   ]
 }
