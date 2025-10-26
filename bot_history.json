@@ -341,6 +341,12 @@
       "user": "amritwt",
       "replied_at": "2025-10-26T21:14:11.005244",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1982469067148828724",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-10-26T22:15:26.620238",
+      "action": "quote"
     }
   ]
 }
