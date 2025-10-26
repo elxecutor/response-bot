@@ -391,6 +391,8 @@ Just write a normal response that someone might actually say. Keep it conversati
 
 Don't try to be clever or profound - just react naturally. Share a thought, observation, or quick take. Be specific when you can, but don't force it.
 
+IMPORTANT: Keep your reply under 280 characters (aim for 100-200 for best algorithm performance).
+
 Tweet: '{tweet_text}'
 
 Your casual reply:"""
@@ -469,6 +471,8 @@ def generate_quote(tweet_text, tweet_metadata=None):
 Write something casual and conversational - not trying to impress or be perfect. Use normal language, mix up sentence lengths, and don't worry about strict grammar all the time. Just share your genuine reaction or thought.
 
 Be real, not polished. Sometimes people ramble a bit, or use fragments, or whatever feels natural.
+
+IMPORTANT: Keep your response under 280 characters (aim for 100-200 for best algorithm performance).
 
 Original: '{tweet_text}'
 
@@ -578,7 +582,7 @@ def post_daily_summary():
         prompt = f"""Generate a dev log summary optimized for Twitter's algorithm.
 
 REQUIREMENTS:
-- Total length: 200-260 characters (algorithm favors 100-200, but use space for impact)
+- Total length: 100-200 characters (optimal for algorithm scoring)
 - Use bullet points starting with '> '
 - Diverse vocabulary - avoid repetitive words
 - Clear, conversational language
