@@ -221,6 +221,12 @@
       "user": "elxecutor",
       "replied_at": "2025-10-26T01:21:08.475280",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1982224268143251627",
+      "user": "elxecutor",
+      "replied_at": "2025-10-26T03:07:55.537526",
+      "action": "reply"
     }
   ]
 }
