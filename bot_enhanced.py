@@ -420,7 +420,7 @@ def generate_reply(tweet_text, tweet_metadata=None):
 
 Just write a normal response that someone might actually say. Keep it conversational, use contractions, and don't worry about being perfect. Mix up your sentence structure sometimes - some short, some longer. Feel free to use a bit of punctuation or not, whatever feels right.
 
-Don't try to be clever or profound - just react naturally. Share a thought, observation, or quick take. Be specific when you can, but don't force it.
+Don't try to be clever or profound - just react naturally. Share a thought, observation, or quick take. Be specific when you can, but don't force it. Avoid asking questions unless it feels very natural. Don't make promises or commitments you can't keep.
 
 IMPORTANT: Keep your reply under 280 characters (aim for 100-200 for best algorithm performance).
 
@@ -497,17 +497,17 @@ def generate_quote(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Add your take to this tweet like you're chatting with a friend.
+    prompt = f"""Add your take to this tweet in a natural, engaging way.
 
-Write something casual and conversational - not trying to impress or be perfect. Use normal language, mix up sentence lengths, and don't worry about strict grammar all the time. Just share your genuine reaction or thought.
+Write something that shows you get the main point and adds a fresh perspective. Be conversational but thoughtful - like you're joining a good discussion. Reference key ideas from the tweet and share a relevant thought or observation.
 
-Be real, not polished. Sometimes people ramble a bit, or use fragments, or whatever feels natural.
+Keep it real and human - not trying to sound like an expert, just someone who finds this interesting and has something to say. Avoid asking questions unless it feels very natural. Don't make promises or commitments.
 
-IMPORTANT: Keep your response under 280 characters (aim for 100-200 for best algorithm performance).
+IMPORTANT: Keep your response under 280 characters (aim for 120-200 for best algorithm performance).
 
 Original: '{tweet_text}'
 
-Your casual take:"""
+Your take:"""
 
     data = {
         "contents": [{

@@ -251,6 +251,24 @@
       "user": "rauchg",
       "replied_at": "2025-10-26T06:40:10.475319",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1982302248609661365",
+      "user": "damnGruz",
+      "replied_at": "2025-10-26T07:45:11.234350",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1982331215463231540",
+      "user": "damnGruz",
+      "replied_at": "2025-10-26T07:46:16.922824",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1982876978303906001",
+      "user": "rauchg",
+      "replied_at": "2025-10-27T22:39:30.682479",
+      "action": "quote"
     }
   ]
 }
