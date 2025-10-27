@@ -425,6 +425,12 @@
       "user": "amritwt",
       "replied_at": "2025-10-27T13:30:10.818325",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1982709903463456836",
+      "user": "serialdotai",
+      "replied_at": "2025-10-27T14:17:57.028769",
+      "action": "reply"
     }
   ]
 }
