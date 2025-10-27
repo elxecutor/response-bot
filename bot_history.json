@@ -395,6 +395,12 @@
       "user": "ash1sh0kumar",
       "replied_at": "2025-10-27T08:23:32.776403",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1982732003293421933",
+      "user": "Dissdude_",
+      "replied_at": "2025-10-27T09:20:52.892427",
+      "action": "quote"
     }
   ]
 }
