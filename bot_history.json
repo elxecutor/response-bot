@@ -353,6 +353,12 @@
       "user": "d4rsh_tw",
       "replied_at": "2025-10-26T23:15:20.223674",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1982520662280540441",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-10-27T01:22:39.635189",
+      "action": "quote"
     }
   ]
 }
