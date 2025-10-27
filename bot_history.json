@@ -377,6 +377,12 @@
       "user": "forloopcodes",
       "replied_at": "2025-10-27T05:17:49.985679",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1982675617356415276",
+      "user": "damnGruz",
+      "replied_at": "2025-10-27T06:28:12.030921",
+      "action": "reply"
     }
   ]
 }
