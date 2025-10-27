@@ -365,6 +365,12 @@
       "user": "haydendevs",
       "replied_at": "2025-10-27T03:17:41.501667",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1982439138428129611",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-10-27T04:27:08.378757",
+      "action": "quote"
     }
   ]
 }
