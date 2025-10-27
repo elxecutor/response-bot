@@ -359,6 +359,12 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-10-27T01:22:39.635189",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1982578608196694366",
+      "user": "haydendevs",
+      "replied_at": "2025-10-27T03:17:41.501667",
+      "action": "reply"
     }
   ]
 }
