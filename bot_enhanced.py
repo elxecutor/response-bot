@@ -628,13 +628,13 @@ def quote_tweet(tweet_id, quote_text, user):
 
 def post_daily_summary():
     """Post daily dev log summary to community"""
-    yesterday = datetime.now() - timedelta(days=1)
+    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
     url = f"https://api.github.com/repos/elxecutor/dev-log/contents/summaries/{yesterday}.md"
 
     try:
         response = requests.get(url, timeout=10)
         if response.status_code != 200:
-            print(f"Failed to fetch summary for {yesterday.date()}")
+            print(f"Failed to fetch summary for {yesterday}")
             return
         
         data = response.json()
@@ -642,22 +642,20 @@ def post_daily_summary():
         
         # Generate summary with Gemini - optimized for algorithm
         gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
-        prompt = f"""Create an engaging Twitter summary of this dev log.
+        prompt = f"""Create a plain summary of this dev log.
 
-Write a concise, exciting summary that highlights key accomplishments and progress. Use natural, conversational language that would interest fellow developers.
+Write a straightforward summary that lists key accomplishments and progress. Use simple, factual language.
 
 FORMAT REQUIREMENTS:
-- Total length: 150-250 characters (fits Twitter's sweet spot)
-- Start with an engaging hook
-- Use line breaks for readability
+- Total length: 150-250 characters
+- Use plain text only - no emojis, no hashtags
 - Include specific numbers/stats when available
-- Make it sound human and enthusiastic
-- Keep emojis minimal - use at most 1-2 total
+- Keep it factual and unexciting
 
 Dev log content:
 {content}
 
-Write the Twitter summary:"""
+Write the summary:"""
 
         gemini_data = {
             "contents": [{
@@ -722,7 +720,7 @@ if __name__ == "__main__":
     now = datetime.now()
     
     # Check if we need to post daily summary (once per day)
-    if has_posted_summary_today():
+    if not has_posted_summary_today():
         print("Running daily summary task...")
         post_daily_summary()
     else:
