@@ -521,6 +521,24 @@
       "user": "thenetwork_lad",
       "replied_at": "2025-10-28T09:21:06.385942",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1983015121996919003",
+      "user": "samirande_",
+      "replied_at": "2025-10-28T09:27:21.578676",
+      "action": "quote"
+    },
+    {
+      "tweet_id": "1983047105985032384",
+      "user": "chesterzelaya",
+      "replied_at": "2025-10-28T09:32:03.340695",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1983056235806036231",
+      "user": "thenetwork_lad",
+      "replied_at": "2025-10-28T09:34:58.199892",
+      "action": "reply"
     }
   ]
 }
