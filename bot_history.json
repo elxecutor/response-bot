@@ -497,6 +497,30 @@
       "user": "haydendevs",
       "replied_at": "2025-10-27T22:43:04.366731",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1983071355240165714",
+      "user": "amritwt",
+      "replied_at": "2025-10-28T09:06:16.439274",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1982847876284985725",
+      "user": "amritwt",
+      "replied_at": "2025-10-28T09:08:24.049327",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1983082759515168902",
+      "user": "amritwt",
+      "replied_at": "2025-10-28T09:18:18.027389",
+      "action": "quote"
+    },
+    {
+      "tweet_id": "1983062780895723873",
+      "user": "thenetwork_lad",
+      "replied_at": "2025-10-28T09:21:06.385942",
+      "action": "reply"
     }
   ]
 }

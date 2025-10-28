@@ -107,6 +107,22 @@ def mark_tweet_as_replied(tweet_id, user, action):
         })
         save_history(history)
 
+def has_posted_summary_today():
+    """Check if we've already posted the daily summary today"""
+    history = load_history()
+    last_summary = history.get('last_summary_date')
+    if last_summary:
+        last_date = datetime.fromisoformat(last_summary).date()
+        today = datetime.now().date()
+        return last_date == today
+    return False
+
+def mark_summary_posted():
+    """Mark that the daily summary has been posted today"""
+    history = load_history()
+    history['last_summary_date'] = datetime.now().isoformat()
+    save_history(history)
+
 def get_reply_stats():
     """Get statistics on bot activity"""
     history = load_history()
@@ -378,9 +394,9 @@ def select_optimal_tweet(tweets):
         elif total_engagement <= 10:
             score += 20  # Still good for early engagement
         
-        # Favor tweets without media (easier to respond meaningfully)
-        if not tweet.get('has_media'):
-            score += 20
+        # Focus on tweets without media (easier to respond meaningfully)
+        if tweet.get('has_media'):
+            score -= 20
         
         # Text length consideration (easier to respond to substantial tweets)
         text_len = len(tweet.get('text', ''))
@@ -416,17 +432,11 @@ def generate_reply(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Reply to this tweet like a real person would - casual, natural, and human.
+    prompt = f"""Write a casual, natural reply to this tweet. It should sound like a real person who actually read the post. Keep it conversational, specific, and under 280 characters. No generic replies like “yeah” or “I agree.” Only use “haha” or “lol” if it fits naturally. Don’t end with a question unless you’re really asking one.
 
-Just write a normal response that someone might actually say. Keep it conversational, use contractions, and don't worry about being perfect. Mix up your sentence structure sometimes - some short, some longer. Feel free to use a bit of punctuation or not, whatever feels right.
+    Tweet: `{tweet_text}`
 
-Don't try to be clever or profound - just react naturally. Share a thought, observation, or quick take. Be specific when you can, but don't force it. Avoid asking questions unless it feels very natural. Don't make promises or commitments you can't keep.
-
-IMPORTANT: Keep your reply under 280 characters (aim for 100-200 for best algorithm performance).
-
-Tweet: '{tweet_text}'
-
-Your casual reply:"""
+    Your reply:"""
 
     data = {
         "contents": [{
@@ -497,17 +507,11 @@ def generate_quote(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Add your take to this tweet in a natural, engaging way.
+    prompt = f"""Add your take to this tweet in a natural, conversational way. Show you understand the main idea and add a short, genuine thought or perspective. Keep it real and under 280 characters (ideally 120–200).
 
-Write something that shows you get the main point and adds a fresh perspective. Be conversational but thoughtful - like you're joining a good discussion. Reference key ideas from the tweet and share a relevant thought or observation.
+    Tweet: `{tweet_text}`
 
-Keep it real and human - not trying to sound like an expert, just someone who finds this interesting and has something to say. Avoid asking questions unless it feels very natural. Don't make promises or commitments.
-
-IMPORTANT: Keep your response under 280 characters (aim for 120-200 for best algorithm performance).
-
-Original: '{tweet_text}'
-
-Your take:"""
+    Your take:"""
 
     data = {
         "contents": [{
@@ -596,13 +600,13 @@ def quote_tweet(tweet_id, quote_text, user):
 
 def post_daily_summary():
     """Post daily dev log summary to community"""
-    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+    yesterday = datetime.now() - timedelta(days=1)
     url = f"https://api.github.com/repos/elxecutor/dev-log/contents/summaries/{yesterday}.md"
-    
+
     try:
         response = requests.get(url, timeout=10)
         if response.status_code != 200:
-            print(f"Failed to fetch summary for {yesterday}")
+            print(f"Failed to fetch summary for {yesterday.date()}")
             return
         
         data = response.json()
@@ -610,20 +614,22 @@ def post_daily_summary():
         
         # Generate summary with Gemini - optimized for algorithm
         gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
-        prompt = f"""Generate a dev log summary optimized for Twitter's algorithm.
+        prompt = f"""Create an engaging Twitter summary of this dev log.
 
-REQUIREMENTS:
-- Total length: 100-200 characters (optimal for algorithm scoring)
-- Use bullet points starting with '> '
-- Diverse vocabulary - avoid repetitive words
-- Clear, conversational language
-- Include specific details and accomplishments
-- Make it engaging and worth reading
+Write a concise, exciting summary that highlights key accomplishments and progress. Use natural, conversational language that would interest fellow developers.
+
+FORMAT REQUIREMENTS:
+- Total length: 150-250 characters (fits Twitter's sweet spot)
+- Start with an engaging hook
+- Use line breaks for readability
+- Include specific numbers/stats when available
+- Make it sound human and enthusiastic
+- Keep emojis minimal - use at most 1-2 total
 
 Dev log content:
 {content}
 
-Generate summary now:"""
+Write the Twitter summary:"""
 
         gemini_data = {
             "contents": [{
@@ -658,6 +664,7 @@ Generate summary now:"""
         print(f"Posting to community: {summary}\n")
         
         client.create_tweet(text=summary, community_id=community_id)
+        mark_summary_posted()
         print(f"✓ Posted daily summary to community")
         
     except Exception as e:
@@ -686,11 +693,11 @@ if __name__ == "__main__":
     
     now = datetime.now()
     
-    if now.hour == 0 and now.minute < 30:
-        # Post daily summary at midnight
+    # Check if we need to post daily summary (once per day)
+    if has_posted_summary_today():
         print("Running daily summary task...")
         post_daily_summary()
-    else:        
+    else:
         print("Fetching home timeline...")
         tweets = fetch_home_timeline()
         print(f"✓ Fetched {len(tweets)} tweets\n")
