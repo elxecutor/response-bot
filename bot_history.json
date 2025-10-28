@@ -503,6 +503,12 @@
       "user": "10x_er",
       "replied_at": "2025-10-27T22:43:35.450123",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1982956728171016316",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-10-28T01:14:59.705036",
+      "action": "reply"
     }
   ]
 }
