@@ -539,6 +539,12 @@
       "user": "elxecutor",
       "replied_at": "2025-10-28T07:16:48.629228",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1983082759515168902",
+      "user": "amritwt",
+      "replied_at": "2025-10-28T08:23:22.567024",
+      "action": "reply"
     }
   ]
 }
