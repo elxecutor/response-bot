@@ -515,6 +515,12 @@
       "user": "amritwt",
       "replied_at": "2025-10-28T03:05:25.722666",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1982910076945105129",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-10-28T04:20:00.946262",
+      "action": "quote"
     }
   ]
 }
