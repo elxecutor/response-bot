@@ -432,11 +432,25 @@ def generate_reply(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Write a casual, natural reply to this tweet. It should sound like a real person who actually read the post. Keep it conversational, specific, and under 280 characters. No generic replies like “yeah” or “I agree.” Only use “haha” or “lol” if it fits naturally. Don’t end with a question unless you’re really asking one.
+    prompt = f"""Reply to this tweet like a real person would - casual, natural, and human.
 
-    Tweet: `{tweet_text}`
+Just write a normal response that someone might actually say. Keep it conversational, use contractions, and don't worry about being perfect. Mix up your sentence structure sometimes - some short, some longer. Feel free to use a bit of punctuation or not, whatever feels right.
 
-    Your reply:"""
+Don't try to be clever or profound - just react naturally. Share a thought, observation, or quick take. Be specific when you can, but don't force it. Avoid asking questions unless it feels very natural. Don't make promises or commitments you can't keep.
+
+IMPORTANT: Avoid generic openings like "Wow", "That's wild", "Amazing", or "Incredible" - be more specific and show you actually read the tweet. Reference something particular from the tweet to make your response feel genuine.
+
+IMPORTANT: Avoid overusing "haha", "lol", or other generic laughter. Only use if it genuinely fits the context.
+
+IMPORTANT: Don't end replies with question marks unless you're actually asking a question. Use ellipses (...) for trailing thoughts or incomplete sentences.
+
+IMPORTANT: Don't ask questions that can be easily answered by checking profiles, bios, or basic info (like "what's your new bio?"). Focus on genuine reactions and thoughts.
+
+IMPORTANT: Keep your reply under 280 characters (aim for 100-200 for best algorithm performance).
+
+Tweet: '{tweet_text}'
+
+Your casual reply:"""
 
     data = {
         "contents": [{
@@ -507,11 +521,25 @@ def generate_quote(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Add your take to this tweet in a natural, conversational way. Show you understand the main idea and add a short, genuine thought or perspective. Keep it real and under 280 characters (ideally 120–200).
+    prompt = f"""Add your take to this tweet in a natural, engaging way.
 
-    Tweet: `{tweet_text}`
+Write something that shows you get the main point and adds a fresh perspective. Be conversational but thoughtful - like you're joining a good discussion. Reference key ideas from the tweet and share a relevant thought or observation.
 
-    Your take:"""
+Keep it real and human - not trying to sound like an expert, just someone who finds this interesting and has something to say. Avoid asking questions unless it feels very natural. Don't make promises or commitments.
+
+IMPORTANT: Avoid generic openings like "Wow", "That's wild", "Amazing", or "Incredible" - be more specific and show you actually read the tweet.
+
+IMPORTANT: Avoid overusing "haha", "lol", or other generic laughter. Only use if it genuinely fits the context.
+
+IMPORTANT: Don't end responses with question marks unless you're actually asking a question. Use ellipses (...) for trailing thoughts or incomplete sentences.
+
+IMPORTANT: Don't ask questions that can be easily answered by checking profiles, bios, or basic info.
+
+IMPORTANT: Keep your response under 280 characters (aim for 120-200 for best algorithm performance).
+
+Original: '{tweet_text}'
+
+Your take:"""
 
     data = {
         "contents": [{
