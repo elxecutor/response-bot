@@ -539,6 +539,36 @@
       "user": "thenetwork_lad",
       "replied_at": "2025-10-28T09:34:58.199892",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1983028874201211199",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-10-28T09:18:30.149090",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1982910076945105129",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-10-28T10:19:11.724354",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1983110184261345701",
+      "user": "thenetwork_lad",
+      "replied_at": "2025-10-28T11:14:10.402152",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1983295876979437673",
+      "user": "birdabo404",
+      "replied_at": "2025-10-28T23:15:38.653356",
+      "action": "quote"
+    },
+    {
+      "tweet_id": "1983166371040297172",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-10-29T02:19:47.459834",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-10-29T03:43:40.539424"
