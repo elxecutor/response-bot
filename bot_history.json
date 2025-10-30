@@ -767,6 +767,12 @@
       "user": "amritwt",
       "replied_at": "2025-10-30T22:15:59.929835",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1983932054556569971",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-10-30T23:15:21.640088",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-10-30T01:10:30.540173"
