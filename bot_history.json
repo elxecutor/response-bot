@@ -701,6 +701,12 @@
       "user": "serialdotai",
       "replied_at": "2025-10-30T08:21:59.923789",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1983774490837557581",
+      "user": "samirande_",
+      "replied_at": "2025-10-30T09:18:44.010514",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-10-30T01:10:30.540173"
