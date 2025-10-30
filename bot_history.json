@@ -671,6 +671,12 @@
       "user": "rauchg",
       "replied_at": "2025-10-30T01:19:56.336007",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1983663793659113979",
+      "user": "birdabo",
+      "replied_at": "2025-10-30T04:19:55.084007",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-10-30T01:10:30.540173"
