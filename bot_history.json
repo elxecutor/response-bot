@@ -791,6 +791,12 @@
       "user": "serialdotai",
       "replied_at": "2025-10-31T07:15:57.938233",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1984198592186446258",
+      "user": "birdabo",
+      "replied_at": "2025-10-31T10:18:11.334954",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-10-31T01:17:27.070404"
