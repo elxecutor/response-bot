@@ -797,6 +797,12 @@
       "user": "birdabo",
       "replied_at": "2025-10-31T10:18:11.334954",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1984243006128762896",
+      "user": "yougotvansh",
+      "replied_at": "2025-10-31T17:15:50.154006",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-10-31T01:17:27.070404"
