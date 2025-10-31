@@ -833,6 +833,12 @@
       "user": "10x_er",
       "replied_at": "2025-10-31T20:19:00.134835",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1984161261807136792",
+      "user": "serialdotai",
+      "replied_at": "2025-10-31T21:14:10.902703",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-10-31T01:17:27.070404"
