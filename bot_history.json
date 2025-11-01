@@ -857,6 +857,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-01T06:22:34.225447",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1984401440417194194",
+      "user": "rauchg",
+      "replied_at": "2025-11-01T07:14:46.583688",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-01T01:21:27.087583"
