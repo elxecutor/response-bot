@@ -863,6 +863,12 @@
       "user": "rauchg",
       "replied_at": "2025-11-01T07:14:46.583688",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1984474911126274088",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-11-01T09:16:13.120988",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-01T01:21:27.087583"
