@@ -692,25 +692,28 @@ def fetch_reddit_posts(subreddits, limit=5):
     """
     posts = []
     try:
-        for subreddit_name in subreddits:
-            subreddit = reddit.subreddit(subreddit_name)
-            print(f"Fetching posts from r/{subreddit_name}...")
-            
-            # Get hot posts (recent and popular)
-            for post in subreddit.hot(limit=limit):
-                if not post.stickied:  # Skip stickied posts
-                    posts.append({
-                        'title': post.title,
-                        'selftext': post.selftext,
-                        'url': post.url,
-                        'subreddit': subreddit_name,
-                        'score': post.score,
-                        'num_comments': post.num_comments,
-                        'created_utc': post.created_utc,
-                        'id': post.id
-                    })
+        # Randomly select one subreddit instead of fetching from all
+        selected_subreddit = random.choice(subreddits)
+        print(f"🔍 Fetching from randomly selected r/{selected_subreddit}...")
         
-        print(f"✓ Fetched {len(posts)} posts from {len(subreddits)} subreddits")
+        subreddit = reddit.subreddit(selected_subreddit)
+        
+        # Get hot posts and find the first non-stickied one
+        for post in subreddit.hot(limit=10):  # Fetch more to account for stickied posts
+            if not post.stickied:  # Skip stickied posts
+                posts.append({
+                    'title': post.title,
+                    'selftext': post.selftext,
+                    'url': post.url,
+                    'subreddit': selected_subreddit,
+                    'score': post.score,
+                    'num_comments': post.num_comments,
+                    'created_utc': post.created_utc,
+                    'id': post.id
+                })
+                break  # Only get one post
+        
+        print(f"✓ Fetched {len(posts)} post from r/{selected_subreddit}")
         return posts
     
     except Exception as e:
@@ -731,21 +734,22 @@ def generate_reddit_post(reddit_posts):
     # Use Gemini to generate an original post inspired by the Reddit content
     gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Write a single, sharp sentence about engineering/tech that cuts straight to the point. Base it on this Reddit discussion but make it completely original.
+    prompt = f"""Extract and rephrase one key insight from this Reddit post into a sharp, tweetable statement.
 
-REDDIT CONTEXT:
+REDDIT POST:
 Title: {selected_post['title']}
 Content: {selected_post['selftext']}
 
 INSTRUCTIONS:
-- One sharp, direct sentence only
-- No rambling or stories
-- Focus on a specific insight or observation
-- Keep it under 280 characters
-- NO emojis, NO hashtags, NO rhetorical questions
-- Sound casual
+- Find the core insight or main point of the post
+- Rephrase it into one sharp, direct sentence
+- Stay true to the post's actual content and topic
+- Keep it practical and specific, not philosophical
+- Under 280 characters
+- NO emojis, NO hashtags, NO questions
+- Make it sound like a real observation from the post
 
-Your sharp insight:"""
+The key insight:"""
 
     data = {
         "contents": [{
@@ -801,10 +805,15 @@ def post_reddit_inspired_tweet():
     Main function to create and post an independent tweet inspired by Reddit content
     """
     # Target subreddits for tech/engineering content
-    subreddits = ['ECE', 'electronics', 'compsci', 'ComputerEngineering', 'diyelectronics']
+    subreddits = [
+        'ECE', 'electronics', 'compsci', 'ComputerEngineering', 'diyelectronics',
+        'hardware', 'gadgets', 'buildapc', 'battlestations', 'RASPBERRY_PI',
+        'programming', 'learnprogramming', 'software', 'linux', 'webdev',
+        'technology', 'Futurology', 'pcmasterrace'
+    ]
     
     print("🔍 Fetching content from tech subreddits...")
-    reddit_posts = fetch_reddit_posts(subreddits, limit=5)  # Get 5 posts per subreddit
+    reddit_posts = fetch_reddit_posts(subreddits)  # Randomly select one subreddit and get one post
     
     if reddit_posts:
         tweet_text = generate_reddit_post(reddit_posts)
