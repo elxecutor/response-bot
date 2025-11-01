@@ -20,6 +20,7 @@ import time
 import base64
 import json
 import re
+import praw
 
 # Load environment variables from .env
 load_dotenv()
@@ -42,6 +43,18 @@ bearer_token_write = os.getenv('TWITTER_WRITE_BEARER_TOKEN')
 
 # Gemini API key
 gemini_key = os.getenv('GEMINI_API_KEY')
+
+# Reddit API credentials
+reddit_client_id = os.getenv('REDDIT_CLIENT_ID')
+reddit_client_secret = os.getenv('REDDIT_CLIENT_SECRET')
+reddit_user_agent = os.getenv('REDDIT_USER_AGENT')
+
+# Initialize Reddit instance
+reddit = praw.Reddit(
+    client_id=reddit_client_id,
+    client_secret=reddit_client_secret,
+    user_agent=reddit_user_agent
+)
 
 # JSON file for tracking replied tweets (git-friendly)
 HISTORY_FILE = 'bot_history.json'
@@ -672,6 +685,165 @@ Write the summary:"""
     except Exception as e:
         print(f"Error in post_daily_summary: {e}")
 
+def fetch_reddit_posts(subreddits, limit=5):
+    """
+    Fetch recent posts from specified subreddits
+    Returns list of post dictionaries with title, selftext, url, etc.
+    """
+    posts = []
+    try:
+        for subreddit_name in subreddits:
+            subreddit = reddit.subreddit(subreddit_name)
+            print(f"Fetching posts from r/{subreddit_name}...")
+            
+            # Get hot posts (recent and popular)
+            for post in subreddit.hot(limit=limit):
+                if not post.stickied:  # Skip stickied posts
+                    posts.append({
+                        'title': post.title,
+                        'selftext': post.selftext,
+                        'url': post.url,
+                        'subreddit': subreddit_name,
+                        'score': post.score,
+                        'num_comments': post.num_comments,
+                        'created_utc': post.created_utc,
+                        'id': post.id
+                    })
+        
+        print(f"✓ Fetched {len(posts)} posts from {len(subreddits)} subreddits")
+        return posts
+    
+    except Exception as e:
+        print(f"Error fetching Reddit posts: {e}")
+        return []
+
+def generate_reddit_post(reddit_posts):
+    """
+    Generate an independent Twitter post inspired by Reddit content
+    Creates original content based on trending topics from tech subreddits
+    """
+    if not reddit_posts:
+        return None
+    
+    # Select a random post to base our content on
+    selected_post = random.choice(reddit_posts)
+    
+    # Use Gemini to generate an original post inspired by the Reddit content
+    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
+    
+    prompt = f"""Create an original, engaging Twitter post about technology/engineering based on this Reddit post.
+
+REDDIT POST:
+Title: {selected_post['title']}
+Content: {selected_post['selftext'][:500]}... (truncated)
+Subreddit: r/{selected_post['subreddit']}
+Score: {selected_post['score']}
+
+REQUIREMENTS:
+- Create completely original content (don't copy or quote the Reddit post)
+- Make it engaging and tweet-worthy
+- Focus on insights, tips, or interesting facts about tech/engineering
+- Keep it under 280 characters
+- Use natural, conversational language
+- NO emojis, NO hashtags, NO rhetorical questions
+- Make it something people would want to reply to or retweet
+- Be direct and informative
+
+Write the tweet:"""
+
+    data = {
+        "contents": [{
+            "parts": [{"text": prompt}]
+        }]
+    }
+    
+    try:
+        response = requests.post(gemini_url, json=data)
+        if response.status_code == 200:
+            result = response.json()
+            tweet_text = result['candidates'][0]['content']['parts'][0]['text'].strip()
+            
+            # Clean up the response
+            tweet_text = tweet_text.strip('"\'')
+            
+            # Remove any markdown formatting
+            tweet_text = re.sub(r'\*([^*]+)\*', r'\1', tweet_text)  # Remove *bold*
+            tweet_text = re.sub(r'_([^_]+)_', r'\1', tweet_text)    # Remove _italic_
+            tweet_text = re.sub(r'`([^`]+)`', r'\1', tweet_text)    # Remove `code`
+            
+            # Remove emojis
+            tweet_text = re.sub(r'[^\x00-\x7F]+', '', tweet_text)
+            
+            # Remove hashtags (replace with plain text)
+            tweet_text = re.sub(r'#(\w+)', r'\1', tweet_text)
+            
+            # Ensure length is within limits
+            if len(tweet_text) > 280:
+                tweet_text = tweet_text[:277] + "..."
+            
+            # Calculate quality score
+            quality_score, breakdown = calculate_text_quality_score(tweet_text)
+            
+            print(f"\n{'='*60}")
+            print(f"Generated Reddit-Inspired Post:")
+            print(f"{tweet_text}")
+            print(f"Length: {len(tweet_text)} chars")
+            print(f"Quality Score: {quality_score:.3f}/1.0")
+            print(f"Inspired by r/{selected_post['subreddit']}: {selected_post['title'][:50]}...")
+            print(f"{'='*60}\n")
+            
+            return tweet_text
+        else:
+            print(f"Error generating Reddit post: {response.status_code} {response.text}")
+            return None
+    except Exception as e:
+        print(f"Exception in generate_reddit_post: {e}")
+        return None
+
+def post_reddit_inspired_tweet():
+    """
+    Main function to create and post an independent tweet inspired by Reddit content
+    """
+    # Target subreddits for tech/engineering content
+    subreddits = ['ECE', 'electronics', 'compsci', 'ComputerEngineering', 'diyelectronics']
+    
+    print("🔍 Fetching content from tech subreddits...")
+    reddit_posts = fetch_reddit_posts(subreddits, limit=5)  # Get 5 posts per subreddit
+    
+    if reddit_posts:
+        tweet_text = generate_reddit_post(reddit_posts)
+        
+        if tweet_text:
+            # Check quality before posting
+            quality_score, _ = calculate_text_quality_score(tweet_text)
+            if quality_score >= 0.7:  # Higher threshold for independent posts
+                try:
+                    client = tweepy.Client(
+                        bearer_token=bearer_token_write,
+                        consumer_key=api_key,
+                        consumer_secret=api_secret,
+                        access_token=access_token,
+                        access_token_secret=access_token_secret
+                    )
+                    
+                    response = client.create_tweet(text=tweet_text)
+                    print(f"✓ Successfully posted Reddit-inspired tweet!")
+                    print(f"  Tweet ID: {response.data['id']}")
+                    return True
+                    
+                except Exception as e:
+                    print(f"✗ Error posting tweet: {e}")
+                    return False
+            else:
+                print(f"⚠️  Tweet quality too low ({quality_score:.3f}), skipping post")
+                return False
+        else:
+            print("✗ Failed to generate tweet content")
+            return False
+    else:
+        print("✗ No Reddit posts fetched")
+        return False
+
 if __name__ == "__main__":
     print("\n" + "="*60)
     print("Twitter Bot - Algorithm-Optimized Version")
@@ -719,13 +891,13 @@ if __name__ == "__main__":
                 print(f"Has Question: {selected_tweet['has_question']}")
                 print(f"{'='*60}\n")
                 
-                # Algorithm insight: Replies have 10x weight vs favorites
-                # Quote tweets also generate high engagement signals
-                # Vary between both to build diverse engagement profile
-                action = random.choice(['reply', 'reply', 'quote'])  # 2:1 ratio favoring replies
+                action = random.choice(['reddit_post', 'reddit_post', 'reddit_post', 'reply', 'reply', 'quote', ''])
                 
                 print(f"📊 ACTION: {action.upper()}")
-                print(f"   (Algorithm weights replies 10x higher than likes)\n")
+                if action != 'reddit_post':
+                    print(f"   (Algorithm weights replies 10x higher than likes)\n")
+                else:
+                    print(f"   (Posting independent content inspired by Reddit)\n")
                 
                 if action == 'reply':
                     reply = generate_reply(selected_tweet['text'], selected_tweet)
@@ -737,7 +909,7 @@ if __name__ == "__main__":
                     else:
                         print(f"⚠️  Reply quality too low ({quality_score:.3f}), skipping post")
                         print(f"   Consider adjusting prompt or regenerating")
-                else:  # quote
+                elif action == 'quote':
                     quote = generate_quote(selected_tweet['text'], selected_tweet)
                     
                     quality_score, _ = calculate_text_quality_score(quote)
@@ -745,6 +917,9 @@ if __name__ == "__main__":
                         quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
                     else:
                         print(f"⚠️  Quote quality too low ({quality_score:.3f}), skipping post")
+                elif action == 'reddit_post':
+                    # Post independent content inspired by Reddit
+                    post_reddit_inspired_tweet()
             else:
                 print("No suitable tweet selected")
         else:
