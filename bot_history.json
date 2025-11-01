@@ -881,6 +881,12 @@
       "user": "damnGruz",
       "replied_at": "2025-11-01T11:12:24.038010",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1984421165147001177",
+      "user": "10x_er",
+      "replied_at": "2025-11-01T12:30:35.413056",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-01T01:21:27.087583"
