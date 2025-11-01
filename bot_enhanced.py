@@ -174,61 +174,6 @@ headers = {
     'x-twitter-client-language': 'en',
 }
 
-def calculate_text_quality_score(text):
-    """
-    Calculate text quality score based on X's algorithm formula:
-    text_score = offensive_damping × (lengthWeight × lengthScore + 
-                 entropyWeight × entropyScore + readabilityWeight × readabilityScore + 
-                 shoutWeight × shoutScore + linkWeight × linkScore)
-    
-    Weights: Length(50%), Entropy(25%), Readability(10%), Shout(10%), Links(5%)
-    """
-    score_breakdown = {}
-    
-    # Length Score (50% weight) - optimal 100-200 chars
-    length = len(text)
-    if 100 <= length <= 200:
-        length_score = 1.0
-    elif length < 100:
-        length_score = length / 100.0
-    else:
-        length_score = max(0.5, 1.0 - (length - 200) / 280.0)
-    score_breakdown['length'] = length_score * 0.5
-    
-    # Entropy Score (25% weight) - vocabulary diversity
-    words = text.lower().split()
-    if len(words) > 0:
-        unique_words = len(set(words))
-        entropy_score = min(1.0, unique_words / len(words) * 1.5)
-    else:
-        entropy_score = 0.0
-    score_breakdown['entropy'] = entropy_score * 0.25
-    
-    # Readability Score (10% weight) - sentence structure (be more flexible)
-    sentences = re.split(r'[.!?]+', text)
-    avg_sentence_length = sum(len(s.split()) for s in sentences) / max(len(sentences), 1)
-    readability_score = 1.0 if 5 <= avg_sentence_length <= 25 else 0.7  # Much more flexible range
-    score_breakdown['readability'] = readability_score * 0.1
-    
-    # Shout Score (10% weight) - caps usage (be more lenient for natural emphasis)
-    caps_count = sum(1 for c in text if c.isupper())
-    total_letters = sum(1 for c in text if c.isalpha())
-    if total_letters > 0:
-        caps_ratio = caps_count / total_letters
-        shout_score = max(0, 1.0 - caps_ratio * 2)  # Less penalty for caps - people use them naturally
-    else:
-        shout_score = 1.0
-    score_breakdown['shout'] = shout_score * 0.1
-    
-    # Link Score (5% weight)
-    has_link = bool(re.search(r'https?://', text))
-    link_score = 0.8 if has_link else 1.0  # Slight penalty for links
-    score_breakdown['link'] = link_score * 0.05
-    
-    total_score = sum(score_breakdown.values())
-    
-    return total_score, score_breakdown
-
 def fetch_home_timeline():
     """
     Fetch home timeline with enhanced metadata for algorithm-aware selection
@@ -483,28 +428,9 @@ Your sharp response:"""
             if len(reply) > 280:
                 reply = reply[:277] + "..."
             
-            # Calculate quality score
-            quality_score, breakdown = calculate_text_quality_score(reply)
-            
             print(f"\n{'='*60}")
             print(f"Generated Reply: {reply}")
             print(f"Length: {len(reply)} chars")
-            print(f"Quality Score: {quality_score:.3f}/1.0")
-            print(f"  - Length score: {breakdown['length']:.3f} (50% weight)")
-            print(f"  - Entropy score: {breakdown['entropy']:.3f} (25% weight)")
-            print(f"  - Readability: {breakdown['readability']:.3f} (10% weight)")
-            print(f"  - Shout score: {breakdown['shout']:.3f} (10% weight)")
-            print(f"  - Link score: {breakdown['link']:.3f} (5% weight)")
-            
-            # Warn if quality is suboptimal
-            if quality_score < 0.7:
-                print(f"⚠️  WARNING: Quality score below 0.7 - may underperform")
-                if len(reply) < 100:
-                    print(f"   → Reply too short! Aim for 120-180 characters")
-                if breakdown['entropy'] < 0.15:
-                    print(f"   → Low vocabulary diversity - use more varied words")
-            else:
-                print(f"✓ Quality score is good!")
             print(f"{'='*60}\n")
             
             return reply
@@ -560,13 +486,9 @@ Your sharp response:"""
             if len(quote) > 280:
                 quote = quote[:277] + "..."
             
-            # Calculate quality score
-            quality_score, breakdown = calculate_text_quality_score(quote)
-            
             print(f"\n{'='*60}")
             print(f"Generated Quote: {quote}")
             print(f"Length: {len(quote)} chars")
-            print(f"Quality Score: {quality_score:.3f}/1.0")
             print(f"{'='*60}\n")
             
             return quote
@@ -674,9 +596,7 @@ Write the summary:"""
         
         community_id = "1966214267428024753"
         
-        quality_score, _ = calculate_text_quality_score(summary)
-        print(f"\nDaily Summary Quality Score: {quality_score:.3f}")
-        print(f"Posting to community: {summary}\n")
+        print(f"\nPosting to community: {summary}\n")
         
         client.create_tweet(text=summary, community_id=community_id)
         mark_summary_posted()
@@ -701,6 +621,13 @@ def fetch_reddit_posts(subreddits, limit=5):
         # Get hot posts and find the first non-stickied one
         for post in subreddit.hot(limit=10):  # Fetch more to account for stickied posts
             if not post.stickied:  # Skip stickied posts
+                # Fetch top 3 comments for more context
+                post.comments.replace_more(limit=0)  # Remove "load more comments" objects
+                top_comments = []
+                for comment in post.comments[:3]:  # Get top 3 comments
+                    if hasattr(comment, 'body') and comment.body:
+                        top_comments.append(comment.body[:200])  # Limit comment length
+                
                 posts.append({
                     'title': post.title,
                     'selftext': post.selftext,
@@ -709,7 +636,8 @@ def fetch_reddit_posts(subreddits, limit=5):
                     'score': post.score,
                     'num_comments': post.num_comments,
                     'created_utc': post.created_utc,
-                    'id': post.id
+                    'id': post.id,
+                    'comments': top_comments  # Add comments to the post data
                 })
                 break  # Only get one post
         
@@ -734,20 +662,23 @@ def generate_reddit_post(reddit_posts):
     # Use Gemini to generate an original post inspired by the Reddit content
     gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Extract and rephrase one key insight from this Reddit post into a sharp, tweetable statement.
+    prompt = f"""Extract and rephrase one key insight from this Reddit post and its comments into a sharp, tweetable statement.
 
 REDDIT POST:
 Title: {selected_post['title']}
 Content: {selected_post['selftext']}
 
+TOP COMMENTS:
+{chr(10).join(f"- {comment}" for comment in selected_post.get('comments', [])[:3])}
+
 INSTRUCTIONS:
-- Find the core insight or main point of the post
+- Find the core insight or main point from the post and/or comments
 - Rephrase it into one sharp, direct sentence
-- Stay true to the post's actual content and topic
+- Stay true to the actual content and discussion
 - Keep it practical and specific, not philosophical
 - Under 280 characters
 - NO emojis, NO hashtags, NO questions
-- Make it sound like a real observation from the post
+- Make it sound like a real observation from the discussion
 
 The key insight:"""
 
@@ -781,14 +712,10 @@ The key insight:"""
             if len(tweet_text) > 280:
                 tweet_text = tweet_text[:277] + "..."
             
-            # Calculate quality score
-            quality_score, breakdown = calculate_text_quality_score(tweet_text)
-            
             print(f"\n{'='*60}")
             print(f"Generated Reddit-Inspired Post:")
             print(f"{tweet_text}")
             print(f"Length: {len(tweet_text)} chars")
-            print(f"Quality Score: {quality_score:.3f}/1.0")
             print(f"Inspired by r/{selected_post['subreddit']}: {selected_post['title'][:50]}...")
             print(f"{'='*60}\n")
             
@@ -819,28 +746,22 @@ def post_reddit_inspired_tweet():
         tweet_text = generate_reddit_post(reddit_posts)
         
         if tweet_text:
-            # Check quality before posting
-            quality_score, _ = calculate_text_quality_score(tweet_text)
-            if quality_score >= 0.7:  # Higher threshold for independent posts
-                try:
-                    client = tweepy.Client(
-                        bearer_token=bearer_token_write,
-                        consumer_key=api_key,
-                        consumer_secret=api_secret,
-                        access_token=access_token,
-                        access_token_secret=access_token_secret
-                    )
-                    
-                    response = client.create_tweet(text=tweet_text)
-                    print(f"✓ Successfully posted Reddit-inspired tweet!")
-                    print(f"  Tweet ID: {response.data['id']}")
-                    return True
-                    
-                except Exception as e:
-                    print(f"✗ Error posting tweet: {e}")
-                    return False
-            else:
-                print(f"⚠️  Tweet quality too low ({quality_score:.3f}), skipping post")
+            try:
+                client = tweepy.Client(
+                    bearer_token=bearer_token_write,
+                    consumer_key=api_key,
+                    consumer_secret=api_secret,
+                    access_token=access_token,
+                    access_token_secret=access_token_secret
+                )
+                
+                response = client.create_tweet(text=tweet_text)
+                print(f"✓ Successfully posted Reddit-inspired tweet!")
+                print(f"  Tweet ID: {response.data['id']}")
+                return True
+                
+            except Exception as e:
+                print(f"✗ Error posting tweet: {e}")
                 return False
         else:
             print("✗ Failed to generate tweet content")
@@ -906,22 +827,10 @@ if __name__ == "__main__":
                 
                 if action == 'reply':
                     reply = generate_reply(selected_tweet['text'], selected_tweet)
-                    
-                    # Double-check quality before posting
-                    quality_score, _ = calculate_text_quality_score(reply)
-                    if quality_score >= 0.65:  # Minimum threshold
-                        reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
-                    else:
-                        print(f"⚠️  Reply quality too low ({quality_score:.3f}), skipping post")
-                        print(f"   Consider adjusting prompt or regenerating")
+                    reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
                 elif action == 'quote':
                     quote = generate_quote(selected_tweet['text'], selected_tweet)
-                    
-                    quality_score, _ = calculate_text_quality_score(quote)
-                    if quality_score >= 0.65:
-                        quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
-                    else:
-                        print(f"⚠️  Quote quality too low ({quality_score:.3f}), skipping post")
+                    quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
                 elif action == 'reddit_post':
                     # Post independent content inspired by Reddit
                     post_reddit_inspired_tweet()
