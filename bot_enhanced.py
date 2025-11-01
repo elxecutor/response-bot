@@ -731,25 +731,21 @@ def generate_reddit_post(reddit_posts):
     # Use Gemini to generate an original post inspired by the Reddit content
     gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Create an original, engaging Twitter post about technology/engineering based on this Reddit post.
+    prompt = f"""Write a single, sharp sentence about engineering/tech that cuts straight to the point. Base it on this Reddit discussion but make it completely original.
 
-REDDIT POST:
+REDDIT CONTEXT:
 Title: {selected_post['title']}
-Content: {selected_post['selftext'][:500]}... (truncated)
-Subreddit: r/{selected_post['subreddit']}
-Score: {selected_post['score']}
+Content: {selected_post['selftext']}
 
-REQUIREMENTS:
-- Create completely original content (don't copy or quote the Reddit post)
-- Make it engaging and tweet-worthy
-- Focus on insights, tips, or interesting facts about tech/engineering
+INSTRUCTIONS:
+- One sharp, direct sentence only
+- No rambling or stories
+- Focus on a specific insight or observation
 - Keep it under 280 characters
-- Use natural, conversational language
 - NO emojis, NO hashtags, NO rhetorical questions
-- Make it something people would want to reply to or retweet
-- Be direct and informative
+- Sound casual
 
-Write the tweet:"""
+Your sharp insight:"""
 
     data = {
         "contents": [{
