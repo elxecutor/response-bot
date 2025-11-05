@@ -817,7 +817,7 @@ if __name__ == "__main__":
                 print(f"Has Question: {selected_tweet['has_question']}")
                 print(f"{'='*60}\n")
 
-                action = random.choice(['reddit_post', 'reddit_post', 'reddit_post', 'reply', 'reply', 'quote'])
+                action = random.choice(['reddit_post', 'reddit_post', 'reply', 'reply', 'reply', 'quote'])
 
                 print(f"📊 ACTION: {action.upper()}")
                 if action != 'reddit_post':
