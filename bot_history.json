@@ -971,6 +971,12 @@
       "user": "chesterzelaya",
       "replied_at": "2025-11-06T14:10:32.201181",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1986166736006390081",
+      "user": "birdabo",
+      "replied_at": "2025-11-06T17:11:02.846284",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-06T11:06:12.956694"
