@@ -1013,6 +1013,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-07T02:24:22.097008",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1986667871108522388",
+      "user": "amritwt",
+      "replied_at": "2025-11-07T06:15:24.958420",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-07T00:45:44.421415"
