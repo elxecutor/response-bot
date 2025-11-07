@@ -1007,6 +1007,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-06T23:09:26.728061",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1986620624899580023",
+      "user": "birdabo",
+      "replied_at": "2025-11-07T02:24:22.097008",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-07T00:45:44.421415"
