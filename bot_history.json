@@ -1025,6 +1025,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-07T07:10:10.617673",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1986679856042828120",
+      "user": "samirande_",
+      "replied_at": "2025-11-07T08:14:14.242500",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-07T00:45:44.421415"
