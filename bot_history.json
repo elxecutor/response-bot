@@ -1121,6 +1121,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-08T09:09:03.566032",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1987116456543461691",
+      "user": "serialdotai",
+      "replied_at": "2025-11-08T12:16:22.286074",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-08T00:42:26.251878"
