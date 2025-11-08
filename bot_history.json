@@ -1145,6 +1145,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-08T15:08:47.467812",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1987108014344827204",
+      "user": "LowKeyDevs",
+      "replied_at": "2025-11-08T16:09:54.033616",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-08T00:42:26.251878"
