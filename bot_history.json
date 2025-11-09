@@ -1241,6 +1241,12 @@
       "user": "d4rsh_tw",
       "replied_at": "2025-11-09T21:07:47.359146",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1987556344355037665",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-11-09T22:08:50.988237",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-09T00:49:17.873684"
