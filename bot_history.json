@@ -1235,6 +1235,12 @@
       "user": "sadkatwt",
       "replied_at": "2025-11-09T19:05:00.773127",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1987504982585974831",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-11-09T21:07:47.359146",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-09T00:49:17.873684"
