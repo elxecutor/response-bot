@@ -1187,6 +1187,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-09T03:37:52.596312",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1987199474121523227",
+      "user": "samirande_",
+      "replied_at": "2025-11-09T07:09:15.048512",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-09T00:49:17.873684"
