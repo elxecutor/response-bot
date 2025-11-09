@@ -1211,6 +1211,12 @@
       "user": "haydendevs",
       "replied_at": "2025-11-09T12:16:05.563389",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1987504811508654308",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-11-09T13:16:34.899574",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-09T00:49:17.873684"
