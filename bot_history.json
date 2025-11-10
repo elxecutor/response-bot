@@ -1301,6 +1301,12 @@
       "user": "sadkatwt",
       "replied_at": "2025-11-10T11:10:21.418741",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1987769992742683131",
+      "user": "birdabo",
+      "replied_at": "2025-11-10T13:24:41.010997",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-10T00:49:09.208541"
