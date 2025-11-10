@@ -1283,6 +1283,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-10T09:13:03.507577",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1987579419767292144",
+      "user": "10x_er",
+      "replied_at": "2025-11-10T10:12:23.991696",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-10T00:49:09.208541"
