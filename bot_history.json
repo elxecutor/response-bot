@@ -1307,6 +1307,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-10T13:24:41.010997",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1987884150200877195",
+      "user": "serialdotai",
+      "replied_at": "2025-11-10T17:09:57.274955",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-10T00:49:09.208541"
