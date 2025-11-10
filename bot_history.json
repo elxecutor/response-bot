@@ -1319,6 +1319,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-10T19:08:14.108942",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1987844154941112779",
+      "user": "amritwt",
+      "replied_at": "2025-11-10T20:12:02.582878",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-10T00:49:09.208541"
