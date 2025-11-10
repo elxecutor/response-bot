@@ -390,18 +390,24 @@ def generate_reply(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Respond to the tweet with a single, sharp sentence that cuts straight to the point. No prefaces like 'agree' or 'disagree'—just the insight or jab itself. Be concise, direct, and, if it fits, clever.
+    prompt = f"""Write a single sharp response to this tweet. Return ONLY the response text, nothing else.
 
-IMPORTANT: Keep your reply under 280 characters.
+Examples:
+Tweet: "AI will replace all jobs soon"
+Response: The job AI can't replace is knowing which jobs actually need doing.
 
+Tweet: "Coffee is overrated"  
+Response: Said no one who's survived a Monday morning meeting.
+
+Now respond to:
 Tweet: '{tweet_text}'
-
-Your sharp response:"""
+Response:"""
 
     data = {
         "contents": [{
             "parts": [{"text": prompt}]
-        }]
+        }],
+        "tools": [{"google_search": {}}]
     }
     
     try:
@@ -448,18 +454,24 @@ def generate_quote(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Respond to the tweet with a single, sharp sentence that cuts straight to the point. No prefaces like 'agree' or 'disagree'—just the insight or jab itself. Be concise, direct, and, if it fits, clever.
+    prompt = f"""Write a single sharp quote tweet response. Return ONLY the response text, nothing else.
 
-IMPORTANT: Keep your response under 280 characters.
+Examples:
+Tweet: "Remote work is killing company culture"
+Response: Company culture was already dead, remote work just stopped pretending otherwise.
 
-Original: '{tweet_text}'
+Tweet: "NFTs are the future of digital ownership"
+Response: Right next to my collection of rare Beanie Babies.
 
-Your sharp response:"""
+Now respond to:
+Tweet: '{tweet_text}'
+Response:"""
 
     data = {
         "contents": [{
             "parts": [{"text": prompt}]
-        }]
+        }],
+        "tools": [{"google_search": {}}]
     }
     
     try:
@@ -662,30 +674,21 @@ def generate_reddit_post(reddit_posts):
     # Use Gemini to generate an original post inspired by the Reddit content
     gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
-    prompt = f"""Extract and rephrase one key insight from this Reddit post and its comments into a sharp, tweetable statement.
+    prompt = f"""Create a tweetable insight from this Reddit discussion. Return ONLY the tweet text, nothing else.
 
-REDDIT POST:
-Title: {selected_post['title']}
-Content: {selected_post['selftext']}
+Reddit Post: {selected_post['title']}
+{selected_post['selftext'][:200] if selected_post['selftext'] else ''}
 
-TOP COMMENTS:
+Top Comments:
 {chr(10).join(f"- {comment}" for comment in selected_post.get('comments', [])[:3])}
 
-INSTRUCTIONS:
-- Find the core insight or main point from the post and/or comments
-- Rephrase it into one sharp, direct sentence
-- Stay true to the actual content and discussion
-- Keep it practical and specific, not philosophical
-- Under 280 characters
-- NO emojis, NO hashtags, NO questions
-- Make it sound like a real observation from the discussion
-
-The key insight:"""
+Write one sharp, practical observation from this discussion (under 280 chars, no emojis, no hashtags):"""
 
     data = {
         "contents": [{
             "parts": [{"text": prompt}]
-        }]
+        }],
+        "tools": [{"google_search": {}}]
     }
     
     try:
