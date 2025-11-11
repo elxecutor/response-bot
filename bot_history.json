@@ -1391,6 +1391,12 @@
       "user": "10x_er",
       "replied_at": "2025-11-11T14:10:59.906999",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1988249972513353940",
+      "user": "damnGruz",
+      "replied_at": "2025-11-11T15:10:40.746757",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-11T00:46:34.120995"
