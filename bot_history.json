@@ -1469,6 +1469,12 @@
       "user": "10x_er",
       "replied_at": "2025-11-12T12:19:32.360638",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1988310825703264690",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-11-12T13:26:18.735382",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-12T00:46:18.254100"
