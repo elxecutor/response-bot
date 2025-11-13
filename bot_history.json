@@ -1571,6 +1571,12 @@
       "user": "samirande_",
       "replied_at": "2025-11-13T19:07:54.113821",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1988910787147043283",
+      "user": "damnGruz",
+      "replied_at": "2025-11-13T23:09:28.696919",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-13T00:45:50.035234"
