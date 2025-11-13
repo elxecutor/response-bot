@@ -1541,6 +1541,12 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-11-13T09:11:46.125999",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1988846688048443753",
+      "user": "amritwt",
+      "replied_at": "2025-11-13T10:11:59.180973",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-13T00:45:50.035234"
