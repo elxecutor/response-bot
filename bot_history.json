@@ -1625,6 +1625,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-14T16:12:18.811215",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1989242596192059863",
+      "user": "samirande_",
+      "replied_at": "2025-11-14T18:14:17.810063",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-14T00:46:03.804679"
