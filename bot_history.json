@@ -1583,6 +1583,12 @@
       "user": "0x45o",
       "replied_at": "2025-11-14T03:39:44.147259",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1989033512083812537",
+      "user": "amritwt",
+      "replied_at": "2025-11-14T04:14:04.283623",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-14T00:46:03.804679"
