@@ -1643,6 +1643,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-14T20:11:48.429759",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1989353489802375341",
+      "user": "sadkatwt",
+      "replied_at": "2025-11-14T22:09:18.152370",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-14T00:46:03.804679"
