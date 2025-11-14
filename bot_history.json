@@ -1601,6 +1601,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-14T10:12:06.685398",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1989165202089390338",
+      "user": "yougotvansh",
+      "replied_at": "2025-11-14T12:19:25.539123",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-14T00:46:03.804679"
