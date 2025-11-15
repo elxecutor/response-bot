@@ -1661,6 +1661,12 @@
       "user": "samirande_",
       "replied_at": "2025-11-15T02:22:04.337036",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1989396773463548195",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-11-15T03:33:37.706346",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-15T00:45:11.792667"
