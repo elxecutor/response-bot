@@ -1781,6 +1781,12 @@
       "user": "0x45o",
       "replied_at": "2025-11-16T15:08:44.758669",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1990070885768741107",
+      "user": "CodeByNZ",
+      "replied_at": "2025-11-16T16:10:17.104608",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-16T00:50:46.048543"
