@@ -1835,6 +1835,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-17T06:16:23.558701",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1990305183059058726",
+      "user": "CodeByNZ",
+      "replied_at": "2025-11-17T08:15:39.914069",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-17T00:48:08.787048"
