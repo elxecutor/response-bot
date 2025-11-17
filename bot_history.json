@@ -1823,6 +1823,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-17T02:27:22.278512",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1990124034898714944",
+      "user": "amritwt",
+      "replied_at": "2025-11-17T05:10:58.961134",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-17T00:48:08.787048"
