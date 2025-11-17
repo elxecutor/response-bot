@@ -1829,6 +1829,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-17T05:10:58.961134",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1990085603778576695",
+      "user": "birdabo",
+      "replied_at": "2025-11-17T06:16:23.558701",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-17T00:48:08.787048"
