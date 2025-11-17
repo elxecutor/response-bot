@@ -1841,6 +1841,12 @@
       "user": "CodeByNZ",
       "replied_at": "2025-11-17T08:15:39.914069",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1990305223227981853",
+      "user": "CodeByNZ",
+      "replied_at": "2025-11-17T10:11:56.720824",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-17T00:48:08.787048"
