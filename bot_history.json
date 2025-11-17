@@ -1901,7 +1901,32 @@
       "user": "donsatamoto",
       "replied_at": "2025-11-17T21:09:24.773839",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1990422172649607308",
+      "user": "birdabo",
+      "replied_at": "2025-11-17T22:46:21.540117",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1990478306437968135",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-11-17T22:46:48.247634",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1990495988835082520",
+      "user": "chesterzelaya",
+      "replied_at": "2025-11-17T22:54:40.434292",
+      "action": "quote"
     }
   ],
-  "last_summary_date": "2025-11-17T00:48:08.787048"
+  "last_summary_date": "2025-11-17T00:48:08.787048",
+  "reddit_posts": [
+    {
+      "subreddit": "diyelectronics",
+      "tweet_id": "1990538848267366423",
+      "posted_at": "2025-11-17T22:53:38.783588"
+    }
+  ]
 }

@@ -22,6 +22,8 @@ import json
 import re
 import praw
 
+MAX_MEDIA_ANALYSIS_IMAGES = 2
+
 # Load environment variables from .env
 load_dotenv()
 
@@ -84,14 +86,20 @@ def get_bot_username():
 
 def load_history():
     """Load bot history from JSON file"""
+    base_history = {'replied_tweets': [], 'reddit_posts': []}
     if os.path.exists(HISTORY_FILE):
         try:
             with open(HISTORY_FILE, 'r') as f:
-                return json.load(f)
+                data = json.load(f)
         except (json.JSONDecodeError, IOError):
             print(f"Warning: Could not load {HISTORY_FILE}, starting fresh")
-            return {'replied_tweets': []}
-    return {'replied_tweets': []}
+            return base_history
+        if isinstance(data, dict):
+            data.setdefault('replied_tweets', [])
+            data.setdefault('reddit_posts', [])
+            return data
+        return base_history
+    return base_history
 
 def save_history(history):
     """Save bot history to JSON file"""
@@ -159,6 +167,96 @@ def get_reply_stats():
         'by_action': by_action,
         'today': today_count
     }
+
+def extract_image_urls(legacy_tweet):
+    """Return a list of photo URLs from tweet legacy entities"""
+    if not legacy_tweet:
+        return []
+    media_entities = legacy_tweet.get('extended_entities', {}).get('media')
+    if not media_entities:
+        media_entities = legacy_tweet.get('entities', {}).get('media', [])
+    image_urls = []
+    for media in media_entities or []:
+        if media.get('type') == 'photo':
+            url = media.get('media_url_https') or media.get('media_url') or media.get('url')
+            if url:
+                image_urls.append(url)
+    return image_urls
+
+def analyze_tweet_media(media_urls, max_images=MAX_MEDIA_ANALYSIS_IMAGES):
+    """Use Gemini to summarize the contents of tweet images"""
+    if not gemini_key or not media_urls:
+        return None
+
+    inline_parts = []
+    for url in media_urls[:max_images]:
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+            mime_type = response.headers.get('Content-Type', 'image/jpeg')
+            if not (mime_type or '').startswith('image/'):
+                mime_type = 'image/jpeg'
+            encoded = base64.b64encode(response.content).decode('utf-8')
+            inline_parts.append({
+                "inlineData": {
+                    "mimeType": mime_type,
+                    "data": encoded
+                }
+            })
+        except Exception as e:
+            print(f"Warning: Failed to download image {url}: {e}")
+
+    if not inline_parts:
+        return None
+
+    prompt = (
+        "Analyze the attached tweet image(s). Provide up to two short bullet points "
+        "highlighting key subjects, text, or notable context without speculation."
+    )
+
+    request_payload = {
+        "contents": [{
+            "role": "user",
+            "parts": [{"text": prompt}] + inline_parts
+        }]
+    }
+
+    try:
+        url = (
+            "https://generativelanguage.googleapis.com/v1beta/models/"
+            "gemini-2.0-flash:generateContent?key="
+            f"{gemini_key}"
+        )
+        response = requests.post(url, json=request_payload, timeout=20)
+        response.raise_for_status()
+        result = response.json()
+        return result['candidates'][0]['content']['parts'][0]['text'].strip()
+    except Exception as e:
+        print(f"Error analyzing tweet media: {e}")
+        return None
+
+def get_last_reddit_subreddit():
+    """Return the subreddit used for the most recent Reddit-inspired post"""
+    history = load_history()
+    reddit_posts = history.get('reddit_posts', [])
+    if reddit_posts:
+        return reddit_posts[-1].get('subreddit')
+    return None
+
+def record_reddit_post(subreddit, tweet_id=None):
+    """Persist metadata about a Reddit-inspired tweet"""
+    if not subreddit:
+        return
+    history = load_history()
+    reddit_posts = history.get('reddit_posts', [])
+    reddit_posts.append({
+        'subreddit': subreddit,
+        'tweet_id': tweet_id,
+        'posted_at': datetime.now().isoformat()
+    })
+    # Keep the history bounded to avoid unbounded growth
+    history['reddit_posts'] = reddit_posts[-200:]
+    save_history(history)
 
 # Headers for the request (mimicking a browser to avoid blocks)
 headers = {
@@ -282,9 +380,14 @@ def fetch_home_timeline():
                                 'quote_count': legacy.get('quote_count', 0),
                             }
                             
+                            media_entities = legacy.get('extended_entities', {}).get('media')
+                            if not media_entities:
+                                media_entities = legacy.get('entities', {}).get('media', [])
+
                             # Check for media (algorithm favors visual content)
-                            has_media = bool(legacy.get('entities', {}).get('media'))
-                            has_video = any(m.get('type') == 'video' for m in legacy.get('entities', {}).get('media', []))
+                            has_media = bool(media_entities)
+                            has_video = any(m.get('type') == 'video' for m in media_entities)
+                            image_urls = extract_image_urls(legacy)
                             
                             # Check for question (algorithm detects and favors questions)
                             has_question = '?' in full_text
@@ -298,6 +401,7 @@ def fetch_home_timeline():
                                 'has_video': has_video,
                                 'has_question': has_question,
                                 'created_at': legacy.get('created_at'),
+                                'media_urls': image_urls,
                             })
         
         return tweets
@@ -390,6 +494,15 @@ def generate_reply(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
+    media_context = None
+    if tweet_metadata:
+        media_context = tweet_metadata.get('media_context')
+        if media_context is None and tweet_metadata.get('media_urls'):
+            media_context = analyze_tweet_media(tweet_metadata['media_urls'])
+            tweet_metadata['media_context'] = media_context
+
+    media_section = f"\nImage context: {media_context}\n" if media_context else ""
+
     prompt = f"""Write a single sharp response to this tweet. Return ONLY the response text, nothing else.
 
 Examples:
@@ -401,7 +514,7 @@ Response: Said no one who's survived a Monday morning meeting.
 
 Now respond to:
 Tweet: '{tweet_text}'
-Response:"""
+{media_section}Response:"""
 
     data = {
         "contents": [{
@@ -454,6 +567,15 @@ def generate_quote(tweet_text, tweet_metadata=None):
     """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
     
+    media_context = None
+    if tweet_metadata:
+        media_context = tweet_metadata.get('media_context')
+        if media_context is None and tweet_metadata.get('media_urls'):
+            media_context = analyze_tweet_media(tweet_metadata['media_urls'])
+            tweet_metadata['media_context'] = media_context
+
+    media_section = f"\nImage context: {media_context}\n" if media_context else ""
+
     prompt = f"""Write a single sharp quote tweet response. Return ONLY the response text, nothing else.
 
 Examples:
@@ -465,7 +587,7 @@ Response: Right next to my collection of rare Beanie Babies.
 
 Now respond to:
 Tweet: '{tweet_text}'
-Response:"""
+{media_section}Response:"""
 
     data = {
         "contents": [{
@@ -617,41 +739,54 @@ Write the summary:"""
     except Exception as e:
         print(f"Error in post_daily_summary: {e}")
 
-def fetch_reddit_posts(subreddits, limit=5):
+def fetch_reddit_posts(subreddits, limit=5, exclude_subreddit=None):
     """
-    Fetch recent posts from specified subreddits
+    Fetch recent posts from specified subreddits while avoiding the last-used subreddit
     Returns list of post dictionaries with title, selftext, url, etc.
     """
     posts = []
     try:
-        # Randomly select one subreddit instead of fetching from all
-        selected_subreddit = random.choice(subreddits)
+        normalized_exclude = exclude_subreddit.lower() if exclude_subreddit else None
+        candidate_subreddits = [s for s in subreddits if not normalized_exclude or s.lower() != normalized_exclude]
+        if not candidate_subreddits:
+            candidate_subreddits = subreddits[:]
+        selected_subreddit = random.choice(candidate_subreddits)
+        if exclude_subreddit and normalized_exclude and selected_subreddit.lower() == normalized_exclude:
+            print(f"⚠️ Only one subreddit available; reusing r/{selected_subreddit}.")
+        else:
+            if exclude_subreddit:
+                print(f"🚫 Avoiding consecutive posts from r/{exclude_subreddit}.")
         print(f"🔍 Fetching from randomly selected r/{selected_subreddit}...")
         
         subreddit = reddit.subreddit(selected_subreddit)
+        max_posts = max(1, limit)
         
-        # Get hot posts and find the first non-stickied one
+        # Get hot posts and collect non-stickied ones
         for post in subreddit.hot(limit=10):  # Fetch more to account for stickied posts
-            if not post.stickied:  # Skip stickied posts
-                # Fetch top 3 comments for more context
-                post.comments.replace_more(limit=0)  # Remove "load more comments" objects
-                top_comments = []
-                for comment in post.comments[:3]:  # Get top 3 comments
-                    if hasattr(comment, 'body') and comment.body:
-                        top_comments.append(comment.body[:200])  # Limit comment length
-                
-                posts.append({
-                    'title': post.title,
-                    'selftext': post.selftext,
-                    'url': post.url,
-                    'subreddit': selected_subreddit,
-                    'score': post.score,
-                    'num_comments': post.num_comments,
-                    'created_utc': post.created_utc,
-                    'id': post.id,
-                    'comments': top_comments  # Add comments to the post data
-                })
-                break  # Only get one post
+            if post.stickied:
+                continue
+
+            # Fetch top comments for more context
+            post.comments.replace_more(limit=0)
+            top_comments = []
+            for comment in post.comments[:3]:
+                if hasattr(comment, 'body') and comment.body:
+                    top_comments.append(comment.body[:200])
+
+            posts.append({
+                'title': post.title,
+                'selftext': post.selftext,
+                'url': post.url,
+                'subreddit': selected_subreddit,
+                'score': post.score,
+                'num_comments': post.num_comments,
+                'created_utc': post.created_utc,
+                'id': post.id,
+                'comments': top_comments
+            })
+
+            if len(posts) >= max_posts:
+                break
         
         print(f"✓ Fetched {len(posts)} post from r/{selected_subreddit}")
         return posts
@@ -736,14 +871,18 @@ def post_reddit_inspired_tweet():
     """
     # Target subreddits for tech/engineering content
     subreddits = [
-        'ECE', 'electronics', 'compsci', 'ComputerEngineering', 'diyelectronics',
+        'diyelectronics',
         'hardware', 'gadgets', 'buildapc', 'battlestations', 'RASPBERRY_PI',
         'programming', 'learnprogramming', 'software', 'linux', 'webdev',
         'technology', 'Futurology', 'pcmasterrace'
     ]
     
+    last_subreddit = get_last_reddit_subreddit()
+    if last_subreddit:
+        print(f"⏪ Last Reddit-inspired tweet came from r/{last_subreddit}.")
+
     print("🔍 Fetching content from tech subreddits...")
-    reddit_posts = fetch_reddit_posts(subreddits)  # Randomly select one subreddit and get one post
+    reddit_posts = fetch_reddit_posts(subreddits, exclude_subreddit=last_subreddit)
     
     if reddit_posts:
         tweet_text = generate_reddit_post(reddit_posts)
@@ -761,6 +900,7 @@ def post_reddit_inspired_tweet():
                 response = client.create_tweet(text=tweet_text)
                 print(f"✓ Successfully posted Reddit-inspired tweet!")
                 print(f"  Tweet ID: {response.data['id']}")
+                record_reddit_post(reddit_posts[0].get('subreddit'), response.data.get('id'))
                 return True
                 
             except Exception as e:
