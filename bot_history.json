@@ -563,19 +563,24 @@
       "subreddit": "linux",
       "tweet_id": "1990672118237839827",
       "posted_at": "2025-11-18T07:43:12.805150"
+    },
+    {
+      "subreddit": "Futurology",
+      "tweet_id": "1990815656472948996",
+      "posted_at": "2025-11-18T16:13:34.916159"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 3.9500000000000006,
-      "quote": 0.0,
+      "reply": 4.250000000000001,
+      "quote": 0.15000000000000013,
       "reddit_post": 0.10000000000000009
     },
     "strategy_counts": {
       "reply": 8.0,
       "quote": 3.0,
-      "reddit_post": 2.0
+      "reddit_post": 3.0
     },
-    "iterations": 10
+    "iterations": 11
   }
 }
