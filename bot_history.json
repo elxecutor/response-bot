@@ -509,6 +509,12 @@
       "user": "CodeByNZ",
       "replied_at": "2025-11-18T08:14:27.468755",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1990682143157067864",
+      "user": "CodeByNZ",
+      "replied_at": "2025-11-18T09:12:02.010805",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-18T07:42:28.987232",
@@ -531,15 +537,15 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 0.30000000000000004,
+      "reply": 1.9000000000000001,
       "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 4.0,
-      "quote": 1.0,
+      "quote": 2.0,
       "reddit_post": 2.0
     },
-    "iterations": 4
+    "iterations": 5
   }
 }
