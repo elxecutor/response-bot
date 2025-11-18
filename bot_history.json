@@ -591,19 +591,24 @@
       "subreddit": "RASPBERRY_PI",
       "tweet_id": "1990875615570919871",
       "posted_at": "2025-11-18T20:11:50.221670"
+    },
+    {
+      "subreddit": "learnprogramming",
+      "tweet_id": "1990905264552267991",
+      "posted_at": "2025-11-18T22:09:39.109499"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 4.550000000000001,
-      "quote": 0.15000000000000013,
+      "reply": 4.8500000000000005,
+      "quote": 0.30000000000000027,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 11.0,
       "quote": 3.0,
-      "reddit_post": 4.0
+      "reddit_post": 5.0
     },
-    "iterations": 15
+    "iterations": 16
   }
 }
