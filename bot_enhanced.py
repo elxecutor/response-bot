@@ -22,6 +22,8 @@ import json
 import re
 import praw
 
+from game_theory import GameTheoryEngine
+
 MAX_MEDIA_ANALYSIS_IMAGES = 2
 
 # Load environment variables from .env
@@ -86,7 +88,15 @@ def get_bot_username():
 
 def load_history():
     """Load bot history from JSON file"""
-    base_history = {'replied_tweets': [], 'reddit_posts': []}
+    base_history = {
+        'replied_tweets': [],
+        'reddit_posts': [],
+        'game_theory': {
+            'regret': {},
+            'strategy_counts': {},
+            'iterations': 0
+        }
+    }
     if os.path.exists(HISTORY_FILE):
         try:
             with open(HISTORY_FILE, 'r') as f:
@@ -97,6 +107,11 @@ def load_history():
         if isinstance(data, dict):
             data.setdefault('replied_tweets', [])
             data.setdefault('reddit_posts', [])
+            data.setdefault('game_theory', {
+                'regret': {},
+                'strategy_counts': {},
+                'iterations': 0
+            })
             return data
         return base_history
     return base_history
@@ -662,14 +677,14 @@ def quote_tweet(tweet_id, quote_text, user):
         access_token_secret=access_token_secret
     )
     try:
-        response = client.create_tweet(text=quote_text, quote_tweet_id=tweet_id)
+        client.create_tweet(text=quote_text, quote_tweet_id=tweet_id)
         mark_tweet_as_replied(tweet_id, user, 'quote')
         print(f"✓ Successfully quote tweeted {tweet_id}")
         print(f"  Quote: {quote_text}")
-        return response
+        return True
     except Exception as e:
         print(f"✗ Error quote tweeting: {e}")
-        return None
+        return False
 
 def post_daily_summary():
     """Post daily dev log summary to community"""
@@ -933,6 +948,12 @@ if __name__ == "__main__":
         for action, count in stats['by_action'].items():
             print(f"   {action.capitalize()}s: {count}")
     print()
+
+    game_engine = GameTheoryEngine(load_history, save_history)
+    print("🎮 Game-theory regrets:")
+    for action_name, value in game_engine.diagnostics().items():
+        print(f"   {action_name}: {value}")
+    print()
     
     now = datetime.now()
     
@@ -941,46 +962,72 @@ if __name__ == "__main__":
         print("Running daily summary task...")
         post_daily_summary()
     else:
-        print("Fetching home timeline...")
-        tweets = fetch_home_timeline()
-        print(f"✓ Fetched {len(tweets)} tweets\n")
-        
-        if tweets:
-            # Select optimal tweet using algorithm-aware scoring
-            selected_tweet = select_optimal_tweet(tweets)
-            
-            if selected_tweet:
-                print(f"{'='*60}")
-                print(f"SELECTED TWEET")
-                print(f"{'='*60}")
-                print(f"User: @{selected_tweet['user']}")
-                print(f"Text: {selected_tweet['text']}")
-                print(f"Engagement: {selected_tweet['engagement']}")
-                print(f"Has Media: {selected_tweet['has_media']}")
-                print(f"Has Question: {selected_tweet['has_question']}")
-                print(f"{'='*60}\n")
+        baseline_payoffs = game_engine.baseline_payoffs()
+        action, base_distribution = game_engine.select_action(baseline_payoffs)
 
-                action = random.choice(['reddit_post', 'reddit_post', 'reply', 'reply', 'reply', 'quote'])
+        print(f"🎯 INITIAL ACTION ROLL: {action.upper()}")
+        for action_name in game_engine.actions:
+            payoff_val = baseline_payoffs.get(action_name, 0.0)
+            weight_val = base_distribution.get(action_name, 0.0)
+            print(f"   • {action_name:<12} base_payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
+        print()
 
-                print(f"📊 ACTION: {action.upper()}")
-                if action != 'reddit_post':
-                    print(f"   (Algorithm weights replies 10x higher than likes)\n")
-                else:
-                    print(f"   (Posting independent content inspired by Reddit)\n")
-                
-                if action == 'reply':
-                    reply = generate_reply(selected_tweet['text'], selected_tweet)
-                    reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
-                elif action == 'quote':
-                    quote = generate_quote(selected_tweet['text'], selected_tweet)
-                    quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
-                elif action == 'reddit_post':
-                    # Post independent content inspired by Reddit
-                    post_reddit_inspired_tweet()
+        if action == 'reddit_post':
+            success = post_reddit_inspired_tweet()
+            if success:
+                game_engine.update_regret(baseline_payoffs, action)
             else:
-                print("No suitable tweet selected")
+                print("⚠️ Reddit-inspired post failed - applying regret penalty")
+                game_engine.penalize_failure(action)
         else:
-            print("✗ No tweets fetched")
+            print("Fetching home timeline...")
+            tweets = fetch_home_timeline()
+            print(f"✓ Fetched {len(tweets)} tweets\n")
+
+            if not tweets:
+                print("✗ No tweets fetched")
+                game_engine.penalize_failure(action)
+            else:
+                selected_tweet = select_optimal_tweet(tweets)
+
+                if not selected_tweet:
+                    print("No suitable tweet selected")
+                    game_engine.penalize_failure(action)
+                else:
+                    print(f"{'='*60}")
+                    print(f"SELECTED TWEET")
+                    print(f"{'='*60}")
+                    print(f"User: @{selected_tweet['user']}")
+                    print(f"Text: {selected_tweet['text']}")
+                    print(f"Engagement: {selected_tweet['engagement']}")
+                    print(f"Has Media: {selected_tweet['has_media']}")
+                    print(f"Has Question: {selected_tweet['has_question']}")
+                    print(f"{'='*60}\n")
+
+                    payoffs = game_engine.estimate_payoffs(selected_tweet)
+                    distribution = game_engine.mixed_strategy(payoffs)
+
+                    print(f"📊 ACTION (game-theory mixed strategy): {action.upper()}")
+                    for action_name in game_engine.actions:
+                        payoff_val = payoffs.get(action_name, 0.0)
+                        weight_val = distribution.get(action_name, 0.0)
+                        marker = "<" if action_name == action else " "
+                        print(f"{marker}  {action_name:<11} payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
+                    print()
+
+                    success = False
+                    if action == 'reply':
+                        reply = generate_reply(selected_tweet['text'], selected_tweet)
+                        success = reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
+                    elif action == 'quote':
+                        quote = generate_quote(selected_tweet['text'], selected_tweet)
+                        success = quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
+
+                    if success:
+                        game_engine.update_regret(payoffs, action)
+                    else:
+                        print(f"⚠️ Action {action} failed - applying regret penalty")
+                        game_engine.penalize_failure(action)
     
     print("\n" + "="*60)
     print("Bot execution complete")

@@ -19,6 +19,7 @@ A smart Twitter bot that automatically engages with your timeline by generating 
 - **Dual Engagement Modes**: Randomly chooses between replying or quote tweeting
 - **Git-Based History Tracking**: Tracks replied tweets in `bot_history.json` (no database needed!)
 - **Algorithm-Optimized**: Implements insights from Twitter's open-source recommendation algorithm
+- **Game-Theoretic Strategy**: Uses regret matching to adaptively balance replies, quote tweets, and independent posts
 - **Rate Limit Safe**: Runs every 20 minutes, staying well under Twitter's 100 tweets per 15-minute limit
 - **Scheduled Execution**: Automated via GitHub Actions
 
@@ -74,6 +75,7 @@ When running via GitHub Actions, make sure your workflow:
 
 ## File Overview
 - `bot_enhanced.py` - Main bot script with algorithm-optimized selection and AI response generation
+- `game_theory.py` - Regret-matching engine powering the adaptive action selection
 - `bot.py` - Original bot script (legacy)
 - `bot_history.json` - Tracks replied tweets (git-friendly, no database!)
 - `requirements.txt` - Python dependencies
