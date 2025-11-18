@@ -563,6 +563,12 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-11-18T19:08:51.917510",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1990832148853743761",
+      "user": "amritwt",
+      "replied_at": "2025-11-18T23:09:18.266750",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-18T07:42:28.987232",
@@ -601,14 +607,14 @@
   "game_theory": {
     "regret": {
       "reply": 4.8500000000000005,
-      "quote": 0.30000000000000027,
+      "quote": 0.1000000000000002,
       "reddit_post": 0.0
     },
     "strategy_counts": {
-      "reply": 11.0,
+      "reply": 12.0,
       "quote": 3.0,
       "reddit_post": 5.0
     },
-    "iterations": 16
+    "iterations": 17
   }
 }
