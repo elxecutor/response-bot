@@ -593,6 +593,12 @@
       "user": "donsatamoto",
       "replied_at": "2025-11-19T06:15:25.099522",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1991036066791633268",
+      "user": "amritwt",
+      "replied_at": "2025-11-19T07:10:54.634102",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-19T00:45:58.804649",
@@ -635,15 +641,15 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 5.75,
+      "reply": 7.35,
       "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 15.0,
-      "quote": 4.0,
+      "quote": 5.0,
       "reddit_post": 6.0
     },
-    "iterations": 22
+    "iterations": 23
   }
 }
