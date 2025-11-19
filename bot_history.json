@@ -614,19 +614,24 @@
       "subreddit": "learnprogramming",
       "tweet_id": "1990905264552267991",
       "posted_at": "2025-11-18T22:09:39.109499"
+    },
+    {
+      "subreddit": "diyelectronics",
+      "tweet_id": "1990996874480718265",
+      "posted_at": "2025-11-19T04:13:40.606431"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 4.8500000000000005,
-      "quote": 0.0,
+      "reply": 5.15,
+      "quote": 0.15000000000000013,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 14.0,
       "quote": 3.0,
-      "reddit_post": 5.0
+      "reddit_post": 6.0
     },
-    "iterations": 19
+    "iterations": 20
   }
 }
