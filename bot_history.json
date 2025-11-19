@@ -647,6 +647,12 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-11-19T15:10:39.630897",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1991081524108664866",
+      "user": "birdabo",
+      "replied_at": "2025-11-19T16:13:32.341977",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-19T00:45:58.804649",
@@ -689,15 +695,15 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 9.95,
+      "reply": 10.549999999999999,
       "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 22.0,
-      "quote": 6.0,
+      "quote": 7.0,
       "reddit_post": 6.0
     },
-    "iterations": 31
+    "iterations": 32
   }
 }
