@@ -749,6 +749,12 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-11-20T11:09:26.539107",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1991266520886907335",
+      "user": "CodeByNZ",
+      "replied_at": "2025-11-20T13:23:56.853736",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-20T02:23:43.235777",
@@ -797,14 +803,14 @@
   "game_theory": {
     "regret": {
       "reply": 13.249999999999998,
-      "quote": 0.15000000000000013,
+      "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
-      "reply": 36.0,
+      "reply": 37.0,
       "quote": 9.0,
       "reddit_post": 7.0
     },
-    "iterations": 49
+    "iterations": 50
   }
 }
