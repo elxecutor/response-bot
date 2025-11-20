@@ -787,19 +787,24 @@
       "subreddit": "diyelectronics",
       "tweet_id": "1990996874480718265",
       "posted_at": "2025-11-19T04:13:40.606431"
+    },
+    {
+      "subreddit": "gadgets",
+      "tweet_id": "1991481429469868129",
+      "posted_at": "2025-11-20T12:19:07.495241"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 12.949999999999998,
-      "quote": 0.0,
+      "reply": 13.249999999999998,
+      "quote": 0.15000000000000013,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 36.0,
       "quote": 9.0,
-      "reddit_post": 6.0
+      "reddit_post": 7.0
     },
-    "iterations": 48
+    "iterations": 49
   }
 }
