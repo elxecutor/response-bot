@@ -846,19 +846,24 @@
       "subreddit": "gadgets",
       "tweet_id": "1991481429469868129",
       "posted_at": "2025-11-20T12:19:07.495241"
+    },
+    {
+      "subreddit": "technology",
+      "tweet_id": "1991630055290618294",
+      "posted_at": "2025-11-20T22:09:42.668671"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 14.249999999999998,
-      "quote": 0.0,
+      "reply": 14.549999999999999,
+      "quote": 0.15000000000000013,
       "reddit_post": 0.10000000000000009
     },
     "strategy_counts": {
       "reply": 44.0,
       "quote": 10.0,
-      "reddit_post": 7.0
+      "reddit_post": 8.0
     },
-    "iterations": 58
+    "iterations": 59
   }
 }
