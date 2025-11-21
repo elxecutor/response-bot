@@ -928,19 +928,24 @@
       "subreddit": "pcmasterrace",
       "tweet_id": "1991782423302996008",
       "posted_at": "2025-11-21T08:15:10.003974"
+    },
+    {
+      "subreddit": "diyelectronics",
+      "tweet_id": "1991916748686184866",
+      "posted_at": "2025-11-21T17:08:55.709333"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 16.75,
-      "quote": 0.0,
+      "reply": 17.05,
+      "quote": 0.15000000000000013,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 53.0,
       "quote": 13.0,
-      "reddit_post": 9.0
+      "reddit_post": 10.0
     },
-    "iterations": 72
+    "iterations": 73
   }
 }
