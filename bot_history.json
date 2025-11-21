@@ -857,6 +857,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-21T13:21:38.449445",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1991609684604907900",
+      "user": "librxrian",
+      "replied_at": "2025-11-21T14:10:05.203770",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-21T00:45:23.451320",
@@ -914,15 +920,15 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 15.15,
+      "reply": 15.35,
       "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 52.0,
-      "quote": 11.0,
+      "quote": 12.0,
       "reddit_post": 9.0
     },
-    "iterations": 69
+    "iterations": 70
   }
 }
