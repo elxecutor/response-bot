@@ -845,6 +845,12 @@
       "user": "d4rsh_tw",
       "replied_at": "2025-11-21T07:11:29.404236",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1991831952324964362",
+      "user": "AlbiaHossain",
+      "replied_at": "2025-11-21T12:18:16.230618",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-21T00:45:23.451320",
@@ -903,14 +909,14 @@
   "game_theory": {
     "regret": {
       "reply": 15.15,
-      "quote": 0.15000000000000013,
+      "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
-      "reply": 50.0,
+      "reply": 51.0,
       "quote": 11.0,
       "reddit_post": 9.0
     },
-    "iterations": 67
+    "iterations": 68
   }
 }
