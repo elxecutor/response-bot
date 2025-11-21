@@ -809,6 +809,12 @@
       "user": "tobdan_nika",
       "replied_at": "2025-11-20T23:09:31.891695",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1991556224819814699",
+      "user": "atulit_gaur",
+      "replied_at": "2025-11-21T02:24:21.847161",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-21T00:45:23.451320",
@@ -861,15 +867,15 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 14.549999999999999,
+      "reply": 15.549999999999999,
       "quote": 0.0,
-      "reddit_post": 0.0
+      "reddit_post": 0.10000000000000009
     },
     "strategy_counts": {
       "reply": 45.0,
-      "quote": 10.0,
+      "quote": 11.0,
       "reddit_post": 8.0
     },
-    "iterations": 60
+    "iterations": 61
   }
 }
