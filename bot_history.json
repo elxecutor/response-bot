@@ -869,6 +869,12 @@
       "user": "atulit_gaur",
       "replied_at": "2025-11-21T15:10:00.675599",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1991897519119552986",
+      "user": "santygegen",
+      "replied_at": "2025-11-21T16:12:30.515398",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-21T00:45:23.451320",
@@ -926,15 +932,15 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 15.35,
+      "reply": 16.75,
       "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 53.0,
-      "quote": 12.0,
+      "quote": 13.0,
       "reddit_post": 9.0
     },
-    "iterations": 71
+    "iterations": 72
   }
 }
