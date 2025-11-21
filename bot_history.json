@@ -875,6 +875,12 @@
       "user": "santygegen",
       "replied_at": "2025-11-21T16:12:30.515398",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1991878263971668294",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-11-21T18:14:55.721521",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-21T00:45:23.451320",
@@ -938,14 +944,14 @@
   "game_theory": {
     "regret": {
       "reply": 17.05,
-      "quote": 0.15000000000000013,
+      "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
-      "reply": 53.0,
+      "reply": 54.0,
       "quote": 13.0,
       "reddit_post": 10.0
     },
-    "iterations": 73
+    "iterations": 74
   }
 }
