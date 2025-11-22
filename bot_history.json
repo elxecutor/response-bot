@@ -1029,19 +1029,24 @@
       "subreddit": "diyelectronics",
       "tweet_id": "1991916748686184866",
       "posted_at": "2025-11-21T17:08:55.709333"
+    },
+    {
+      "subreddit": "webdev",
+      "tweet_id": "1992262185750249525",
+      "posted_at": "2025-11-22T16:01:34.332237"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 21.35,
-      "quote": 0.0,
+      "reply": 21.650000000000002,
+      "quote": 0.15000000000000013,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 65.0,
       "quote": 17.0,
-      "reddit_post": 10.0
+      "reddit_post": 11.0
     },
-    "iterations": 89
+    "iterations": 90
   }
 }
