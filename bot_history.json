@@ -947,6 +947,12 @@
       "user": "amritwt",
       "replied_at": "2025-11-22T11:01:15.560041",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1992182691437871281",
+      "user": "rqobela",
+      "replied_at": "2025-11-22T12:14:06.213795",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-22T00:39:21.225016",
@@ -1009,15 +1015,15 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 18.85,
+      "reply": 21.450000000000003,
       "quote": 0.0,
-      "reddit_post": 0.0
+      "reddit_post": 0.10000000000000009
     },
     "strategy_counts": {
       "reply": 63.0,
-      "quote": 15.0,
+      "quote": 16.0,
       "reddit_post": 10.0
     },
-    "iterations": 85
+    "iterations": 86
   }
 }
