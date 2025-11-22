@@ -1040,19 +1040,24 @@
       "subreddit": "webdev",
       "tweet_id": "1992262185750249525",
       "posted_at": "2025-11-22T16:01:34.332237"
+    },
+    {
+      "subreddit": "hardware",
+      "tweet_id": "1992294872598933850",
+      "posted_at": "2025-11-22T18:11:27.474762"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 21.650000000000002,
-      "quote": 0.0,
+      "reply": 21.950000000000003,
+      "quote": 0.15000000000000013,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 66.0,
       "quote": 17.0,
-      "reddit_post": 11.0
+      "reddit_post": 12.0
     },
-    "iterations": 91
+    "iterations": 92
   }
 }
