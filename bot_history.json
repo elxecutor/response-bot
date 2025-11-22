@@ -923,6 +923,12 @@
       "user": "librxrian",
       "replied_at": "2025-11-22T07:01:25.763387",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1992110373517008991",
+      "user": "samirande_",
+      "replied_at": "2025-11-22T08:11:09.707618",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-22T00:39:21.225016",
@@ -986,14 +992,14 @@
   "game_theory": {
     "regret": {
       "reply": 18.85,
-      "quote": 0.09999999999999987,
+      "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
-      "reply": 60.0,
+      "reply": 61.0,
       "quote": 14.0,
       "reddit_post": 10.0
     },
-    "iterations": 81
+    "iterations": 82
   }
 }
