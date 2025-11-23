@@ -1103,6 +1103,12 @@
       "user": "samirande_",
       "replied_at": "2025-11-23T22:01:21.240922",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1992561019512897650",
+      "user": "parveen__tyagi",
+      "replied_at": "2025-11-23T23:17:47.561191",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-23T00:48:31.184556",
@@ -1181,19 +1187,24 @@
       "subreddit": "hardware",
       "tweet_id": "1992503852394852474",
       "posted_at": "2025-11-23T08:01:52.101686"
+    },
+    {
+      "subreddit": "webdev",
+      "tweet_id": "1992719530896867379",
+      "posted_at": "2025-11-23T23:18:54.119782"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 27.45,
+      "reply": 27.75,
       "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
-      "reply": 83.0,
+      "reply": 86.0,
       "quote": 21.0,
-      "reddit_post": 14.0
+      "reddit_post": 15.0
     },
-    "iterations": 115
+    "iterations": 119
   }
 }
