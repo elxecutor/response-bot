@@ -1037,6 +1037,12 @@
       "user": "chesterzelaya",
       "replied_at": "2025-11-23T07:01:42.808729",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1992488898468143260",
+      "user": "chesterzelaya",
+      "replied_at": "2025-11-23T09:08:30.347796",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-23T00:48:31.184556",
@@ -1120,14 +1126,14 @@
   "game_theory": {
     "regret": {
       "reply": 23.750000000000004,
-      "quote": 0.15000000000000013,
+      "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
-      "reply": 75.0,
+      "reply": 76.0,
       "quote": 18.0,
       "reddit_post": 14.0
     },
-    "iterations": 104
+    "iterations": 105
   }
 }
