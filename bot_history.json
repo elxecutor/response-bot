@@ -1110,19 +1110,24 @@
       "subreddit": "diyelectronics",
       "tweet_id": "1992440789054439643",
       "posted_at": "2025-11-23T03:51:16.675667"
+    },
+    {
+      "subreddit": "hardware",
+      "tweet_id": "1992503852394852474",
+      "posted_at": "2025-11-23T08:01:52.101686"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 23.450000000000003,
-      "quote": 0.0,
+      "reply": 23.750000000000004,
+      "quote": 0.15000000000000013,
       "reddit_post": 0.0
     },
     "strategy_counts": {
       "reply": 75.0,
       "quote": 18.0,
-      "reddit_post": 13.0
+      "reddit_post": 14.0
     },
-    "iterations": 103
+    "iterations": 104
   }
 }
