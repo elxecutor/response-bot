@@ -1073,6 +1073,12 @@
       "user": "samirande_",
       "replied_at": "2025-11-23T17:01:26.814357",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1992565512744902948",
+      "user": "atulit_gaur",
+      "replied_at": "2025-11-23T18:11:56.770344",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-23T00:48:31.184556",
@@ -1155,15 +1161,15 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 24.650000000000002,
+      "reply": 27.25,
       "quote": 0.0,
-      "reddit_post": 0.0
+      "reddit_post": 0.10000000000000009
     },
     "strategy_counts": {
       "reply": 80.0,
-      "quote": 19.0,
+      "quote": 20.0,
       "reddit_post": 14.0
     },
-    "iterations": 110
+    "iterations": 111
   }
 }
