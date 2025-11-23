@@ -30,7 +30,6 @@ class GameTheoryEngine:
         self.actions: Tuple[str, ...] = actions or (
             "reply",
             "quote",
-            "reddit_post",
         )
         self.temperature = 1.2  # Softmax sharpness for payoff-based policy
         self.mixing_factor = 0.55  # Blend between regrets and heuristic best response
@@ -83,14 +82,6 @@ class GameTheoryEngine:
             if total_engagement <= 30:
                 payoffs["quote"] -= 0.2  # Quote tweets feel excessive on low-signal posts
 
-        # Independent Reddit-inspired content heuristics
-        if "reddit_post" in payoffs:
-            payoffs["reddit_post"] += 0.2
-            if not has_question and total_engagement < 15:
-                payoffs["reddit_post"] += 0.8  # If nothing compelling, create original content
-            if has_media or has_video:
-                payoffs["reddit_post"] -= 0.3  # Prefer reacting when visuals available
-
         return {action: round(score, 3) for action, score in payoffs.items()}
 
     def select_action(self, payoffs: Optional[Dict[str, float]] = None) -> Tuple[str, Dict[str, float]]:
@@ -126,8 +117,6 @@ class GameTheoryEngine:
             base['reply'] += 0.25
         if 'quote' in base:
             base['quote'] += 0.1
-        if 'reddit_post' in base:
-            base['reddit_post'] -= 0.05
         return base
 
     def update_regret(self, payoffs: Dict[str, float], chosen_action: str) -> None:

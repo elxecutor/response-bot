@@ -305,57 +305,30 @@
       "user": "serialdotai",
       "replied_at": "2025-11-23T23:24:47.903275",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1992675311264362695",
+      "user": "atulit_gaur",
+      "replied_at": "2025-11-23T23:35:26.058963",
+      "action": "reply"
+    },
+    {
+      "tweet_id": "1992439922024914979",
+      "user": "decode_D05",
+      "replied_at": "2025-11-23T23:45:00.037189",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-23T00:48:31.184556",
-  "reddit_posts": [
-    {
-      "subreddit": "pcmasterrace",
-      "tweet_id": "1991782423302996008",
-      "posted_at": "2025-11-21T08:15:10.003974"
-    },
-    {
-      "subreddit": "diyelectronics",
-      "tweet_id": "1991916748686184866",
-      "posted_at": "2025-11-21T17:08:55.709333"
-    },
-    {
-      "subreddit": "webdev",
-      "tweet_id": "1992262185750249525",
-      "posted_at": "2025-11-22T16:01:34.332237"
-    },
-    {
-      "subreddit": "hardware",
-      "tweet_id": "1992294872598933850",
-      "posted_at": "2025-11-22T18:11:27.474762"
-    },
-    {
-      "subreddit": "diyelectronics",
-      "tweet_id": "1992440789054439643",
-      "posted_at": "2025-11-23T03:51:16.675667"
-    },
-    {
-      "subreddit": "hardware",
-      "tweet_id": "1992503852394852474",
-      "posted_at": "2025-11-23T08:01:52.101686"
-    },
-    {
-      "subreddit": "webdev",
-      "tweet_id": "1992719530896867379",
-      "posted_at": "2025-11-23T23:18:54.119782"
-    }
-  ],
   "game_theory": {
     "regret": {
-      "reply": 27.75,
-      "quote": 0.0,
-      "reddit_post": 0.0
+      "reply": 28.25,
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 87.0,
-      "quote": 21.0,
-      "reddit_post": 15.0
+      "reply": 88.0,
+      "quote": 22.0
     },
-    "iterations": 120
+    "iterations": 122
   }
 }

@@ -20,7 +20,6 @@ import time
 import base64
 import json
 import re
-import praw
 
 from game_theory import GameTheoryEngine
 
@@ -47,18 +46,6 @@ bearer_token_write = os.getenv('TWITTER_WRITE_BEARER_TOKEN')
 
 # Gemini API key
 gemini_key = os.getenv('GEMINI_API_KEY')
-
-# Reddit API credentials
-reddit_client_id = os.getenv('REDDIT_CLIENT_ID')
-reddit_client_secret = os.getenv('REDDIT_CLIENT_SECRET')
-reddit_user_agent = os.getenv('REDDIT_USER_AGENT')
-
-# Initialize Reddit instance
-reddit = praw.Reddit(
-    client_id=reddit_client_id,
-    client_secret=reddit_client_secret,
-    user_agent=reddit_user_agent
-)
 
 # JSON file for tracking replied tweets (git-friendly)
 HISTORY_FILE = 'bot_history.json'
@@ -90,7 +77,6 @@ def load_history():
     """Load bot history from JSON file"""
     base_history = {
         'replied_tweets': [],
-        'reddit_posts': [],
         'game_theory': {
             'regret': {},
             'strategy_counts': {},
@@ -106,7 +92,6 @@ def load_history():
             return base_history
         if isinstance(data, dict):
             data.setdefault('replied_tweets', [])
-            data.setdefault('reddit_posts', [])
             data.setdefault('game_theory', {
                 'regret': {},
                 'strategy_counts': {},
@@ -137,16 +122,8 @@ def clean_old_history():
     ]
     new_replied_count = len(history['replied_tweets'])
     
-    # Filter reddit_posts
-    original_reddit_count = len(history.get('reddit_posts', []))
-    history['reddit_posts'] = [
-        entry for entry in history.get('reddit_posts', [])
-        if datetime.fromisoformat(entry['posted_at']) > cutoff_date
-    ]
-    new_reddit_count = len(history['reddit_posts'])
-    
     save_history(history)
-    print(f"Cleaned history: replied_tweets {original_replied_count} -> {new_replied_count}, reddit_posts {original_reddit_count} -> {new_reddit_count}")
+    print(f"Cleaned history: replied_tweets {original_replied_count} -> {new_replied_count}")
 
 def has_replied_to_tweet(tweet_id):
     """Check if we've already replied to this tweet"""
@@ -273,29 +250,6 @@ def analyze_tweet_media(media_urls, max_images=MAX_MEDIA_ANALYSIS_IMAGES):
     except Exception as e:
         print(f"Error analyzing tweet media: {e}")
         return None
-
-def get_last_reddit_subreddit():
-    """Return the subreddit used for the most recent Reddit-inspired post"""
-    history = load_history()
-    reddit_posts = history.get('reddit_posts', [])
-    if reddit_posts:
-        return reddit_posts[-1].get('subreddit')
-    return None
-
-def record_reddit_post(subreddit, tweet_id=None):
-    """Persist metadata about a Reddit-inspired tweet"""
-    if not subreddit:
-        return
-    history = load_history()
-    reddit_posts = history.get('reddit_posts', [])
-    reddit_posts.append({
-        'subreddit': subreddit,
-        'tweet_id': tweet_id,
-        'posted_at': datetime.now().isoformat()
-    })
-    # Keep the history bounded to avoid unbounded growth
-    history['reddit_posts'] = reddit_posts[-200:]
-    save_history(history)
 
 # Headers for the request (mimicking a browser to avoid blocks)
 headers = {
@@ -778,180 +732,6 @@ Write the summary:"""
     except Exception as e:
         print(f"Error in post_daily_summary: {e}")
 
-def fetch_reddit_posts(subreddits, limit=5, exclude_subreddit=None):
-    """
-    Fetch recent posts from specified subreddits while avoiding the last-used subreddit
-    Returns list of post dictionaries with title, selftext, url, etc.
-    """
-    posts = []
-    try:
-        normalized_exclude = exclude_subreddit.lower() if exclude_subreddit else None
-        candidate_subreddits = [s for s in subreddits if not normalized_exclude or s.lower() != normalized_exclude]
-        if not candidate_subreddits:
-            candidate_subreddits = subreddits[:]
-        selected_subreddit = random.choice(candidate_subreddits)
-        if exclude_subreddit and normalized_exclude and selected_subreddit.lower() == normalized_exclude:
-            print(f"⚠️ Only one subreddit available; reusing r/{selected_subreddit}.")
-        else:
-            if exclude_subreddit:
-                print(f"🚫 Avoiding consecutive posts from r/{exclude_subreddit}.")
-        print(f"🔍 Fetching from randomly selected r/{selected_subreddit}...")
-        
-        subreddit = reddit.subreddit(selected_subreddit)
-        max_posts = max(1, limit)
-        
-        # Get hot posts and collect non-stickied ones
-        for post in subreddit.hot(limit=10):  # Fetch more to account for stickied posts
-            if post.stickied:
-                continue
-
-            # Fetch top comments for more context
-            post.comments.replace_more(limit=0)
-            top_comments = []
-            for comment in post.comments[:3]:
-                if hasattr(comment, 'body') and comment.body:
-                    top_comments.append(comment.body[:200])
-
-            posts.append({
-                'title': post.title,
-                'selftext': post.selftext,
-                'url': post.url,
-                'subreddit': selected_subreddit,
-                'score': post.score,
-                'num_comments': post.num_comments,
-                'created_utc': post.created_utc,
-                'id': post.id,
-                'comments': top_comments
-            })
-
-            if len(posts) >= max_posts:
-                break
-        
-        print(f"✓ Fetched {len(posts)} post from r/{selected_subreddit}")
-        return posts
-    
-    except Exception as e:
-        print(f"Error fetching Reddit posts: {e}")
-        return []
-
-def generate_reddit_post(reddit_posts):
-    """
-    Generate an independent Twitter post inspired by Reddit content
-    Creates original content based on trending topics from tech subreddits
-    """
-    if not reddit_posts:
-        return None
-    
-    # Select a random post to base our content on
-    selected_post = random.choice(reddit_posts)
-    
-    # Use Gemini to generate an original post inspired by the Reddit content
-    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
-    
-    prompt = f"""Create a tweetable insight from this Reddit discussion. Return ONLY the tweet text, nothing else.
-
-Reddit Post: {selected_post['title']}
-{selected_post['selftext'][:200] if selected_post['selftext'] else ''}
-
-Top Comments:
-{chr(10).join(f"- {comment}" for comment in selected_post.get('comments', [])[:3])}
-
-Write one sharp, practical observation from this discussion (under 280 chars, no emojis, no hashtags):"""
-
-    data = {
-        "contents": [{
-            "parts": [{"text": prompt}]
-        }],
-        "tools": [{"google_search": {}}]
-    }
-    
-    try:
-        response = requests.post(gemini_url, json=data)
-        if response.status_code == 200:
-            result = response.json()
-            tweet_text = result['candidates'][0]['content']['parts'][0]['text'].strip()
-            
-            # Clean up the response
-            tweet_text = tweet_text.strip('"\'')
-            
-            # Remove any markdown formatting
-            tweet_text = re.sub(r'\*([^*]+)\*', r'\1', tweet_text)  # Remove *bold*
-            tweet_text = re.sub(r'_([^_]+)_', r'\1', tweet_text)    # Remove _italic_
-            tweet_text = re.sub(r'`([^`]+)`', r'\1', tweet_text)    # Remove `code`
-            
-            # Remove emojis
-            tweet_text = re.sub(r'[^\x00-\x7F]+', '', tweet_text)
-            
-            # Remove hashtags (replace with plain text)
-            tweet_text = re.sub(r'#(\w+)', r'\1', tweet_text)
-            
-            # Ensure length is within limits
-            if len(tweet_text) > 280:
-                tweet_text = tweet_text[:277] + "..."
-            
-            print(f"\n{'='*60}")
-            print(f"Generated Reddit-Inspired Post:")
-            print(f"{tweet_text}")
-            print(f"Length: {len(tweet_text)} chars")
-            print(f"Inspired by r/{selected_post['subreddit']}: {selected_post['title'][:50]}...")
-            print(f"{'='*60}\n")
-            
-            return tweet_text
-        else:
-            print(f"Error generating Reddit post: {response.status_code} {response.text}")
-            return None
-    except Exception as e:
-        print(f"Exception in generate_reddit_post: {e}")
-        return None
-
-def post_reddit_inspired_tweet():
-    """
-    Main function to create and post an independent tweet inspired by Reddit content
-    """
-    # Target subreddits for tech/engineering content
-    subreddits = [
-        'diyelectronics',
-        'hardware', 'gadgets', 'buildapc', 'battlestations', 'RASPBERRY_PI',
-        'programming', 'learnprogramming', 'software', 'linux', 'webdev',
-        'technology', 'Futurology', 'pcmasterrace'
-    ]
-    
-    last_subreddit = get_last_reddit_subreddit()
-    if last_subreddit:
-        print(f"⏪ Last Reddit-inspired tweet came from r/{last_subreddit}.")
-
-    print("🔍 Fetching content from tech subreddits...")
-    reddit_posts = fetch_reddit_posts(subreddits, exclude_subreddit=last_subreddit)
-    
-    if reddit_posts:
-        tweet_text = generate_reddit_post(reddit_posts)
-        
-        if tweet_text:
-            try:
-                client = tweepy.Client(
-                    bearer_token=bearer_token_write,
-                    consumer_key=api_key,
-                    consumer_secret=api_secret,
-                    access_token=access_token,
-                    access_token_secret=access_token_secret
-                )
-                
-                response = client.create_tweet(text=tweet_text)
-                print(f"✓ Successfully posted Reddit-inspired tweet!")
-                print(f"  Tweet ID: {response.data['id']}")
-                record_reddit_post(reddit_posts[0].get('subreddit'), response.data.get('id'))
-                return True
-                
-            except Exception as e:
-                print(f"✗ Error posting tweet: {e}")
-                return False
-        else:
-            print("✗ Failed to generate tweet content")
-            return False
-    else:
-        print("✗ No Reddit posts fetched")
-        return False
-
 if __name__ == "__main__":
     print("\n" + "="*60)
     print("Twitter Bot - Algorithm-Optimized Version")
@@ -973,7 +753,7 @@ if __name__ == "__main__":
             print(f"   {action.capitalize()}s: {count}")
     print()
 
-    game_engine = GameTheoryEngine(load_history, save_history)
+    game_engine = GameTheoryEngine(load_history, save_history, actions=("reply", "quote"))
     print("🎮 Game-theory regrets:")
     for action_name, value in game_engine.diagnostics().items():
         print(f"   {action_name}: {value}")
@@ -996,62 +776,54 @@ if __name__ == "__main__":
             print(f"   • {action_name:<12} base_payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
         print()
 
-        if action == 'reddit_post':
-            success = post_reddit_inspired_tweet()
-            if success:
-                game_engine.update_regret(baseline_payoffs, action)
-            else:
-                print("⚠️ Reddit-inspired post failed - applying regret penalty")
-                game_engine.penalize_failure(action)
+        print("Fetching home timeline...")
+        tweets = fetch_home_timeline()
+        print(f"✓ Fetched {len(tweets)} tweets\n")
+
+        if not tweets:
+            print("✗ No tweets fetched")
+            game_engine.penalize_failure(action)
         else:
-            print("Fetching home timeline...")
-            tweets = fetch_home_timeline()
-            print(f"✓ Fetched {len(tweets)} tweets\n")
+            selected_tweet = select_optimal_tweet(tweets)
 
-            if not tweets:
-                print("✗ No tweets fetched")
+            if not selected_tweet:
+                print("No suitable tweet selected")
                 game_engine.penalize_failure(action)
             else:
-                selected_tweet = select_optimal_tweet(tweets)
+                print(f"{'='*60}")
+                print(f"SELECTED TWEET")
+                print(f"{'='*60}")
+                print(f"User: @{selected_tweet['user']}")
+                print(f"Text: {selected_tweet['text']}")
+                print(f"Engagement: {selected_tweet['engagement']}")
+                print(f"Has Media: {selected_tweet['has_media']}")
+                print(f"Has Question: {selected_tweet['has_question']}")
+                print(f"{'='*60}\n")
 
-                if not selected_tweet:
-                    print("No suitable tweet selected")
-                    game_engine.penalize_failure(action)
+                payoffs = game_engine.estimate_payoffs(selected_tweet)
+                distribution = game_engine.mixed_strategy(payoffs)
+
+                print(f"📊 ACTION (game-theory mixed strategy): {action.upper()}")
+                for action_name in game_engine.actions:
+                    payoff_val = payoffs.get(action_name, 0.0)
+                    weight_val = distribution.get(action_name, 0.0)
+                    marker = "<" if action_name == action else " "
+                    print(f"{marker}  {action_name:<11} payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
+                print()
+
+                success = False
+                if action == 'reply':
+                    reply = generate_reply(selected_tweet['text'], selected_tweet)
+                    success = reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
+                elif action == 'quote':
+                    quote = generate_quote(selected_tweet['text'], selected_tweet)
+                    success = quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
+
+                if success:
+                    game_engine.update_regret(payoffs, action)
                 else:
-                    print(f"{'='*60}")
-                    print(f"SELECTED TWEET")
-                    print(f"{'='*60}")
-                    print(f"User: @{selected_tweet['user']}")
-                    print(f"Text: {selected_tweet['text']}")
-                    print(f"Engagement: {selected_tweet['engagement']}")
-                    print(f"Has Media: {selected_tweet['has_media']}")
-                    print(f"Has Question: {selected_tweet['has_question']}")
-                    print(f"{'='*60}\n")
-
-                    payoffs = game_engine.estimate_payoffs(selected_tweet)
-                    distribution = game_engine.mixed_strategy(payoffs)
-
-                    print(f"📊 ACTION (game-theory mixed strategy): {action.upper()}")
-                    for action_name in game_engine.actions:
-                        payoff_val = payoffs.get(action_name, 0.0)
-                        weight_val = distribution.get(action_name, 0.0)
-                        marker = "<" if action_name == action else " "
-                        print(f"{marker}  {action_name:<11} payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
-                    print()
-
-                    success = False
-                    if action == 'reply':
-                        reply = generate_reply(selected_tweet['text'], selected_tweet)
-                        success = reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
-                    elif action == 'quote':
-                        quote = generate_quote(selected_tweet['text'], selected_tweet)
-                        success = quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
-
-                    if success:
-                        game_engine.update_regret(payoffs, action)
-                    else:
-                        print(f"⚠️ Action {action} failed - applying regret penalty")
-                        game_engine.penalize_failure(action)
+                    print(f"⚠️ Action {action} failed - applying regret penalty")
+                    game_engine.penalize_failure(action)
     
     print("\n" + "="*60)
     print("Bot execution complete")
