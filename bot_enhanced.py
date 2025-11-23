@@ -124,6 +124,30 @@ def save_history(history):
     except IOError as e:
         print(f"Error saving history: {e}")
 
+def clean_old_history():
+    """Clean history entries older than 3 days"""
+    history = load_history()
+    cutoff_date = datetime.now() - timedelta(days=3)
+    
+    # Filter replied_tweets
+    original_replied_count = len(history.get('replied_tweets', []))
+    history['replied_tweets'] = [
+        entry for entry in history.get('replied_tweets', [])
+        if datetime.fromisoformat(entry['replied_at']) > cutoff_date
+    ]
+    new_replied_count = len(history['replied_tweets'])
+    
+    # Filter reddit_posts
+    original_reddit_count = len(history.get('reddit_posts', []))
+    history['reddit_posts'] = [
+        entry for entry in history.get('reddit_posts', [])
+        if datetime.fromisoformat(entry['posted_at']) > cutoff_date
+    ]
+    new_reddit_count = len(history['reddit_posts'])
+    
+    save_history(history)
+    print(f"Cleaned history: replied_tweets {original_replied_count} -> {new_replied_count}, reddit_posts {original_reddit_count} -> {new_reddit_count}")
+
 def has_replied_to_tweet(tweet_id):
     """Check if we've already replied to this tweet"""
     history = load_history()
