@@ -323,18 +323,24 @@
       "user": "atulit_gaur",
       "replied_at": "2025-11-23T23:45:48.619478",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1992624275329601756",
+      "user": "elonmusk",
+      "replied_at": "2025-11-23T23:01:29.958821",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-23T00:48:31.184556",
   "game_theory": {
     "regret": {
-      "reply": 28.25,
+      "reply": 29.15,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 89.0,
-      "quote": 22.0
+      "quote": 23.0
     },
-    "iterations": 123
+    "iterations": 124
   }
 }
