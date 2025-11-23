@@ -1013,6 +1013,12 @@
       "user": "birdabo",
       "replied_at": "2025-11-23T02:50:46.717556",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1992284821381620083",
+      "user": "amritwt",
+      "replied_at": "2025-11-23T04:23:21.561156",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-23T00:48:31.184556",
@@ -1091,14 +1097,14 @@
   "game_theory": {
     "regret": {
       "reply": 23.450000000000003,
-      "quote": 0.15000000000000013,
+      "quote": 0.0,
       "reddit_post": 0.0
     },
     "strategy_counts": {
-      "reply": 71.0,
+      "reply": 72.0,
       "quote": 18.0,
       "reddit_post": 13.0
     },
-    "iterations": 99
+    "iterations": 100
   }
 }
