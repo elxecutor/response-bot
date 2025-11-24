@@ -401,18 +401,24 @@
       "user": "elonmusk",
       "replied_at": "2025-11-24T21:01:38.576574",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1993065138736517339",
+      "user": "librxrian",
+      "replied_at": "2025-11-24T22:01:35.851918",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-24T00:45:12.016527",
   "game_theory": {
     "regret": {
-      "reply": 29.899999999999988,
+      "reply": 32.499999999999986,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 98.0,
-      "quote": 26.0
+      "quote": 27.0
     },
-    "iterations": 136
+    "iterations": 137
   }
 }
