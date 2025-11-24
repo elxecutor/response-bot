@@ -335,18 +335,24 @@
       "user": "birdabo",
       "replied_at": "2025-11-24T02:45:54.051943",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1992678914687476133",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-11-24T03:50:21.639551",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-24T00:45:12.016527",
   "game_theory": {
     "regret": {
-      "reply": 29.15,
+      "reply": 30.15,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 90.0,
-      "quote": 23.0
+      "quote": 24.0
     },
-    "iterations": 125
+    "iterations": 126
   }
 }
