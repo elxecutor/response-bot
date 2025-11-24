@@ -377,18 +377,24 @@
       "user": "AlbiaHossain",
       "replied_at": "2025-11-24T17:01:44.505151",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1992933024955301893",
+      "user": "CodeByNZ",
+      "replied_at": "2025-11-24T18:14:20.203001",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-24T00:45:12.016527",
   "game_theory": {
     "regret": {
-      "reply": 29.099999999999987,
+      "reply": 29.899999999999988,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 95.0,
-      "quote": 25.0
+      "quote": 26.0
     },
-    "iterations": 132
+    "iterations": 133
   }
 }
