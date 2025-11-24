@@ -407,18 +407,24 @@
       "user": "librxrian",
       "replied_at": "2025-11-24T22:01:35.851918",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1993076857097654726",
+      "user": "librxrian",
+      "replied_at": "2025-11-24T23:01:32.281533",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-24T00:45:12.016527",
   "game_theory": {
     "regret": {
       "reply": 32.499999999999986,
-      "quote": 0.0
+      "quote": 0.09999999999999987
     },
     "strategy_counts": {
-      "reply": 98.0,
+      "reply": 99.0,
       "quote": 27.0
     },
-    "iterations": 137
+    "iterations": 138
   }
 }
