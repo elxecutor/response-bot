@@ -371,18 +371,24 @@
       "user": "rqobela",
       "replied_at": "2025-11-24T16:02:02.095673",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1992847303942820200",
+      "user": "AlbiaHossain",
+      "replied_at": "2025-11-24T17:01:44.505151",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-24T00:45:12.016527",
   "game_theory": {
     "regret": {
-      "reply": 27.69999999999999,
+      "reply": 29.099999999999987,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 95.0,
-      "quote": 24.0
+      "quote": 25.0
     },
-    "iterations": 131
+    "iterations": 132
   }
 }
