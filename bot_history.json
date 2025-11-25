@@ -443,18 +443,24 @@
       "user": "AlbiaHossain",
       "replied_at": "2025-11-25T06:15:15.962355",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1993130228806566072",
+      "user": "elonmusk",
+      "replied_at": "2025-11-25T07:10:57.834999",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-25T00:40:47.976040",
   "game_theory": {
     "regret": {
       "reply": 32.499999999999986,
-      "quote": 0.0
+      "quote": 0.09999999999999987
     },
     "strategy_counts": {
-      "reply": 104.0,
+      "reply": 105.0,
       "quote": 27.0
     },
-    "iterations": 143
+    "iterations": 144
   }
 }
