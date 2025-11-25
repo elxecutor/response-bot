@@ -503,18 +503,24 @@
       "user": "nalinrajput23",
       "replied_at": "2025-11-25T16:11:58.374413",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1993296359638671806",
+      "user": "nalinrajput23",
+      "replied_at": "2025-11-25T17:11:02.469318",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-25T00:40:47.976040",
   "game_theory": {
     "regret": {
-      "reply": 35.29999999999999,
+      "reply": 36.69999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 112.0,
-      "quote": 29.0
+      "quote": 30.0
     },
-    "iterations": 153
+    "iterations": 154
   }
 }
