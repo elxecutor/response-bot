@@ -449,18 +449,24 @@
       "user": "elonmusk",
       "replied_at": "2025-11-25T07:10:57.834999",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1993098363630502086",
+      "user": "serialdotai",
+      "replied_at": "2025-11-25T08:14:03.525601",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-11-25T00:40:47.976040",
   "game_theory": {
     "regret": {
       "reply": 32.499999999999986,
-      "quote": 0.09999999999999987
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 105.0,
+      "reply": 106.0,
       "quote": 27.0
     },
-    "iterations": 144
+    "iterations": 145
   }
 }
