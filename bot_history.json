@@ -647,18 +647,24 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-11-26T21:01:33.276387",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1993711595097358739",
+      "user": "nalinrajput23",
+      "replied_at": "2025-11-26T22:01:32.308998",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-26T00:42:09.964745",
   "game_theory": {
     "regret": {
-      "reply": 40.19999999999999,
+      "reply": 41.79999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 133.0,
-      "quote": 32.0
+      "quote": 33.0
     },
-    "iterations": 177
+    "iterations": 178
   }
 }
