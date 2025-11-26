@@ -587,18 +587,24 @@
       "user": "amritwt",
       "replied_at": "2025-11-26T08:13:37.152562",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1993568907849048484",
+      "user": "atulit_gaur",
+      "replied_at": "2025-11-26T09:11:39.630699",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-26T00:42:09.964745",
   "game_theory": {
     "regret": {
-      "reply": 36.69999999999999,
+      "reply": 38.29999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 125.0,
-      "quote": 30.0
+      "quote": 31.0
     },
-    "iterations": 167
+    "iterations": 168
   }
 }
