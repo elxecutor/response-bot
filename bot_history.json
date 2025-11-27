@@ -725,18 +725,24 @@
       "user": "0x45o",
       "replied_at": "2025-11-27T13:24:30.997997",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1994031926274085149",
+      "user": "atulit_gaur",
+      "replied_at": "2025-11-27T14:01:28.858148",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-27T00:41:21.069874",
   "game_theory": {
     "regret": {
-      "reply": 42.54999999999999,
+      "reply": 45.14999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 144.0,
-      "quote": 34.0
+      "quote": 35.0
     },
-    "iterations": 190
+    "iterations": 191
   }
 }
