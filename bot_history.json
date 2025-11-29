@@ -929,18 +929,24 @@
       "user": "haydendevs",
       "replied_at": "2025-11-29T04:11:39.215866",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1994497694824632383",
+      "user": "sadkatwt",
+      "replied_at": "2025-11-29T05:01:45.874718",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-29T00:40:42.798389",
   "game_theory": {
     "regret": {
-      "reply": 54.44999999999999,
+      "reply": 55.44999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 170.0,
-      "quote": 42.0
+      "quote": 43.0
     },
-    "iterations": 224
+    "iterations": 225
   }
 }
