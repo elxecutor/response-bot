@@ -965,18 +965,24 @@
       "user": "damnGruz",
       "replied_at": "2025-11-29T10:01:33.507634",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1994661945220501957",
+      "user": "sadkatwt",
+      "replied_at": "2025-11-29T11:01:21.064222",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-29T00:40:42.798389",
   "game_theory": {
     "regret": {
-      "reply": 55.44999999999999,
+      "reply": 56.44999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 175.0,
-      "quote": 43.0
+      "quote": 44.0
     },
-    "iterations": 230
+    "iterations": 231
   }
 }
