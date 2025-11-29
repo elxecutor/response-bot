@@ -1025,18 +1025,24 @@
       "user": "sadkatwt",
       "replied_at": "2025-11-29T20:01:43.819486",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1994732574418374712",
+      "user": "samirande_",
+      "replied_at": "2025-11-29T21:01:21.049759",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-29T00:40:42.798389",
   "game_theory": {
     "regret": {
-      "reply": 59.04999999999999,
+      "reply": 60.64999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 182.0,
-      "quote": 46.0
+      "quote": 47.0
     },
-    "iterations": 240
+    "iterations": 241
   }
 }
