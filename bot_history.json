@@ -1019,18 +1019,24 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-11-29T19:01:21.596697",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1994777604134682883",
+      "user": "sadkatwt",
+      "replied_at": "2025-11-29T20:01:43.819486",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-29T00:40:42.798389",
   "game_theory": {
     "regret": {
-      "reply": 58.04999999999999,
+      "reply": 59.04999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 182.0,
-      "quote": 45.0
+      "quote": 46.0
     },
-    "iterations": 239
+    "iterations": 240
   }
 }
