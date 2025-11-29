@@ -971,18 +971,24 @@
       "user": "sadkatwt",
       "replied_at": "2025-11-29T11:01:21.064222",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1994728074194423997",
+      "user": "samirande_",
+      "replied_at": "2025-11-29T12:15:09.358325",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-29T00:40:42.798389",
   "game_theory": {
     "regret": {
-      "reply": 56.44999999999999,
+      "reply": 58.04999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 175.0,
-      "quote": 44.0
+      "quote": 45.0
     },
-    "iterations": 231
+    "iterations": 232
   }
 }
