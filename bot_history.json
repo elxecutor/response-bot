@@ -1091,18 +1091,24 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-11-30T10:01:41.324159",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1994972886940176701",
+      "user": "atulit_gaur",
+      "replied_at": "2025-11-30T11:01:19.382615",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-30T00:48:12.388633",
   "game_theory": {
     "regret": {
-      "reply": 61.69999999999999,
+      "reply": 64.29999999999998,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 191.0,
-      "quote": 48.0
+      "quote": 49.0
     },
-    "iterations": 251
+    "iterations": 252
   }
 }
