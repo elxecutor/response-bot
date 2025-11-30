@@ -1073,18 +1073,24 @@
       "user": "serialdotai",
       "replied_at": "2025-11-30T07:01:19.983367",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1994999581680210038",
+      "user": "nalinrajput23",
+      "replied_at": "2025-11-30T08:11:11.679594",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-30T00:48:12.388633",
   "game_theory": {
     "regret": {
-      "reply": 60.29999999999999,
+      "reply": 61.69999999999999,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 189.0,
-      "quote": 47.0
+      "quote": 48.0
     },
-    "iterations": 248
+    "iterations": 249
   }
 }
