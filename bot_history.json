@@ -1097,18 +1097,24 @@
       "user": "atulit_gaur",
       "replied_at": "2025-11-30T11:01:19.382615",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1995001831169360115",
+      "user": "thealokverse",
+      "replied_at": "2025-11-30T12:15:02.212667",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-11-30T00:48:12.388633",
   "game_theory": {
     "regret": {
-      "reply": 64.29999999999998,
+      "reply": 65.29999999999998,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 191.0,
-      "quote": 49.0
+      "quote": 50.0
     },
-    "iterations": 252
+    "iterations": 253
   }
 }
