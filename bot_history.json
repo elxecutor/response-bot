@@ -1223,18 +1223,24 @@
       "user": "atulit_gaur",
       "replied_at": "2025-12-01T12:17:51.327716",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1995455338112581805",
+      "user": "rqobela",
+      "replied_at": "2025-12-01T13:28:07.174519",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-01T00:53:27.348252",
   "game_theory": {
     "regret": {
-      "reply": 70.15,
+      "reply": 72.55000000000001,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 208.0,
-      "quote": 53.0
+      "quote": 54.0
     },
-    "iterations": 273
+    "iterations": 274
   }
 }
