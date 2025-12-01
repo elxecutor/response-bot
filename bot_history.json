@@ -1253,18 +1253,24 @@
       "user": "nalinrajput23",
       "replied_at": "2025-12-01T17:11:42.403537",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1995471782652899651",
+      "user": "yougotvansh",
+      "replied_at": "2025-12-01T18:14:49.024723",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-01T00:53:27.348252",
   "game_theory": {
     "regret": {
-      "reply": 74.15,
+      "reply": 75.75,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 211.0,
-      "quote": 55.0
+      "quote": 56.0
     },
-    "iterations": 278
+    "iterations": 279
   }
 }
