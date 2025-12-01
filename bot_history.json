@@ -1175,18 +1175,24 @@
       "user": "djcows",
       "replied_at": "2025-12-01T04:39:50.707944",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1995353735527362771",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-12-01T05:19:15.846290",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-01T00:53:27.348252",
   "game_theory": {
     "regret": {
-      "reply": 66.35,
+      "reply": 67.75,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 202.0,
-      "quote": 51.0
+      "quote": 52.0
     },
-    "iterations": 265
+    "iterations": 266
   }
 }
