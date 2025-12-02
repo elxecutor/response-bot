@@ -1307,18 +1307,24 @@
       "user": "santygegen",
       "replied_at": "2025-12-02T04:19:46.800067",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1995573713295868324",
+      "user": "chesterzelaya",
+      "replied_at": "2025-12-02T05:10:10.342958",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-02T00:43:26.698614",
   "game_theory": {
     "regret": {
-      "reply": 78.35,
+      "reply": 79.35,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 218.0,
-      "quote": 57.0
+      "quote": 58.0
     },
-    "iterations": 287
+    "iterations": 288
   }
 }
