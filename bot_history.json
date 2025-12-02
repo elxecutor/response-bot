@@ -1289,18 +1289,24 @@
       "user": "birdabo",
       "replied_at": "2025-12-01T23:01:31.450281",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1995578044942352471",
+      "user": "chesterzelaya",
+      "replied_at": "2025-12-02T02:28:45.227450",
+      "action": "reply"
     }
   ],
   "last_summary_date": "2025-12-02T00:43:26.698614",
   "game_theory": {
     "regret": {
       "reply": 78.35,
-      "quote": 0.0
+      "quote": 0.09999999999999987
     },
     "strategy_counts": {
-      "reply": 215.0,
+      "reply": 216.0,
       "quote": 57.0
     },
-    "iterations": 284
+    "iterations": 285
   }
 }
