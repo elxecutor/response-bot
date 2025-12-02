@@ -1337,18 +1337,24 @@
       "user": "samirande_",
       "replied_at": "2025-12-02T09:14:46.495597",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1995780638558093714",
+      "user": "samirande_",
+      "replied_at": "2025-12-02T10:01:49.573906",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-02T00:43:26.698614",
   "game_theory": {
     "regret": {
-      "reply": 79.35,
+      "reply": 80.75,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 222.0,
-      "quote": 58.0
+      "quote": 59.0
     },
-    "iterations": 292
+    "iterations": 293
   }
 }
