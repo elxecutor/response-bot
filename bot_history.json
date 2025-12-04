@@ -1613,18 +1613,24 @@
       "user": "nalinrajput23",
       "replied_at": "2025-12-04T12:18:18.359888",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1996560855249633316",
+      "user": "samirande_",
+      "replied_at": "2025-12-04T13:28:29.799301",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-04T00:43:16.059930",
   "game_theory": {
     "regret": {
-      "reply": 96.14999999999998,
+      "reply": 97.14999999999998,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 256.0,
-      "quote": 70.0
+      "quote": 71.0
     },
-    "iterations": 338
+    "iterations": 339
   }
 }
