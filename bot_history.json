@@ -1643,18 +1643,24 @@
       "user": "nalinrajput23",
       "replied_at": "2025-12-04T17:13:07.148445",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1996540736699842576",
+      "user": "rqobela",
+      "replied_at": "2025-12-04T18:15:04.916809",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-04T00:43:16.059930",
   "game_theory": {
     "regret": {
-      "reply": 97.14999999999998,
+      "reply": 98.64999999999998,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 260.0,
-      "quote": 71.0
+      "quote": 72.0
     },
-    "iterations": 343
+    "iterations": 344
   }
 }
