@@ -1769,18 +1769,24 @@
       "user": "0x45o",
       "replied_at": "2025-12-05T16:11:24.337749",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1996888352566775826",
+      "user": "thealokverse",
+      "replied_at": "2025-12-05T17:09:49.813263",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-05T00:43:28.472274",
   "game_theory": {
     "regret": {
-      "reply": 100.24999999999997,
+      "reply": 101.84999999999997,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 279.0,
-      "quote": 73.0
+      "quote": 74.0
     },
-    "iterations": 364
+    "iterations": 365
   }
 }
