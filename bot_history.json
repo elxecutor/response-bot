@@ -1811,18 +1811,24 @@
       "user": "sadkatwt",
       "replied_at": "2025-12-05T23:01:25.010858",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1996900517688365309",
+      "user": "forloopcodes",
+      "replied_at": "2025-12-06T02:22:44.528108",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-06T00:41:02.982557",
   "game_theory": {
     "regret": {
-      "reply": 101.84999999999997,
+      "reply": 102.64999999999996,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 285.0,
-      "quote": 74.0
+      "quote": 75.0
     },
-    "iterations": 371
+    "iterations": 372
   }
 }
