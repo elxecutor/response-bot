@@ -1883,18 +1883,24 @@
       "user": "AlbiaHossain",
       "replied_at": "2025-12-06T13:18:35.832837",
       "action": "quote"
+    },
+    {
+      "tweet_id": "1997297851110666721",
+      "user": "nalinrajput23",
+      "replied_at": "2025-12-06T14:01:22.801624",
+      "action": "quote"
     }
   ],
   "last_summary_date": "2025-12-06T00:41:02.982557",
   "game_theory": {
     "regret": {
-      "reply": 104.24999999999996,
+      "reply": 106.84999999999995,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 295.0,
-      "quote": 76.0
+      "quote": 77.0
     },
-    "iterations": 383
+    "iterations": 384
   }
 }
