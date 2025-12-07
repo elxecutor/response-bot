@@ -1943,17 +1943,23 @@
       "user": "sadkatwt",
       "replied_at": "2025-12-06T23:01:14.610958",
       "action": "reply"
+    },
+    {
+      "tweet_id": "1997597086288900502",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-12-07T10:01:08.346890",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 106.84999999999995,
+      "reply": 109.44999999999995,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 304.0,
-      "quote": 77.0
+      "quote": 78.0
     },
-    "iterations": 393
+    "iterations": 394
   }
 }
