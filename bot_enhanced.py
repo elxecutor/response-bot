@@ -144,22 +144,6 @@ def mark_tweet_as_replied(tweet_id, user, action):
         })
         save_history(history)
 
-def has_posted_summary_today():
-    """Check if we've already posted the daily summary today"""
-    history = load_history()
-    last_summary = history.get('last_summary_date')
-    if last_summary:
-        last_date = datetime.fromisoformat(last_summary).date()
-        today = datetime.now().date()
-        return last_date == today
-    return False
-
-def mark_summary_posted():
-    """Mark that the daily summary has been posted today"""
-    history = load_history()
-    history['last_summary_date'] = datetime.now().isoformat()
-    save_history(history)
-
 def get_reply_stats():
     """Get statistics on bot activity"""
     history = load_history()
@@ -664,74 +648,6 @@ def quote_tweet(tweet_id, quote_text, user):
         print(f"✗ Error quote tweeting: {e}")
         return False
 
-def post_daily_summary():
-    """Post daily dev log summary to community"""
-    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-    url = f"https://api.github.com/repos/elxecutor/dev-log/contents/summaries/{yesterday}.md"
-
-    try:
-        response = requests.get(url, timeout=10)
-        if response.status_code != 200:
-            print(f"Failed to fetch summary for {yesterday}")
-            return
-        
-        data = response.json()
-        content = base64.b64decode(data['content']).decode('utf-8')
-        
-        # Generate summary with Gemini - optimized for algorithm
-        gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
-        prompt = f"""Create a plain summary of this dev log.
-
-Write a straightforward summary that lists key accomplishments and progress. Use simple, factual language.
-
-FORMAT REQUIREMENTS:
-- Total length: 150-250 characters
-- Use plain text only - no emojis, no hashtags
-- Include specific numbers/stats when available
-- Keep it factual and unexciting
-
-Dev log content:
-{content}
-
-Write the summary:"""
-
-        gemini_data = {
-            "contents": [{
-                "parts": [{"text": prompt}]
-            }]
-        }
-        
-        gemini_response = requests.post(gemini_url, json=gemini_data)
-        if gemini_response.status_code != 200:
-            print("Failed to generate summary")
-            return
-        
-        summary = gemini_response.json()['candidates'][0]['content']['parts'][0]['text'].strip()
-        
-        # Ensure it's within Twitter limits
-        if len(summary) > 280:
-            summary = summary[:277] + "..."
-        
-        # Post to community
-        client = tweepy.Client(
-            bearer_token=bearer_token_write,
-            consumer_key=api_key,
-            consumer_secret=api_secret,
-            access_token=access_token,
-            access_token_secret=access_token_secret
-        )
-        
-        community_id = "1966214267428024753"
-        
-        print(f"\nPosting to community: {summary}\n")
-        
-        client.create_tweet(text=summary, community_id=community_id)
-        mark_summary_posted()
-        print(f"✓ Posted daily summary to community")
-        
-    except Exception as e:
-        print(f"Error in post_daily_summary: {e}")
-
 if __name__ == "__main__":
     print("\n" + "="*60)
     print("Twitter Bot - Algorithm-Optimized Version")
@@ -759,71 +675,64 @@ if __name__ == "__main__":
         print(f"   {action_name}: {value}")
     print()
     
-    now = datetime.now()
-    
-    # Check if we need to post daily summary (once per day)
-    if not has_posted_summary_today():
-        print("Running daily summary task...")
-        post_daily_summary()
+    baseline_payoffs = game_engine.baseline_payoffs()
+    action, base_distribution = game_engine.select_action(baseline_payoffs)
+
+    print(f"🎯 INITIAL ACTION ROLL: {action.upper()}")
+    for action_name in game_engine.actions:
+        payoff_val = baseline_payoffs.get(action_name, 0.0)
+        weight_val = base_distribution.get(action_name, 0.0)
+        print(f"   • {action_name:<12} base_payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
+    print()
+
+    print("Fetching home timeline...")
+    tweets = fetch_home_timeline()
+    print(f"✓ Fetched {len(tweets)} tweets\n")
+
+    if not tweets:
+        print("✗ No tweets fetched")
+        game_engine.penalize_failure(action)
     else:
-        baseline_payoffs = game_engine.baseline_payoffs()
-        action, base_distribution = game_engine.select_action(baseline_payoffs)
+        selected_tweet = select_optimal_tweet(tweets)
 
-        print(f"🎯 INITIAL ACTION ROLL: {action.upper()}")
-        for action_name in game_engine.actions:
-            payoff_val = baseline_payoffs.get(action_name, 0.0)
-            weight_val = base_distribution.get(action_name, 0.0)
-            print(f"   • {action_name:<12} base_payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
-        print()
-
-        print("Fetching home timeline...")
-        tweets = fetch_home_timeline()
-        print(f"✓ Fetched {len(tweets)} tweets\n")
-
-        if not tweets:
-            print("✗ No tweets fetched")
+        if not selected_tweet:
+            print("No suitable tweet selected")
             game_engine.penalize_failure(action)
         else:
-            selected_tweet = select_optimal_tweet(tweets)
+            print(f"{'='*60}")
+            print(f"SELECTED TWEET")
+            print(f"{'='*60}")
+            print(f"User: @{selected_tweet['user']}")
+            print(f"Text: {selected_tweet['text']}")
+            print(f"Engagement: {selected_tweet['engagement']}")
+            print(f"Has Media: {selected_tweet['has_media']}")
+            print(f"Has Question: {selected_tweet['has_question']}")
+            print(f"{'='*60}\n")
 
-            if not selected_tweet:
-                print("No suitable tweet selected")
-                game_engine.penalize_failure(action)
+            payoffs = game_engine.estimate_payoffs(selected_tweet)
+            distribution = game_engine.mixed_strategy(payoffs)
+
+            print(f"📊 ACTION (game-theory mixed strategy): {action.upper()}")
+            for action_name in game_engine.actions:
+                payoff_val = payoffs.get(action_name, 0.0)
+                weight_val = distribution.get(action_name, 0.0)
+                marker = "<" if action_name == action else " "
+                print(f"{marker}  {action_name:<11} payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
+            print()
+
+            success = False
+            if action == 'reply':
+                reply = generate_reply(selected_tweet['text'], selected_tweet)
+                success = reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
+            elif action == 'quote':
+                quote = generate_quote(selected_tweet['text'], selected_tweet)
+                success = quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
+
+            if success:
+                game_engine.update_regret(payoffs, action)
             else:
-                print(f"{'='*60}")
-                print(f"SELECTED TWEET")
-                print(f"{'='*60}")
-                print(f"User: @{selected_tweet['user']}")
-                print(f"Text: {selected_tweet['text']}")
-                print(f"Engagement: {selected_tweet['engagement']}")
-                print(f"Has Media: {selected_tweet['has_media']}")
-                print(f"Has Question: {selected_tweet['has_question']}")
-                print(f"{'='*60}\n")
-
-                payoffs = game_engine.estimate_payoffs(selected_tweet)
-                distribution = game_engine.mixed_strategy(payoffs)
-
-                print(f"📊 ACTION (game-theory mixed strategy): {action.upper()}")
-                for action_name in game_engine.actions:
-                    payoff_val = payoffs.get(action_name, 0.0)
-                    weight_val = distribution.get(action_name, 0.0)
-                    marker = "<" if action_name == action else " "
-                    print(f"{marker}  {action_name:<11} payoff={payoff_val:>5.2f}  weight={weight_val:>5.2f}")
-                print()
-
-                success = False
-                if action == 'reply':
-                    reply = generate_reply(selected_tweet['text'], selected_tweet)
-                    success = reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
-                elif action == 'quote':
-                    quote = generate_quote(selected_tweet['text'], selected_tweet)
-                    success = quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
-
-                if success:
-                    game_engine.update_regret(payoffs, action)
-                else:
-                    print(f"⚠️ Action {action} failed - applying regret penalty")
-                    game_engine.penalize_failure(action)
+                print(f"⚠️ Action {action} failed - applying regret penalty")
+                game_engine.penalize_failure(action)
     
     print("\n" + "="*60)
     print("Bot execution complete")
