@@ -1945,51 +1945,27 @@
       "action": "reply"
     },
     {
-      "tweet_id": "1997423954466672928",
-      "user": "0x45o",
-      "replied_at": "2025-12-07T14:18:55.758122",
+      "tweet_id": "1997597086288900502",
+      "user": "Resorcinolworks",
+      "replied_at": "2025-12-07T10:01:08.346890",
       "action": "quote"
     },
     {
-      "tweet_id": "1997580499649466520",
-      "user": "adityadotdev",
-      "replied_at": "2025-12-07T14:21:47.608675",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "1997680168761233699",
-      "user": "AlbiaHossain",
-      "replied_at": "2025-12-07T23:07:55.710291",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "1998805051129901416",
+      "tweet_id": "1997539316768391499",
       "user": "damnGruz",
-      "replied_at": "2025-12-10T19:28:00.601821",
-      "action": "quote"
-    },
-    {
-      "tweet_id": "2000464986771276089",
-      "user": "elonmusk",
-      "replied_at": "2025-12-15T13:38:40.812923",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "2000283180843348108",
-      "user": "conduct_rr",
-      "replied_at": "2025-12-15T13:45:35.121950",
+      "replied_at": "2025-12-07T11:01:25.529516",
       "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 110.84999999999995,
-      "quote": 0.8
+      "reply": 106.84999999999995,
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 308.0,
-      "quote": 79.0
+      "reply": 304.0,
+      "quote": 77.0
     },
-    "iterations": 399
+    "iterations": 393
   }
 }
