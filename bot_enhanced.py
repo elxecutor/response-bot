@@ -23,8 +23,6 @@ import re
 
 from game_theory import GameTheoryEngine
 
-MAX_MEDIA_ANALYSIS_IMAGES = 2
-
 # Load environment variables from .env
 load_dotenv()
 
@@ -44,8 +42,8 @@ access_token = os.getenv('TWITTER_ACCESS_TOKEN')
 access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
 bearer_token_write = os.getenv('TWITTER_WRITE_BEARER_TOKEN')
 
-# Gemini API key
-gemini_key = os.getenv('GEMINI_API_KEY')
+# OpenRouter API key
+openrouter_key = os.getenv('OPENROUTER_API_KEY')
 
 # JSON file for tracking replied tweets (git-friendly)
 HISTORY_FILE = 'bot_history.json'
@@ -183,59 +181,19 @@ def extract_image_urls(legacy_tweet):
                 image_urls.append(url)
     return image_urls
 
-def analyze_tweet_media(media_urls, max_images=MAX_MEDIA_ANALYSIS_IMAGES):
-    """Use Gemini to summarize the contents of tweet images"""
-    if not gemini_key or not media_urls:
-        return None
-
-    inline_parts = []
-    for url in media_urls[:max_images]:
-        try:
-            response = requests.get(url, timeout=10)
-            response.raise_for_status()
-            mime_type = response.headers.get('Content-Type', 'image/jpeg')
-            if not (mime_type or '').startswith('image/'):
-                mime_type = 'image/jpeg'
-            encoded = base64.b64encode(response.content).decode('utf-8')
-            inline_parts.append({
-                "inlineData": {
-                    "mimeType": mime_type,
-                    "data": encoded
-                }
-            })
-        except Exception as e:
-            print(f"Warning: Failed to download image {url}: {e}")
-
-    if not inline_parts:
-        return None
-
-    prompt = (
-        "Analyze the attached tweet image(s). Provide up to two short bullet points "
-        "highlighting key subjects, text, or notable context without speculation."
-    )
-
-    request_payload = {
-        "contents": [{
-            "role": "user",
-            "parts": [{"text": prompt}] + inline_parts
-        }]
-    }
-
-    try:
-        url = (
-            "https://generativelanguage.googleapis.com/v1beta/models/"
-            "gemini-2.0-flash:generateContent?key="
-            f"{gemini_key}"
-        )
-        response = requests.post(url, json=request_payload, timeout=20)
-        response.raise_for_status()
-        result = response.json()
-        return result['candidates'][0]['content']['parts'][0]['text'].strip()
-    except Exception as e:
-        print(f"Error analyzing tweet media: {e}")
-        return None
-
 # Headers for the request (mimicking a browser to avoid blocks)
+headers = {
+    'Authorization': f'Bearer {bearer_token}',
+    'Cookie': cookie,
+    'X-Csrf-Token': csrf_token,
+    'User-Agent': user_agent,
+    'Content-Type': 'application/json',
+    'Referer': 'https://x.com/home',
+    'Origin': 'https://x.com',
+    'x-twitter-active-user': 'yes',
+    'x-twitter-auth-type': 'OAuth2Session',
+    'x-twitter-client-language': 'en',
+}
 headers = {
     'Authorization': f'Bearer {bearer_token}',
     'Cookie': cookie,
@@ -469,17 +427,13 @@ def generate_reply(tweet_text, tweet_metadata=None):
     - Shout: 10% (minimal caps)
     - Links: 5% (strategic use)
     """
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
+    url = "https://openrouter.ai/api/v1/chat/completions"
     
-    media_context = None
-    if tweet_metadata:
-        media_context = tweet_metadata.get('media_context')
-        if media_context is None and tweet_metadata.get('media_urls'):
-            media_context = analyze_tweet_media(tweet_metadata['media_urls'])
-            tweet_metadata['media_context'] = media_context
-
-    media_section = f"\nImage context: {media_context}\n" if media_context else ""
-
+    headers = {
+        "Authorization": f"Bearer {openrouter_key}",
+        "Content-Type": "application/json",
+    }
+    
     prompt = f"""Write a single sharp response to this tweet. Return ONLY the response text, nothing else.
 
 Examples:
@@ -491,20 +445,24 @@ Response: Said no one who's survived a Monday morning meeting.
 
 Now respond to:
 Tweet: '{tweet_text}'
-{media_section}Response:"""
+Response:"""
 
     data = {
-        "contents": [{
-            "parts": [{"text": prompt}]
-        }],
-        "tools": [{"google_search": {}}]
+        "model": "xiaomi/mimo-v2-flash:free",
+        "messages": [
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        "reasoning": {"enabled": True}
     }
     
     try:
-        response = requests.post(url, json=data)
+        response = requests.post(url, headers=headers, json=data)
         if response.status_code == 200:
             result = response.json()
-            reply = result['candidates'][0]['content']['parts'][0]['text'].strip()
+            reply = result['choices'][0]['message']['content'].strip()
             
             # Remove quotes if AI added them
             reply = reply.strip('"\'')
@@ -542,17 +500,13 @@ def generate_quote(tweet_text, tweet_metadata=None):
     Generate quote tweet optimized for algorithm scoring
     Quote tweets are high-value engagement signals
     """
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
+    url = "https://openrouter.ai/api/v1/chat/completions"
     
-    media_context = None
-    if tweet_metadata:
-        media_context = tweet_metadata.get('media_context')
-        if media_context is None and tweet_metadata.get('media_urls'):
-            media_context = analyze_tweet_media(tweet_metadata['media_urls'])
-            tweet_metadata['media_context'] = media_context
-
-    media_section = f"\nImage context: {media_context}\n" if media_context else ""
-
+    headers = {
+        "Authorization": f"Bearer {openrouter_key}",
+        "Content-Type": "application/json",
+    }
+    
     prompt = f"""Write a single sharp quote tweet response. Return ONLY the response text, nothing else.
 
 Examples:
@@ -564,20 +518,24 @@ Response: Right next to my collection of rare Beanie Babies.
 
 Now respond to:
 Tweet: '{tweet_text}'
-{media_section}Response:"""
+Response:"""
 
     data = {
-        "contents": [{
-            "parts": [{"text": prompt}]
-        }],
-        "tools": [{"google_search": {}}]
+        "model": "xiaomi/mimo-v2-flash:free",
+        "messages": [
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        "reasoning": {"enabled": True}
     }
     
     try:
-        response = requests.post(url, json=data)
+        response = requests.post(url, headers=headers, json=data)
         if response.status_code == 200:
             result = response.json()
-            quote = result['candidates'][0]['content']['parts'][0]['text'].strip()
+            quote = result['choices'][0]['message']['content'].strip()
             
             # Remove quotes if AI added them
             quote = quote.strip('"\'')
