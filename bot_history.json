@@ -2027,6 +2027,12 @@
       "user": "Resorcinolworks",
       "replied_at": "2025-12-31T12:57:25.737264",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2006361679542853665",
+      "user": "d4rsh_tw",
+      "replied_at": "2025-12-31T15:28:59.521604",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -2035,9 +2041,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 313.0,
+      "reply": 314.0,
       "quote": 80.0
     },
-    "iterations": 405
+    "iterations": 406
   }
 }
