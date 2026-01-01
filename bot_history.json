@@ -2039,17 +2039,23 @@
       "user": "0x45o",
       "replied_at": "2025-12-31T22:28:17.139459",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2006592722136965484",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-01T08:38:13.588786",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 103.65000000000005,
+      "reply": 105.25000000000004,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 315.0,
-      "quote": 80.0
+      "quote": 81.0
     },
-    "iterations": 407
+    "iterations": 408
   }
 }
