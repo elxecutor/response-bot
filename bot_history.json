@@ -2099,17 +2099,23 @@
       "user": "0x45o",
       "replied_at": "2026-01-02T12:56:17.916683",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2007084153351831766",
+      "user": "damnGruz",
+      "replied_at": "2026-01-02T14:28:49.922260",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 102.05000000000011,
+      "reply": 103.05000000000011,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 323.0,
-      "quote": 82.0
+      "quote": 83.0
     },
-    "iterations": 417
+    "iterations": 418
   }
 }
