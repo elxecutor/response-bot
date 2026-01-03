@@ -2141,17 +2141,23 @@
       "user": "nalinrajput23",
       "replied_at": "2026-01-03T09:28:12.972777",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2007357261581353256",
+      "user": "Mr_Hy4",
+      "replied_at": "2026-01-03T11:22:58.246815",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 100.90000000000016,
+      "reply": 102.50000000000016,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 328.0,
-      "quote": 84.0
+      "quote": 85.0
     },
-    "iterations": 424
+    "iterations": 425
   }
 }
