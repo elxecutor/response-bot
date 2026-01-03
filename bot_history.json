@@ -2159,17 +2159,23 @@
       "user": "premierleague",
       "replied_at": "2026-01-03T18:37:58.354363",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2007512654764794007",
+      "user": "d4rsh_tw",
+      "replied_at": "2026-01-03T20:31:25.216560",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 100.75000000000018,
+      "reply": 102.15000000000019,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 330.0,
-      "quote": 85.0
+      "quote": 86.0
     },
-    "iterations": 427
+    "iterations": 428
   }
 }
