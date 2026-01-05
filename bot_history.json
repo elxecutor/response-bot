@@ -2261,17 +2261,23 @@
       "user": "damnGruz",
       "replied_at": "2026-01-05T10:34:29.461474",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2008084645439734049",
+      "user": "Resorcinolworks",
+      "replied_at": "2026-01-05T11:26:56.935258",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 99.80000000000027,
+      "reply": 102.40000000000026,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 344.0,
-      "quote": 88.0
+      "quote": 89.0
     },
-    "iterations": 444
+    "iterations": 445
   }
 }
