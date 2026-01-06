@@ -2339,17 +2339,23 @@
       "user": "0x45o",
       "replied_at": "2026-01-06T02:13:23.080391",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2008357613700817098",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-06T04:05:25.263883",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 102.40000000000026,
+      "reply": 102.50000000000026,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 356.0,
-      "quote": 89.0
+      "quote": 90.0
     },
-    "iterations": 457
+    "iterations": 458
   }
 }
