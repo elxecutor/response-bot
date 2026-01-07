@@ -2429,17 +2429,23 @@
       "user": "atulit_gaur",
       "replied_at": "2026-01-07T14:32:24.011723",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2008842127678251395",
+      "user": "AlbiaHossain",
+      "replied_at": "2026-01-07T15:34:05.765092",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 105.00000000000033,
+      "reply": 106.40000000000033,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 366.0,
-      "quote": 94.0
+      "quote": 95.0
     },
-    "iterations": 472
+    "iterations": 473
   }
 }
