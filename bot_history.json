@@ -2411,17 +2411,23 @@
       "user": "samirande_",
       "replied_at": "2026-01-07T10:33:22.387592",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2008827073574719639",
+      "user": "0x45o",
+      "replied_at": "2026-01-07T11:27:15.183035",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 103.60000000000032,
+      "reply": 105.00000000000033,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 364.0,
-      "quote": 93.0
+      "quote": 94.0
     },
-    "iterations": 469
+    "iterations": 470
   }
 }
