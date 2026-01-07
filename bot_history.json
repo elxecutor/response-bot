@@ -2381,17 +2381,23 @@
       "user": "nalinrajput23",
       "replied_at": "2026-01-07T05:32:56.039276",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2008675073142735232",
+      "user": "OnePieceAnime",
+      "replied_at": "2026-01-07T06:45:16.696494",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 97.60000000000034,
+      "reply": 100.20000000000033,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 362.0,
-      "quote": 90.0
+      "quote": 91.0
     },
-    "iterations": 464
+    "iterations": 465
   }
 }
