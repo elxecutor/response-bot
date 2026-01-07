@@ -2447,17 +2447,23 @@
       "user": "samirande_",
       "replied_at": "2026-01-07T17:33:01.881608",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2008916539743854688",
+      "user": "premierleague",
+      "replied_at": "2026-01-07T18:43:44.329367",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 106.40000000000033,
+      "reply": 107.50000000000033,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 368.0,
-      "quote": 95.0
+      "quote": 96.0
     },
-    "iterations": 475
+    "iterations": 476
   }
 }
