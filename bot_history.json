@@ -2597,17 +2597,23 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-01-08T22:29:30.888481",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009360974139040063",
+      "user": "rqobela",
+      "replied_at": "2026-01-08T23:24:50.292845",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 111.70000000000032,
+      "reply": 114.30000000000031,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 390.0,
-      "quote": 98.0
+      "quote": 99.0
     },
-    "iterations": 500
+    "iterations": 501
   }
 }
