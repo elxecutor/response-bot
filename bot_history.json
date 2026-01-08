@@ -2549,17 +2549,23 @@
       "user": "damnGruz",
       "replied_at": "2026-01-08T14:33:35.208042",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009271121493864501",
+      "user": "rqobela",
+      "replied_at": "2026-01-08T15:34:42.555651",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 107.50000000000033,
+      "reply": 110.10000000000032,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 384.0,
-      "quote": 96.0
+      "quote": 97.0
     },
-    "iterations": 492
+    "iterations": 493
   }
 }
