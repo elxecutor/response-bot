@@ -2723,17 +2723,23 @@
       "user": "chesterzelaya",
       "replied_at": "2026-01-09T22:33:21.010562",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009730817669443707",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-09T23:27:54.006091",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 121.50000000000031,
+      "reply": 121.6000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 406.0,
-      "quote": 103.0
+      "quote": 104.0
     },
-    "iterations": 521
+    "iterations": 522
   }
 }
