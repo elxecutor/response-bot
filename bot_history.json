@@ -2657,17 +2657,23 @@
       "user": "d4rsh_tw",
       "replied_at": "2026-01-09T11:26:40.589567",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009604756160053350",
+      "user": "rqobela",
+      "replied_at": "2026-01-09T13:00:47.001050",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 115.1000000000003,
+      "reply": 117.50000000000031,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 398.0,
-      "quote": 100.0
+      "quote": 101.0
     },
-    "iterations": 510
+    "iterations": 511
   }
 }
