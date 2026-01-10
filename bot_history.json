@@ -2843,17 +2843,23 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-01-10T20:31:06.795262",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2010066092195000444",
+      "user": "serialdotai",
+      "replied_at": "2026-01-10T21:25:52.540842",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 129.1000000000003,
+      "reply": 129.90000000000032,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 419.0,
-      "quote": 110.0
+      "quote": 111.0
     },
-    "iterations": 541
+    "iterations": 542
   }
 }
