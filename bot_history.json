@@ -2855,17 +2855,23 @@
       "user": "IDV_FPV",
       "replied_at": "2026-01-10T22:27:04.147585",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2010131024739746282",
+      "user": "djcows",
+      "replied_at": "2026-01-10T23:26:27.140512",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 129.90000000000032,
+      "reply": 131.5000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 420.0,
-      "quote": 111.0
+      "quote": 112.0
     },
-    "iterations": 543
+    "iterations": 544
   }
 }
