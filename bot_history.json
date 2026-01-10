@@ -2819,17 +2819,23 @@
       "user": "samirande_",
       "replied_at": "2026-01-10T16:33:35.852637",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009996300780278238",
+      "user": "AlbiaHossain",
+      "replied_at": "2026-01-10T17:24:55.412977",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 127.6000000000003,
+      "reply": 129.0000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 417.0,
-      "quote": 108.0
+      "quote": 109.0
     },
-    "iterations": 537
+    "iterations": 538
   }
 }
