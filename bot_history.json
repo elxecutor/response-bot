@@ -2729,6 +2729,12 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-01-09T23:27:54.006091",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2009667133933007215",
+      "user": "premierleague",
+      "replied_at": "2026-01-10T02:10:09.178998",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -2737,9 +2743,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 406.0,
+      "reply": 407.0,
       "quote": 104.0
     },
-    "iterations": 522
+    "iterations": 523
   }
 }
