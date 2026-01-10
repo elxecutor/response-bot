@@ -2771,17 +2771,23 @@
       "user": "forloopcodes",
       "replied_at": "2026-01-10T08:35:22.596601",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009838563496702222",
+      "user": "d4rsh_tw",
+      "replied_at": "2026-01-10T09:28:21.748168",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 123.8000000000003,
-      "quote": 0.09999999999999987
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 411.0,
+      "reply": 412.0,
       "quote": 106.0
     },
-    "iterations": 529
+    "iterations": 530
   }
 }
