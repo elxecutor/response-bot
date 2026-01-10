@@ -2747,17 +2747,23 @@
       "user": "forloopcodes",
       "replied_at": "2026-01-10T04:42:52.577233",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009854365037949204",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-10T05:29:27.141952",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 124.2000000000003,
+      "reply": 123.8000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 408.0,
-      "quote": 105.0
+      "quote": 106.0
     },
-    "iterations": 525
+    "iterations": 526
   }
 }
