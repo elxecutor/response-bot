@@ -2807,17 +2807,23 @@
       "user": "atulit_gaur",
       "replied_at": "2026-01-10T14:26:21.601339",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009881597714252174",
+      "user": "samirande_",
+      "replied_at": "2026-01-10T15:27:30.870355",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 125.2000000000003,
+      "reply": 127.6000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 416.0,
-      "quote": 107.0
+      "quote": 108.0
     },
-    "iterations": 535
+    "iterations": 536
   }
 }
