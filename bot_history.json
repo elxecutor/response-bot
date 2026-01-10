@@ -2795,17 +2795,23 @@
       "user": "0x45o",
       "replied_at": "2026-01-10T12:54:27.528352",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2009977738309062943",
+      "user": "0x45o",
+      "replied_at": "2026-01-10T13:34:42.757757",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 123.8000000000003,
+      "reply": 125.2000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 415.0,
-      "quote": 106.0
+      "quote": 107.0
     },
-    "iterations": 533
+    "iterations": 534
   }
 }
