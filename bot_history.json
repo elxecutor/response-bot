@@ -2837,17 +2837,23 @@
       "user": "Resorcinolworks",
       "replied_at": "2026-01-10T19:22:08.152307",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2010074954126238198",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-10T20:31:06.795262",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 129.0000000000003,
+      "reply": 129.1000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 419.0,
-      "quote": 109.0
+      "quote": 110.0
     },
-    "iterations": 540
+    "iterations": 541
   }
 }
