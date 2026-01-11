@@ -2861,17 +2861,23 @@
       "user": "djcows",
       "replied_at": "2026-01-10T23:26:27.140512",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2010103955322458279",
+      "user": "sadkatwt",
+      "replied_at": "2026-01-11T02:29:45.247880",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 131.5000000000003,
+      "reply": 132.5000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 420.0,
-      "quote": 112.0
+      "quote": 113.0
     },
-    "iterations": 544
+    "iterations": 545
   }
 }
