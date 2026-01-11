@@ -2867,17 +2867,23 @@
       "user": "sadkatwt",
       "replied_at": "2026-01-11T02:29:45.247880",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2010201471242170868",
+      "user": "Resorcinolworks",
+      "replied_at": "2026-01-11T04:14:20.099631",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 132.5000000000003,
+      "reply": 134.90000000000032,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 420.0,
-      "quote": 113.0
+      "quote": 114.0
     },
-    "iterations": 545
+    "iterations": 546
   }
 }
