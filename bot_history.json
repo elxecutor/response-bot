@@ -2969,17 +2969,23 @@
       "user": "serialdotai",
       "replied_at": "2026-01-11T20:31:08.435360",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2010366545063715287",
+      "user": "birdabo",
+      "replied_at": "2026-01-11T21:25:31.078447",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 142.7000000000003,
+      "reply": 144.5000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 432.0,
-      "quote": 118.0
+      "quote": 119.0
     },
-    "iterations": 562
+    "iterations": 563
   }
 }
