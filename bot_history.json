@@ -2891,6 +2891,12 @@
       "user": "damnGruz",
       "replied_at": "2026-01-11T07:27:35.792873",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2010248896530764068",
+      "user": "tobdan_nika",
+      "replied_at": "2026-01-11T08:35:52.472457",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -2899,9 +2905,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 422.0,
+      "reply": 423.0,
       "quote": 115.0
     },
-    "iterations": 549
+    "iterations": 550
   }
 }
