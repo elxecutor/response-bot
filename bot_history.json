@@ -2981,17 +2981,23 @@
       "user": "ManUtd",
       "replied_at": "2026-01-11T22:27:33.312986",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2010419167456055613",
+      "user": "thealokverse",
+      "replied_at": "2026-01-11T23:26:30.762525",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 144.5000000000003,
-      "quote": 0.2999999999999998
+      "quote": 0.09999999999999976
     },
     "strategy_counts": {
-      "reply": 433.0,
+      "reply": 434.0,
       "quote": 119.0
     },
-    "iterations": 564
+    "iterations": 565
   }
 }
