@@ -2957,17 +2957,23 @@
       "user": "atulit_gaur",
       "replied_at": "2026-01-11T18:37:58.407517",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2010372936163787254",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-11T19:22:07.436228",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 141.1000000000003,
+      "reply": 142.7000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 431.0,
-      "quote": 117.0
+      "quote": 118.0
     },
-    "iterations": 560
+    "iterations": 561
   }
 }
