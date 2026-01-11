@@ -2939,17 +2939,23 @@
       "user": "d4rsh_tw",
       "replied_at": "2026-01-11T15:27:19.222290",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2010338380450836908",
+      "user": "forloopcodes",
+      "replied_at": "2026-01-11T16:33:56.444986",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 138.5000000000003,
+      "reply": 141.1000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 429.0,
-      "quote": 116.0
+      "quote": 117.0
     },
-    "iterations": 557
+    "iterations": 558
   }
 }
