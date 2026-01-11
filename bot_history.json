@@ -2873,17 +2873,23 @@
       "user": "Resorcinolworks",
       "replied_at": "2026-01-11T04:14:20.099631",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2010050341853876454",
+      "user": "Resorcinolworks",
+      "replied_at": "2026-01-11T05:33:55.762804",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 134.90000000000032,
+      "reply": 135.90000000000032,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 420.0,
-      "quote": 114.0
+      "quote": 115.0
     },
-    "iterations": 546
+    "iterations": 547
   }
 }
