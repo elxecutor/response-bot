@@ -3203,17 +3203,23 @@
       "user": "premierleague",
       "replied_at": "2026-01-13T22:30:17.950428",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2011196628342903057",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-13T23:26:27.393298",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 145.6000000000003,
+      "reply": 145.7000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 468.0,
-      "quote": 121.0
+      "quote": 122.0
     },
-    "iterations": 601
+    "iterations": 602
   }
 }
