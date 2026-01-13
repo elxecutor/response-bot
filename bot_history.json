@@ -3143,17 +3143,23 @@
       "user": "atulit_gaur",
       "replied_at": "2026-01-13T10:33:07.276038",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2011017861423059252",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-13T11:28:24.186875",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 145.7500000000003,
+      "reply": 145.9500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 459.0,
-      "quote": 120.0
+      "quote": 121.0
     },
-    "iterations": 591
+    "iterations": 592
   }
 }
