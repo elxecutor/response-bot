@@ -3221,17 +3221,23 @@
       "user": "premierleague",
       "replied_at": "2026-01-14T04:13:05.287518",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2011169542836490366",
+      "user": "sadkatwt",
+      "replied_at": "2026-01-14T05:32:41.782462",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 145.7000000000003,
-      "quote": 0.2999999999999998
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 470.0,
+      "reply": 471.0,
       "quote": 122.0
     },
-    "iterations": 604
+    "iterations": 605
   }
 }
