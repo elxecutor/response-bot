@@ -3293,6 +3293,12 @@
       "user": "ManUtd",
       "replied_at": "2026-01-14T17:34:47.407356",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2011470507602747712",
+      "user": "d4rsh_tw",
+      "replied_at": "2026-01-14T18:43:27.964906",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -3301,9 +3307,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 482.0,
+      "reply": 483.0,
       "quote": 122.0
     },
-    "iterations": 616
+    "iterations": 617
   }
 }
