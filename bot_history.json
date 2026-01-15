@@ -3413,17 +3413,23 @@
       "user": "d4rsh_tw",
       "replied_at": "2026-01-15T20:34:49.074373",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2011819171294929229",
+      "user": "atulit_gaur",
+      "replied_at": "2026-01-15T21:29:21.014019",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 148.8500000000003,
+      "reply": 151.2500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 498.0,
-      "quote": 126.0
+      "quote": 127.0
     },
-    "iterations": 636
+    "iterations": 637
   }
 }
