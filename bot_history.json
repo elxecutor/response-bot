@@ -3329,17 +3329,23 @@
       "user": "rqobela",
       "replied_at": "2026-01-14T23:24:17.408409",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2011533779568115814",
+      "user": "premierleague",
+      "replied_at": "2026-01-15T02:12:57.897044",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 147.2000000000003,
+      "reply": 148.3000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 487.0,
-      "quote": 123.0
+      "quote": 124.0
     },
-    "iterations": 622
+    "iterations": 623
   }
 }
