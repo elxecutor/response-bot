@@ -3335,17 +3335,23 @@
       "user": "premierleague",
       "replied_at": "2026-01-15T02:12:57.897044",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2011486020026425793",
+      "user": "Mr_Hy4",
+      "replied_at": "2026-01-15T04:08:16.288633",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 148.3000000000003,
+      "reply": 149.3000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 487.0,
-      "quote": 124.0
+      "quote": 125.0
     },
-    "iterations": 623
+    "iterations": 624
   }
 }
