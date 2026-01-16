@@ -3491,6 +3491,12 @@
       "user": "Resorcinolworks",
       "replied_at": "2026-01-16T13:46:51.804925",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2012098428285694078",
+      "user": "premierleague",
+      "replied_at": "2026-01-16T14:32:06.768510",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -3499,9 +3505,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 506.0,
+      "reply": 507.0,
       "quote": 131.0
     },
-    "iterations": 649
+    "iterations": 650
   }
 }
