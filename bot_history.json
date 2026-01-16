@@ -3455,17 +3455,23 @@
       "user": "Anishdotcom",
       "replied_at": "2026-01-16T06:45:16.633175",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2012054096279454018",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-16T07:31:47.492064",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 152.2500000000003,
+      "reply": 153.8500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 503.0,
-      "quote": 128.0
+      "quote": 129.0
     },
-    "iterations": 643
+    "iterations": 644
   }
 }
