@@ -3581,17 +3581,29 @@
       "user": "Resorcinolworks",
       "replied_at": "2026-01-17T07:25:53.344473",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2012057954112192905",
+      "user": "sadkatwt",
+      "replied_at": "2026-01-17T09:12:16.393061",
+      "action": "quote"
+    },
+    {
+      "tweet_id": "2012388160832249872",
+      "user": "amritwt",
+      "replied_at": "2026-01-17T09:15:04.818286",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 160.3500000000003,
+      "reply": 161.3500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 518.0,
-      "quote": 134.0
+      "reply": 519.0,
+      "quote": 135.0
     },
-    "iterations": 664
+    "iterations": 666
   }
 }

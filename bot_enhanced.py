@@ -434,16 +434,8 @@ def generate_reply(tweet_text, tweet_metadata=None):
         "Content-Type": "application/json",
     }
     
-    prompt = f"""Write a single sharp response to this tweet. Return ONLY the response text, nothing else.
+    prompt = f"""Write a short, natural reply to this tweet that adds value or builds on the idea. Keep it conversational and under 100 characters. Return ONLY the response text, nothing else.
 
-Examples:
-Tweet: "AI will replace all jobs soon"
-Response: The job AI can't replace is knowing which jobs actually need doing.
-
-Tweet: "Coffee is overrated"  
-Response: Said no one who's survived a Monday morning meeting.
-
-Now respond to:
 Tweet: '{tweet_text}'
 Response:"""
 
@@ -507,16 +499,8 @@ def generate_quote(tweet_text, tweet_metadata=None):
         "Content-Type": "application/json",
     }
     
-    prompt = f"""Write a single sharp quote tweet response. Return ONLY the response text, nothing else.
+    prompt = f"""Write a short, witty quote tweet response that builds on the original idea. Keep it under 120 characters and conversational. Return ONLY the response text, nothing else.
 
-Examples:
-Tweet: "Remote work is killing company culture"
-Response: Company culture was already dead, remote work just stopped pretending otherwise.
-
-Tweet: "NFTs are the future of digital ownership"
-Response: Right next to my collection of rare Beanie Babies.
-
-Now respond to:
 Tweet: '{tweet_text}'
 Response:"""
 
