@@ -3737,17 +3737,23 @@
       "user": "Resorcinolworks",
       "replied_at": "2026-01-18T11:22:21.723756",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2012864752846823532",
+      "user": "ThePecoIAM",
+      "replied_at": "2026-01-18T12:54:13.955349",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 165.0500000000003,
+      "reply": 167.6500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 540.0,
-      "quote": 138.0
+      "quote": 139.0
     },
-    "iterations": 690
+    "iterations": 691
   }
 }
