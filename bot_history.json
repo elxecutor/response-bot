@@ -3755,17 +3755,23 @@
       "user": "ThePecoIAM",
       "replied_at": "2026-01-18T14:25:29.594738",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2012867098461032706",
+      "user": "ThePecoIAM",
+      "replied_at": "2026-01-18T15:26:58.794065",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 167.6500000000003,
+      "reply": 170.0500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 542.0,
-      "quote": 139.0
+      "quote": 140.0
     },
-    "iterations": 693
+    "iterations": 694
   }
 }
