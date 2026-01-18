@@ -3797,17 +3797,23 @@
       "user": "damnGruz",
       "replied_at": "2026-01-18T21:25:00.974453",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2013013781786599713",
+      "user": "premierleague",
+      "replied_at": "2026-01-18T22:27:06.870650",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 170.8500000000003,
+      "reply": 170.9500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 547.0,
-      "quote": 141.0
+      "quote": 142.0
     },
-    "iterations": 700
+    "iterations": 701
   }
 }
