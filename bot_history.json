@@ -3923,17 +3923,23 @@
       "user": "premierleague",
       "replied_at": "2026-01-19T22:29:10.986995",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2013326584321843267",
+      "user": "ThePecoIAM",
+      "replied_at": "2026-01-19T23:28:17.924700",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 179.5500000000003,
+      "reply": 182.1500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 560.0,
-      "quote": 149.0
+      "quote": 150.0
     },
-    "iterations": 721
+    "iterations": 722
   }
 }
