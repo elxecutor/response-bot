@@ -3851,17 +3851,23 @@
       "user": "atulit_gaur",
       "replied_at": "2026-01-19T09:42:48.642291",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2013155716979187998",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-19T10:37:56.501118",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 173.1500000000003,
+      "reply": 173.9500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 552.0,
-      "quote": 145.0
+      "quote": 146.0
     },
-    "iterations": 709
+    "iterations": 710
   }
 }
