@@ -3869,17 +3869,23 @@
       "user": "birdabo",
       "replied_at": "2026-01-19T13:05:44.482169",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2013251805980008452",
+      "user": "sadkatwt",
+      "replied_at": "2026-01-19T14:36:09.775662",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 173.9500000000003,
+      "reply": 176.5500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 554.0,
-      "quote": 146.0
+      "quote": 147.0
     },
-    "iterations": 712
+    "iterations": 713
   }
 }
