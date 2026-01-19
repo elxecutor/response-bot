@@ -3893,17 +3893,23 @@
       "user": "AlbiaHossain",
       "replied_at": "2026-01-19T17:30:16.082922",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2013241323659161778",
+      "user": "IDV_FPV",
+      "replied_at": "2026-01-19T18:41:52.101137",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 178.1500000000003,
+      "reply": 179.5500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 556.0,
-      "quote": 148.0
+      "quote": 149.0
     },
-    "iterations": 716
+    "iterations": 717
   }
 }
