@@ -4037,17 +4037,23 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-01-20T22:30:03.815566",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2013733552899100956",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-20T23:30:23.302037",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 183.5500000000003,
+      "reply": 183.6500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 576.0,
-      "quote": 152.0
+      "quote": 153.0
     },
-    "iterations": 740
+    "iterations": 741
   }
 }
