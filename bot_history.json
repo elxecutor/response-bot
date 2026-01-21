@@ -4127,17 +4127,23 @@
       "user": "samirande_",
       "replied_at": "2026-01-21T20:40:03.713257",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2013963933288398872",
+      "user": "d4rsh_tw",
+      "replied_at": "2026-01-21T21:35:41.569156",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 186.9500000000003,
+      "reply": 187.1500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 587.0,
-      "quote": 156.0
+      "quote": 157.0
     },
-    "iterations": 755
+    "iterations": 756
   }
 }
