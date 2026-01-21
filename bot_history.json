@@ -4121,6 +4121,12 @@
       "user": "tobdan_nika",
       "replied_at": "2026-01-21T19:33:55.344901",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014007675114373327",
+      "user": "samirande_",
+      "replied_at": "2026-01-21T20:40:03.713257",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -4129,9 +4135,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 586.0,
+      "reply": 587.0,
       "quote": 156.0
     },
-    "iterations": 754
+    "iterations": 755
   }
 }
