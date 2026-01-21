@@ -4133,6 +4133,12 @@
       "user": "d4rsh_tw",
       "replied_at": "2026-01-21T21:35:41.569156",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2014004956890890627",
+      "user": "birdabo",
+      "replied_at": "2026-01-21T22:33:16.916438",
+      "action": "quote"
     }
   ],
   "game_theory": {
@@ -4142,8 +4148,8 @@
     },
     "strategy_counts": {
       "reply": 587.0,
-      "quote": 157.0
+      "quote": 158.0
     },
-    "iterations": 756
+    "iterations": 757
   }
 }
