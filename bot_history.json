@@ -4169,17 +4169,23 @@
       "user": "Mr_Hy4",
       "replied_at": "2026-01-22T06:47:03.712624",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014216868312301827",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-22T07:35:47.266832",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 188.1500000000003,
+      "reply": 190.75000000000028,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 591.0,
-      "quote": 159.0
+      "quote": 160.0
     },
-    "iterations": 762
+    "iterations": 763
   }
 }
