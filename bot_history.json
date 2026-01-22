@@ -4151,17 +4151,23 @@
       "user": "Resorcinolworks",
       "replied_at": "2026-01-22T02:26:00.534151",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014037499564200306",
+      "user": "djcows",
+      "replied_at": "2026-01-22T04:13:30.846000",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 187.1500000000003,
+      "reply": 188.1500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 589.0,
-      "quote": 158.0
+      "quote": 159.0
     },
-    "iterations": 759
+    "iterations": 760
   }
 }
