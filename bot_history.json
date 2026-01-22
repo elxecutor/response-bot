@@ -4235,17 +4235,23 @@
       "user": "rqobela",
       "replied_at": "2026-01-22T18:44:53.799566",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014348577925947472",
+      "user": "premierleague",
+      "replied_at": "2026-01-22T19:31:10.888682",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 194.95000000000027,
+      "reply": 196.05000000000027,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 599.0,
-      "quote": 162.0
+      "quote": 163.0
     },
-    "iterations": 773
+    "iterations": 774
   }
 }
