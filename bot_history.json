@@ -4145,6 +4145,12 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-01-21T23:34:01.789720",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014012459518947697",
+      "user": "Resorcinolworks",
+      "replied_at": "2026-01-22T02:26:00.534151",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -4153,9 +4159,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 588.0,
+      "reply": 589.0,
       "quote": 158.0
     },
-    "iterations": 758
+    "iterations": 759
   }
 }
