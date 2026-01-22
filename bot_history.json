@@ -4193,17 +4193,23 @@
       "user": "nalinrajput23",
       "replied_at": "2026-01-22T10:36:58.601127",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014265162589688167",
+      "user": "damnGruz",
+      "replied_at": "2026-01-22T11:30:06.116279",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 190.75000000000028,
+      "reply": 192.35000000000028,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 594.0,
-      "quote": 160.0
+      "quote": 161.0
     },
-    "iterations": 766
+    "iterations": 767
   }
 }
