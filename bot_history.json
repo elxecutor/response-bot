@@ -4319,17 +4319,23 @@
       "user": "atulit_gaur",
       "replied_at": "2026-01-23T11:28:37.716863",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014659878338302095",
+      "user": "premierleague",
+      "replied_at": "2026-01-23T13:03:36.928968",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 206.25000000000028,
+      "reply": 207.75000000000028,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 607.0,
-      "quote": 168.0
+      "quote": 169.0
     },
-    "iterations": 787
+    "iterations": 788
   }
 }
