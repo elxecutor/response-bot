@@ -4307,17 +4307,23 @@
       "user": "hthieblot",
       "replied_at": "2026-01-23T09:37:46.874298",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014624886249988177",
+      "user": "premierleague",
+      "replied_at": "2026-01-23T10:34:10.194521",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 203.6500000000003,
+      "reply": 206.25000000000028,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 606.0,
-      "quote": 167.0
+      "quote": 168.0
     },
-    "iterations": 785
+    "iterations": 786
   }
 }
