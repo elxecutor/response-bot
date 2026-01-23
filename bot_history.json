@@ -4361,17 +4361,23 @@
       "user": "sadkatwt",
       "replied_at": "2026-01-23T19:29:57.885198",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014771044800987324",
+      "user": "sadkatwt",
+      "replied_at": "2026-01-23T20:34:28.173988",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 210.35000000000028,
+      "reply": 212.95000000000027,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 611.0,
-      "quote": 171.0
+      "quote": 172.0
     },
-    "iterations": 794
+    "iterations": 795
   }
 }
