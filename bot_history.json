@@ -4499,17 +4499,23 @@
       "user": "sadkatwt",
       "replied_at": "2026-01-24T21:25:08.087722",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2015107780852457714",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-24T22:26:58.232953",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 220.35000000000028,
+      "reply": 220.45000000000027,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 629.0,
-      "quote": 176.0
+      "quote": 177.0
     },
-    "iterations": 817
+    "iterations": 818
   }
 }
