@@ -4421,17 +4421,23 @@
       "user": "nalinrajput23",
       "replied_at": "2026-01-24T08:35:26.367944",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014965503325044836",
+      "user": "Resorcinolworks",
+      "replied_at": "2026-01-24T09:30:25.157698",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 212.95000000000027,
+      "reply": 213.75000000000028,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 620.0,
-      "quote": 172.0
+      "quote": 173.0
     },
-    "iterations": 804
+    "iterations": 805
   }
 }
