@@ -4469,17 +4469,23 @@
       "user": "atulit_gaur",
       "replied_at": "2026-01-24T16:33:41.484418",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2015040134224425020",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-24T17:25:24.254841",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 218.75000000000028,
+      "reply": 220.35000000000028,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 625.0,
-      "quote": 175.0
+      "quote": 176.0
     },
-    "iterations": 812
+    "iterations": 813
   }
 }
