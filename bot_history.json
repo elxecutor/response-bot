@@ -4415,6 +4415,12 @@
       "user": "ManUtd",
       "replied_at": "2026-01-24T07:27:02.823441",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014921147322859531",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-24T08:35:26.367944",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -4423,9 +4429,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 619.0,
+      "reply": 620.0,
       "quote": 172.0
     },
-    "iterations": 803
+    "iterations": 804
   }
 }
