@@ -4409,6 +4409,12 @@
       "user": "Resorcinolworks",
       "replied_at": "2026-01-24T06:41:55.749272",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2014929404342714600",
+      "user": "ManUtd",
+      "replied_at": "2026-01-24T07:27:02.823441",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -4417,9 +4423,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 618.0,
+      "reply": 619.0,
       "quote": 172.0
     },
-    "iterations": 802
+    "iterations": 803
   }
 }
