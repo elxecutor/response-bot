@@ -4463,17 +4463,23 @@
       "user": "AlbiaHossain",
       "replied_at": "2026-01-24T15:27:29.903806",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2015080276968530221",
+      "user": "atulit_gaur",
+      "replied_at": "2026-01-24T16:33:41.484418",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 216.1500000000003,
+      "reply": 218.75000000000028,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 625.0,
-      "quote": 174.0
+      "quote": 175.0
     },
-    "iterations": 811
+    "iterations": 812
   }
 }
