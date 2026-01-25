@@ -4607,6 +4607,12 @@
       "user": "ManUtd",
       "replied_at": "2026-01-25T21:26:25.983205",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2015491572763152682",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-25T23:27:49.282789",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -4615,9 +4621,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 639.0,
+      "reply": 640.0,
       "quote": 184.0
     },
-    "iterations": 835
+    "iterations": 836
   }
 }
