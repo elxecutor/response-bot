@@ -4601,6 +4601,12 @@
       "user": "hthieblot",
       "replied_at": "2026-01-25T20:32:19.245531",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2015501398016684302",
+      "user": "ManUtd",
+      "replied_at": "2026-01-25T21:26:25.983205",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -4609,9 +4615,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 638.0,
+      "reply": 639.0,
       "quote": 184.0
     },
-    "iterations": 834
+    "iterations": 835
   }
 }
