@@ -4517,17 +4517,23 @@
       "user": "forloopcodes",
       "replied_at": "2026-01-25T02:32:18.448114",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2015181982154547587",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-01-25T04:18:27.346073",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 223.05000000000027,
+      "reply": 223.15000000000026,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 630.0,
-      "quote": 178.0
+      "quote": 179.0
     },
-    "iterations": 820
+    "iterations": 821
   }
 }
