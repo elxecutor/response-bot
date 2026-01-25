@@ -4511,17 +4511,23 @@
       "user": "ManUtd",
       "replied_at": "2026-01-24T23:26:36.207661",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2015241821476306980",
+      "user": "forloopcodes",
+      "replied_at": "2026-01-25T02:32:18.448114",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 220.45000000000027,
+      "reply": 223.05000000000027,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 630.0,
-      "quote": 177.0
+      "quote": 178.0
     },
-    "iterations": 819
+    "iterations": 820
   }
 }
