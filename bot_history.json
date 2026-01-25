@@ -4535,17 +4535,23 @@
       "user": "elijahmuraoka_",
       "replied_at": "2026-01-25T06:42:25.631115",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2015290231348711708",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-25T07:28:12.526703",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 225.15000000000026,
+      "reply": 226.55000000000027,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 630.0,
-      "quote": 181.0
+      "quote": 182.0
     },
-    "iterations": 823
+    "iterations": 824
   }
 }
