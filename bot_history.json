@@ -4619,17 +4619,23 @@
       "user": "premierleague",
       "replied_at": "2026-01-26T02:31:13.152332",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2015580905595953573",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-26T04:20:34.138124",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 227.3000000000003,
-      "quote": 0.2999999999999998
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 641.0,
+      "reply": 642.0,
       "quote": 184.0
     },
-    "iterations": 837
+    "iterations": 838
   }
 }
