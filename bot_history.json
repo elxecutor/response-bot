@@ -4655,17 +4655,23 @@
       "user": "nalinrajput23",
       "replied_at": "2026-01-26T09:42:19.404735",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2015651246393422285",
+      "user": "nalinrajput23",
+      "replied_at": "2026-01-26T10:35:54.993351",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 227.3000000000003,
+      "reply": 228.1000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 647.0,
-      "quote": 184.0
+      "quote": 185.0
     },
-    "iterations": 843
+    "iterations": 844
   }
 }
