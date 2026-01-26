@@ -4679,17 +4679,23 @@
       "user": "Resorcinolworks",
       "replied_at": "2026-01-26T14:37:00.618110",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2015739530117034074",
+      "user": "rqobela",
+      "replied_at": "2026-01-26T15:37:02.899702",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 228.1000000000003,
+      "reply": 230.7000000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 650.0,
-      "quote": 185.0
+      "quote": 186.0
     },
-    "iterations": 847
+    "iterations": 848
   }
 }
