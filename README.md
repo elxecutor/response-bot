@@ -16,9 +16,11 @@ A smart Twitter bot that automatically engages with your timeline by generating 
 ## Features
 - **Automated Timeline Monitoring**: Fetches tweets from your home timeline
 - **AI-Powered Responses**: Uses Gemini 2.0 Flash to generate sharp, concise responses
-- **Dual Engagement Modes**: Randomly chooses between replying or quote tweeting
+- **Dual Engagement Modes**: Randomly chooses between replying or quote tweeting (game-theory engine adapts over time)
 - **Git-Based History Tracking**: Tracks replied tweets in `bot_history.json` (no database needed!)
 - **Algorithm-Optimized**: Implements insights from Twitter's open-source recommendation algorithm
+- **Multimodal Replies**: Images attached to tweets are now downloaded and sent to Gemini 2.0 Flash, allowing the model to understand and reference visuals
+- **Web-Aware**: Each reply is grounded with a live Google search query (via the Gemini SDK) so the bot can cite up‑to‑date information without any custom scraping
 - **Game-Theoretic Strategy**: Uses regret matching to adaptively balance replies, quote tweets, and independent posts
 - **Rate Limit Safe**: Runs every 20 minutes, staying well under Twitter's 100 tweets per 15-minute limit
 - **Scheduled Execution**: Automated via GitHub Actions

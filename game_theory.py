@@ -65,8 +65,9 @@ class GameTheoryEngine:
                 payoffs["reply"] += 0.6  # early conversation boost
             elif total_engagement > 1000:
                 payoffs["reply"] -= 0.4  # avoid loud pile-ons
-            if not has_media:
-                payoffs["reply"] += 0.3
+            # reward media-containing tweets for replies as well
+            if has_media:
+                payoffs["reply"] += 0.5
             if 60 <= text_len <= 260:
                 payoffs["reply"] += 0.2
 
@@ -74,7 +75,7 @@ class GameTheoryEngine:
         if "quote" in payoffs:
             payoffs["quote"] += 0.3  # baseline preference for stronger signal
             if has_media:
-                payoffs["quote"] += 0.7
+                payoffs["quote"] += 1.0  # stronger boost for visual content
             if has_video:
                 payoffs["quote"] += 0.4
             if total_engagement >= 200:

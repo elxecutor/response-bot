@@ -22,6 +22,7 @@ import json
 import re
 
 from google import genai  # Gemini API client (google-genai package)
+from google.genai import types  # used for multimodal parts and search grounding
 from game_theory import GameTheoryEngine
 
 # Load environment variables from .env
@@ -397,9 +398,11 @@ def select_optimal_tweet(tweets):
         elif total_engagement <= 10:
             score += 20  # Still good for early engagement
         
-        # Focus on tweets without media (easier to respond meaningfully)
+        # Media is now a neutral/positive signal; we no longer penalize images
+        # (the bot will even fetch them for Gemini).  A small bonus keeps them
+        # competitive when sorting, but it's not required.
         if tweet.get('has_media'):
-            score -= 20
+            score += 5  # gentle encouragement for visual content
         
         # Text length consideration (easier to respond to substantial tweets)
         text_len = len(tweet.get('text', ''))
@@ -434,16 +437,33 @@ def generate_reply(tweet_text, tweet_metadata=None):
     - Links: 5% (strategic use)
     """
     # Build prompt for Gemini
-    prompt = f"""Write a short, natural reply to this tweet that adds value or builds on the idea. Keep it conversational and under 100 characters. Return ONLY the response text, nothing else.
+    prompt = f"""Write a short, natural reply to this tweet that adds value or builds on the idea. Keep it conversational and under 100 characters. Return ONLY the plain response text. DO NOT use emojis, hashtags, or any Markdown formatting whatsoever (no asterisks, underscores, or backticks).
 
 Tweet: '{tweet_text}'
 Response:"""
 
     try:
-        # generate content directly using the models API (template from user)
+        # build multimodal contents list; include image if available
+        contents = [types.Part.from_text(text=prompt)]
+        if tweet_metadata:
+            urls = tweet_metadata.get('media_urls', [])
+            if urls:
+                try:
+                    img_resp = requests.get(urls[0], timeout=10)
+                    img_resp.raise_for_status()
+                    mime = img_resp.headers.get('Content-Type', 'image/jpeg')
+                    contents.append(
+                        types.Part.from_bytes(data=img_resp.content, mime_type=mime)
+                    )
+                except Exception as dl_err:
+                    print(f"⚠️ Could not download media for prompt: {dl_err}")
         resp = client.models.generate_content(
-            model="gemini-3-flash-preview",
-            contents=prompt,
+            model="gemini-2.5-flash",
+            contents=contents,
+            config=types.GenerateContentConfig(
+                tools=[{"google_search": {}}],
+                temperature=0.7,
+            ),
         )
         reply = resp.text.strip()
 
@@ -481,15 +501,32 @@ def generate_quote(tweet_text, tweet_metadata=None):
     Quote tweets are high-value engagement signals
     """
     # Build prompt for Gemini
-    prompt = f"""Write a short, witty quote tweet response that builds on the original idea. Keep it under 120 characters and conversational. Return ONLY the response text, nothing else.
+    prompt = f"""Write a short, witty quote tweet response that builds on the original idea. Keep it under 120 characters and conversational. Return ONLY the plain response text. DO NOT use emojis, hashtags, or any Markdown formatting whatsoever (no asterisks, underscores, or backticks).
 
 Tweet: '{tweet_text}'
 Response:"""
 
     try:
+        contents = [types.Part.from_text(text=prompt)]
+        if tweet_metadata:
+            urls = tweet_metadata.get('media_urls', [])
+            if urls:
+                try:
+                    img_resp = requests.get(urls[0], timeout=10)
+                    img_resp.raise_for_status()
+                    mime = img_resp.headers.get('Content-Type', 'image/jpeg')
+                    contents.append(
+                        types.Part.from_bytes(data=img_resp.content, mime_type=mime)
+                    )
+                except Exception as dl_err:
+                    print(f"⚠️ Could not download media for quote prompt: {dl_err}")
         resp = client.models.generate_content(
-            model="gemini-3-flash-preview",
-            contents=prompt,
+            model="gemini-2.5-flash",
+            contents=contents,
+            config=types.GenerateContentConfig(
+                tools=[{"google_search": {}}],
+                temperature=0.7,
+            ),
         )
         quote = resp.text.strip()
 
@@ -568,6 +605,8 @@ if __name__ == "__main__":
     bot_username = get_bot_username()
     if bot_username:
         print(f"Running as: @{bot_username}")
+        # prune old history entries every run
+        clean_old_history()
     print()
     
     # Show stats
