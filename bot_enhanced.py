@@ -21,6 +21,7 @@ import base64
 import json
 import re
 
+from google import genai  # Gemini API client (google-genai package)
 from game_theory import GameTheoryEngine
 
 # Load environment variables from .env
@@ -42,8 +43,13 @@ access_token = os.getenv('TWITTER_ACCESS_TOKEN')
 access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
 bearer_token_write = os.getenv('TWITTER_WRITE_BEARER_TOKEN')
 
-# OpenRouter API key
-openrouter_key = os.getenv('OPENROUTER_API_KEY')
+# Gemini API key (used by google-generativeai)
+gemini_api_key = os.getenv('GEMINI_API_KEY')
+if gemini_api_key:
+    client = genai.Client(api_key=gemini_api_key)
+else:
+    print("Warning: GEMINI_API_KEY not set, AI responses will fail if invoked")
+    client = genai.Client()
 
 # JSON file for tracking replied tweets (git-friendly)
 HISTORY_FILE = 'bot_history.json'
@@ -427,130 +433,93 @@ def generate_reply(tweet_text, tweet_metadata=None):
     - Shout: 10% (minimal caps)
     - Links: 5% (strategic use)
     """
-    url = "https://openrouter.ai/api/v1/chat/completions"
-    
-    headers = {
-        "Authorization": f"Bearer {openrouter_key}",
-        "Content-Type": "application/json",
-    }
-    
+    # Build prompt for Gemini
     prompt = f"""Write a short, natural reply to this tweet that adds value or builds on the idea. Keep it conversational and under 100 characters. Return ONLY the response text, nothing else.
 
 Tweet: '{tweet_text}'
 Response:"""
 
-    data = {
-        "model": "xiaomi/mimo-v2-flash:free",
-        "messages": [
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        "reasoning": {"enabled": True}
-    }
-    
     try:
-        response = requests.post(url, headers=headers, json=data)
-        if response.status_code == 200:
-            result = response.json()
-            reply = result['choices'][0]['message']['content'].strip()
-            
-            # Remove quotes if AI added them
-            reply = reply.strip('"\'')
-            
-            # Remove any markdown formatting that slipped through
-            reply = re.sub(r'\*([^*]+)\*', r'\1', reply)  # Remove *bold*
-            reply = re.sub(r'_([^_]+)_', r'\1', reply)    # Remove _italic_
-            reply = re.sub(r'`([^`]+)`', r'\1', reply)    # Remove `code`
-            
-            # Remove hashtags (replace with plain text)
-            reply = re.sub(r'#(\w+)', r'\1', reply)
-            
-            # Remove emojis
-            reply = re.sub(r'[^\x00-\x7F]+', '', reply)
-            
-            # Validate and optimize length
-            if len(reply) > 280:
-                reply = reply[:277] + "..."
-            
-            print(f"\n{'='*60}")
-            print(f"Generated Reply: {reply}")
-            print(f"Length: {len(reply)} chars")
-            print(f"{'='*60}\n")
-            
-            return reply
-        else:
-            print(f"Error generating reply: {response.status_code} {response.text}")
-            return "Interesting perspective! What made you think of this?"
+        # generate content directly using the models API (template from user)
+        resp = client.models.generate_content(
+            model="gemini-3-flash-preview",
+            contents=prompt,
+        )
+        reply = resp.text.strip()
+
+        # Remove quotes if AI added them
+        reply = reply.strip('"\'')
+
+        # Remove any markdown formatting that slipped through
+        reply = re.sub(r'\*([^*]+)\*', r'\1', reply)  # Remove *bold*
+        reply = re.sub(r'_([^_]+)_', r'\1', reply)    # Remove _italic_
+        reply = re.sub(r'`([^`]+)`', r'\1', reply)    # Remove `code`
+
+        # Remove hashtags (replace with plain text)
+        reply = re.sub(r'#(\w+)', r'\1', reply)
+
+        # Remove emojis
+        reply = re.sub(r'[^\x00-\x7F]+', '', reply)
+
+        # Validate and optimize length
+        if len(reply) > 280:
+            reply = reply[:277] + "..."
+
+        print(f"\n{'='*60}")
+        print(f"Generated Reply: {reply}")
+        print(f"Length: {len(reply)} chars")
+        print(f"{'='*60}\n")
+
+        return reply
     except Exception as e:
         print(f"Exception in generate_reply: {e}")
-        return "Great point! Would love to hear more about this."
+        return None
 
 def generate_quote(tweet_text, tweet_metadata=None):
     """
     Generate quote tweet optimized for algorithm scoring
     Quote tweets are high-value engagement signals
     """
-    url = "https://openrouter.ai/api/v1/chat/completions"
-    
-    headers = {
-        "Authorization": f"Bearer {openrouter_key}",
-        "Content-Type": "application/json",
-    }
-    
+    # Build prompt for Gemini
     prompt = f"""Write a short, witty quote tweet response that builds on the original idea. Keep it under 120 characters and conversational. Return ONLY the response text, nothing else.
 
 Tweet: '{tweet_text}'
 Response:"""
 
-    data = {
-        "model": "xiaomi/mimo-v2-flash:free",
-        "messages": [
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        "reasoning": {"enabled": True}
-    }
-    
     try:
-        response = requests.post(url, headers=headers, json=data)
-        if response.status_code == 200:
-            result = response.json()
-            quote = result['choices'][0]['message']['content'].strip()
-            
-            # Remove quotes if AI added them
-            quote = quote.strip('"\'')
-            
-            # Remove any markdown formatting that slipped through
-            quote = re.sub(r'\*([^*]+)\*', r'\1', quote)  # Remove *bold*
-            quote = re.sub(r'_([^_]+)_', r'\1', quote)    # Remove _italic_
-            quote = re.sub(r'`([^`]+)`', r'\1', quote)    # Remove `code`
-            
-            # Remove hashtags (replace with plain text)
-            quote = re.sub(r'#(\w+)', r'\1', quote)
-            
-            # Remove emojis
-            quote = re.sub(r'[^\x00-\x7F]+', '', quote)
-            
-            # Validate length
-            if len(quote) > 280:
-                quote = quote[:277] + "..."
-            
-            print(f"\n{'='*60}")
-            print(f"Generated Quote: {quote}")
-            print(f"Length: {len(quote)} chars")
-            print(f"{'='*60}\n")
-            
-            return quote
-        else:
-            print(f"Error generating quote: {response.status_code} {response.text}")
-            return "This is an important perspective that deserves more discussion."
+        resp = client.models.generate_content(
+            model="gemini-3-flash-preview",
+            contents=prompt,
+        )
+        quote = resp.text.strip()
+
+        # Remove quotes if AI added them
+        quote = quote.strip('"\'')
+
+        # Remove any markdown formatting that slipped through
+        quote = re.sub(r'\*([^*]+)\*', r'\1', quote)  # Remove *bold*
+        quote = re.sub(r'_([^_]+)_', r'\1', quote)    # Remove _italic_
+        quote = re.sub(r'`([^`]+)`', r'\1', quote)    # Remove `code`
+
+        # Remove hashtags (replace with plain text)
+        quote = re.sub(r'#(\w+)', r'\1', quote)
+
+        # Remove emojis
+        quote = re.sub(r'[^\x00-\x7F]+', '', quote)
+
+        # Validate length
+        if len(quote) > 280:
+            quote = quote[:277] + "..."
+
+        print(f"\n{'='*60}")
+        print(f"Generated Quote: {quote}")
+        print(f"Length: {len(quote)} chars")
+        print(f"{'='*60}\n")
+
+        return quote
     except Exception as e:
         print(f"Exception in generate_quote: {e}")
-        return "Interesting take! 🤔"
+        return None
 
 def reply_to_tweet(tweet_id, reply_text, user):
     """Reply to tweet - generates reply engagement signal (10x value in algorithm)"""
@@ -665,10 +634,16 @@ if __name__ == "__main__":
             success = False
             if action == 'reply':
                 reply = generate_reply(selected_tweet['text'], selected_tweet)
-                success = reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
+                if reply:
+                    success = reply_to_tweet(selected_tweet['id'], reply, selected_tweet['user'])
+                else:
+                    print("⚠️ Failed to generate reply - skipping")
             elif action == 'quote':
                 quote = generate_quote(selected_tweet['text'], selected_tweet)
-                success = quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
+                if quote:
+                    success = quote_tweet(selected_tweet['id'], quote, selected_tweet['user'])
+                else:
+                    print("⚠️ Failed to generate quote - skipping")
 
             if success:
                 game_engine.update_regret(payoffs, action)
