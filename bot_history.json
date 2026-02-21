@@ -119,17 +119,23 @@
       "user": "forloopcodes",
       "replied_at": "2026-02-21T17:23:15.425147",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025199751868940548",
+      "user": "ottabag",
+      "replied_at": "2026-02-21T18:31:09.390402",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 234.2500000000003,
-      "quote": 0.3999999999999999
+      "quote": 1.1999999999999997
     },
     "strategy_counts": {
-      "reply": 668.0,
+      "reply": 669.0,
       "quote": 192.0
     },
-    "iterations": 872
+    "iterations": 873
   }
 }
