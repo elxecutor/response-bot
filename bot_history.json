@@ -17,6 +17,12 @@
       "user": "Polymarket",
       "replied_at": "2026-02-20T23:39:18.031001",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2024871882248303025",
+      "user": "Polymarket",
+      "replied_at": "2026-02-21T01:11:37.804411",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -25,9 +31,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 656.0,
+      "reply": 657.0,
       "quote": 187.0
     },
-    "iterations": 855
+    "iterations": 856
   }
 }
