@@ -125,17 +125,23 @@
       "user": "ottabag",
       "replied_at": "2026-02-21T18:31:09.390402",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025200985241796789",
+      "user": "ottabag",
+      "replied_at": "2026-02-21T19:22:10.362272",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 234.2500000000003,
+      "reply": 233.05000000000032,
       "quote": 1.1999999999999997
     },
     "strategy_counts": {
       "reply": 669.0,
-      "quote": 192.0
+      "quote": 193.0
     },
-    "iterations": 873
+    "iterations": 874
   }
 }
