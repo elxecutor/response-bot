@@ -29,17 +29,23 @@
       "user": "elijahmuraoka_",
       "replied_at": "2026-02-21T01:22:21.039714",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2024865050411065528",
+      "user": "tobdan_nika",
+      "replied_at": "2026-02-21T01:48:34.560434",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 231.7500000000003,
+      "reply": 233.8500000000003,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 658.0,
-      "quote": 187.0
+      "quote": 188.0
     },
-    "iterations": 857
+    "iterations": 858
   }
 }
