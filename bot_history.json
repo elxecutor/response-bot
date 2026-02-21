@@ -107,17 +107,23 @@
       "user": "elonmusk",
       "replied_at": "2026-02-21T15:22:28.217931",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025140933214527841",
+      "user": "d4rsh_tw",
+      "replied_at": "2026-02-21T16:25:21.826071",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 234.4500000000003,
+      "reply": 234.2500000000003,
       "quote": 0.3999999999999999
     },
     "strategy_counts": {
       "reply": 667.0,
-      "quote": 191.0
+      "quote": 192.0
     },
-    "iterations": 870
+    "iterations": 871
   }
 }
