@@ -131,17 +131,23 @@
       "user": "ottabag",
       "replied_at": "2026-02-21T19:22:10.362272",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2025291284584243411",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-02-21T21:20:48.332570",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 232.35000000000034,
-      "quote": 1.1999999999999997
+      "quote": 0.8999999999999999
     },
     "strategy_counts": {
-      "reply": 669.0,
+      "reply": 670.0,
       "quote": 193.0
     },
-    "iterations": 874
+    "iterations": 875
   }
 }
