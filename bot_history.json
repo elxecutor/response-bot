@@ -263,17 +263,23 @@
       "user": "ottabag",
       "replied_at": "2026-02-22T22:20:54.891323",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025620300965011857",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-02-22T23:22:58.230675",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 235.90000000000038,
-      "quote": 0.5999999999999999
+      "quote": 0.30000000000000004
     },
     "strategy_counts": {
-      "reply": 685.0,
+      "reply": 686.0,
       "quote": 199.0
     },
-    "iterations": 896
+    "iterations": 897
   }
 }
