@@ -149,17 +149,23 @@
       "user": "notdecu",
       "replied_at": "2026-02-22T01:56:39.218241",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2025310400888406054",
+      "user": "travonsol",
+      "replied_at": "2026-02-22T04:18:42.526026",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 231.90000000000035,
+      "reply": 234.20000000000036,
       "quote": 0.6000000000000001
     },
     "strategy_counts": {
       "reply": 671.0,
-      "quote": 194.0
+      "quote": 195.0
     },
-    "iterations": 877
+    "iterations": 878
   }
 }
