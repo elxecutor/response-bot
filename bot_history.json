@@ -143,17 +143,23 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-02-21T23:21:36.600170",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025259151195001226",
+      "user": "notdecu",
+      "replied_at": "2026-02-22T01:56:39.218241",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 232.00000000000034,
+      "reply": 231.90000000000035,
       "quote": 0.6000000000000001
     },
     "strategy_counts": {
       "reply": 671.0,
-      "quote": 193.0
+      "quote": 194.0
     },
-    "iterations": 876
+    "iterations": 877
   }
 }
