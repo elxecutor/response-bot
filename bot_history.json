@@ -227,17 +227,23 @@
       "user": "tobdan_nika",
       "replied_at": "2026-02-22T16:27:14.633429",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025601379805352006",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-02-22T17:23:13.017997",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 233.30000000000035,
+      "reply": 233.60000000000036,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 681.0,
-      "quote": 197.0
+      "quote": 198.0
     },
-    "iterations": 890
+    "iterations": 891
   }
 }
