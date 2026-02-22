@@ -245,6 +245,12 @@
       "user": "d4rsh_tw",
       "replied_at": "2026-02-22T19:22:27.869017",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2025653259675775121",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-02-22T20:23:31.632024",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -253,9 +259,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 682.0,
+      "reply": 683.0,
       "quote": 199.0
     },
-    "iterations": 893
+    "iterations": 894
   }
 }
