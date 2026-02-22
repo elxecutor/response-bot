@@ -185,17 +185,23 @@
       "user": "ottabag",
       "replied_at": "2026-02-22T09:27:57.558567",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025505851792904673",
+      "user": "ManUtd",
+      "replied_at": "2026-02-22T10:22:33.430346",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 233.60000000000036,
+      "reply": 233.30000000000035,
       "quote": 0.8000000000000005
     },
     "strategy_counts": {
       "reply": 675.0,
-      "quote": 196.0
+      "quote": 197.0
     },
-    "iterations": 883
+    "iterations": 884
   }
 }
