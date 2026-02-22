@@ -257,17 +257,23 @@
       "user": "4ster_light",
       "replied_at": "2026-02-22T21:21:30.596854",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025610487514456444",
+      "user": "ottabag",
+      "replied_at": "2026-02-22T22:20:54.891323",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 235.90000000000038,
-      "quote": 0.0
+      "quote": 0.5999999999999999
     },
     "strategy_counts": {
-      "reply": 684.0,
+      "reply": 685.0,
       "quote": 199.0
     },
-    "iterations": 895
+    "iterations": 896
   }
 }
