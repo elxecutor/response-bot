@@ -239,17 +239,23 @@
       "user": "d4rsh_tw",
       "replied_at": "2026-02-22T18:31:46.278923",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025621820976886139",
+      "user": "d4rsh_tw",
+      "replied_at": "2026-02-22T19:22:27.869017",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 233.60000000000036,
+      "reply": 235.90000000000038,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 682.0,
-      "quote": 198.0
+      "quote": 199.0
     },
-    "iterations": 892
+    "iterations": 893
   }
 }
