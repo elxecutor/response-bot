@@ -161,17 +161,23 @@
       "user": "notdecu",
       "replied_at": "2026-02-22T05:49:49.960491",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2025336599563637245",
+      "user": "premierleague",
+      "replied_at": "2026-02-22T06:43:29.113065",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 233.60000000000036,
-      "quote": 0.6000000000000001
+      "quote": 0.9000000000000004
     },
     "strategy_counts": {
-      "reply": 671.0,
+      "reply": 672.0,
       "quote": 196.0
     },
-    "iterations": 879
+    "iterations": 880
   }
 }
