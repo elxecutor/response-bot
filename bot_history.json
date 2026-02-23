@@ -293,17 +293,23 @@
       "user": "Mr_Hy4",
       "replied_at": "2026-02-23T07:52:58.029684",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2025796493752332734",
+      "user": "notdecu",
+      "replied_at": "2026-02-23T08:46:14.425396",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 238.2000000000004,
-      "quote": 0.5999999999999999
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 689.0,
+      "reply": 690.0,
       "quote": 200.0
     },
-    "iterations": 901
+    "iterations": 902
   }
 }
