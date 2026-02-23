@@ -347,6 +347,12 @@
       "user": "ManUtd",
       "replied_at": "2026-02-23T18:00:15.454102",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025926115383235014",
+      "user": "rqobela",
+      "replied_at": "2026-02-23T19:17:37.750969",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -355,9 +361,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 695.0,
+      "reply": 696.0,
       "quote": 203.0
     },
-    "iterations": 910
+    "iterations": 911
   }
 }
