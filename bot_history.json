@@ -329,17 +329,23 @@
       "user": "ManUtd",
       "replied_at": "2026-02-23T14:09:48.192576",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2025905745921974366",
+      "user": "forloopcodes",
+      "replied_at": "2026-02-23T15:43:09.099099",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 238.6000000000004,
+      "reply": 239.30000000000038,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 693.0,
-      "quote": 202.0
+      "quote": 203.0
     },
-    "iterations": 907
+    "iterations": 908
   }
 }
