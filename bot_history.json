@@ -371,17 +371,23 @@
       "user": "Teeniiola",
       "replied_at": "2026-02-23T23:54:15.036975",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025780615384281329",
+      "user": "SoftChocolatey",
+      "replied_at": "2026-02-23T23:59:27.789732",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 240.00000000000037,
-      "quote": 0.0
+      "quote": 0.30000000000000027
     },
     "strategy_counts": {
-      "reply": 699.0,
+      "reply": 700.0,
       "quote": 204.0
     },
-    "iterations": 915
+    "iterations": 916
   }
 }
