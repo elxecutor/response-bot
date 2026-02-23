@@ -323,17 +323,23 @@
       "user": "d4rsh_tw",
       "replied_at": "2026-02-23T12:58:24.834997",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025906273577738589",
+      "user": "ManUtd",
+      "replied_at": "2026-02-23T14:09:48.192576",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 237.80000000000038,
+      "reply": 238.6000000000004,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 693.0,
-      "quote": 201.0
+      "quote": 202.0
     },
-    "iterations": 906
+    "iterations": 907
   }
 }
