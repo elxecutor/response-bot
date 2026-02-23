@@ -341,6 +341,12 @@
       "user": "Mr_Hy4",
       "replied_at": "2026-02-23T16:54:31.351031",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025928379527299143",
+      "user": "ManUtd",
+      "replied_at": "2026-02-23T18:00:15.454102",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -349,9 +355,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 694.0,
+      "reply": 695.0,
       "quote": 203.0
     },
-    "iterations": 909
+    "iterations": 910
   }
 }
