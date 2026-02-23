@@ -269,17 +269,23 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-02-22T23:22:58.230675",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2025700646372983294",
+      "user": "travonsol",
+      "replied_at": "2026-02-23T01:57:19.710964",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 235.90000000000038,
-      "quote": 0.30000000000000004
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 686.0,
+      "reply": 687.0,
       "quote": 199.0
     },
-    "iterations": 897
+    "iterations": 898
   }
 }
