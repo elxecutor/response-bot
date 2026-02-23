@@ -436,11 +436,18 @@ def generate_reply(tweet_text, tweet_metadata=None):
     - Shout: 10% (minimal caps)
     - Links: 5% (strategic use)
     """
-    # Build prompt for Gemini
-    prompt = f"""Write a short, natural reply to this tweet that adds value or builds on the idea. Keep it conversational and under 100 characters. Return ONLY the plain response text. DO NOT use emojis, hashtags, or any Markdown formatting whatsoever (no asterisks, underscores, or backticks).
+    # Build prompt for Gemini with casual persona and negative constraints
+    prompt = f"""You are a casual, slightly cynical, but insightful Twitter user. Write a human-like reply to the tweet below.
+    
+    Rules for your human flair:
+    - Keep it under 100 characters. Short and punchy.
+    - Vary your tone: you can be sarcastic, ask a rhetorical question, or just make a blunt observation.
+    - Feel free to use all lowercase letters for a more casual, internet-native vibe.
+    - NEVER start with AI filler like "That's a great point", "I agree", or "Interesting take". 
+    - Return ONLY the plain response text. DO NOT use emojis, hashtags, or markdown.
 
-Tweet: '{tweet_text}'
-Response:"""
+    Tweet: '{tweet_text}'
+    Response:"""
 
     try:
         # build multimodal contents list; include image if available
@@ -462,7 +469,8 @@ Response:"""
             contents=contents,
             config=types.GenerateContentConfig(
                 tools=[{"google_search": {}}],
-                temperature=0.7,
+                temperature=0.95,  # increased randomness
+                system_instruction="You are a highly opinionated, casual internet user. You hate sounding like a corporate AI."
             ),
         )
         reply = resp.text.strip()
@@ -500,11 +508,17 @@ def generate_quote(tweet_text, tweet_metadata=None):
     Generate quote tweet optimized for algorithm scoring
     Quote tweets are high-value engagement signals
     """
-    # Build prompt for Gemini
-    prompt = f"""Write a short, witty quote tweet response that builds on the original idea. Keep it under 120 characters and conversational. Return ONLY the plain response text. DO NOT use emojis, hashtags, or any Markdown formatting whatsoever (no asterisks, underscores, or backticks).
+    # Build prompt for Gemini with persona and negative constraints
+    prompt = f"""You are a witty and slightly edgy Twitter user. Write a quote tweet response that adds a sharp observation or funny spin to the original tweet.
+    
+    Rules for your human flair:
+    - Keep it under 120 characters.
+    - Sound like a real person quote-tweeting their timeline. Use internet slang naturally if it fits.
+    - DO NOT be overly formal or helpful. Be opinionated. 
+    - Return ONLY the plain response text. DO NOT use emojis, hashtags, or markdown.
 
-Tweet: '{tweet_text}'
-Response:"""
+    Tweet: '{tweet_text}'
+    Response:"""
 
     try:
         contents = [types.Part.from_text(text=prompt)]
@@ -525,7 +539,8 @@ Response:"""
             contents=contents,
             config=types.GenerateContentConfig(
                 tools=[{"google_search": {}}],
-                temperature=0.7,
+                temperature=0.95,  # increased randomness
+                system_instruction="You are a highly opinionated, casual internet user. You hate sounding like a corporate AI."
             ),
         )
         quote = resp.text.strip()

@@ -13,12 +13,6 @@
       "action": "reply"
     },
     {
-      "tweet_id": "2024896899568791850",
-      "user": "Polymarket",
-      "replied_at": "2026-02-20T23:39:18.031001",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2024871882248303025",
       "user": "Polymarket",
       "replied_at": "2026-02-21T01:11:37.804411",
@@ -371,6 +365,12 @@
       "user": "chesterzelaya",
       "replied_at": "2026-02-23T22:38:07.500542",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2026027297493352450",
+      "user": "Teeniiola",
+      "replied_at": "2026-02-23T23:54:15.036975",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -379,9 +379,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 698.0,
+      "reply": 699.0,
       "quote": 204.0
     },
-    "iterations": 914
+    "iterations": 915
   }
 }
