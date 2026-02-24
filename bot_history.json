@@ -1,12 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2024840962816782529",
-      "user": "thealokverse",
-      "replied_at": "2026-02-21T10:22:41.385945",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025120053105189346",
       "user": "ManUtd",
       "replied_at": "2026-02-21T11:20:01.954574",
@@ -353,17 +347,23 @@
       "user": "forloopcodes",
       "replied_at": "2026-02-24T09:50:36.299832",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2026195607686095118",
+      "user": "Mr_Hy4",
+      "replied_at": "2026-02-24T10:44:54.365278",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 240.50000000000037,
+      "reply": 241.20000000000036,
       "quote": 0.0
     },
     "strategy_counts": {
       "reply": 706.0,
-      "quote": 205.0
+      "quote": 206.0
     },
-    "iterations": 923
+    "iterations": 924
   }
 }
