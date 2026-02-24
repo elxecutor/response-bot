@@ -1,12 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2025291284584243411",
-      "user": "FabrizioRomano",
-      "replied_at": "2026-02-21T21:20:48.332570",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025253259489734859",
       "user": "FabrizioRomano",
       "replied_at": "2026-02-21T23:21:36.600170",
@@ -347,17 +341,23 @@
       "user": "premierleague",
       "replied_at": "2026-02-24T20:32:18.475852",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2026380235227210045",
+      "user": "FabrizioRomano",
+      "replied_at": "2026-02-24T21:31:51.990061",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 243.30000000000038,
+      "reply": 243.6000000000004,
       "quote": 0.09999999999999998
     },
     "strategy_counts": {
       "reply": 712.0,
-      "quote": 208.0
+      "quote": 209.0
     },
-    "iterations": 932
+    "iterations": 933
   }
 }
