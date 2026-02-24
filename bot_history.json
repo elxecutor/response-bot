@@ -1,18 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2024969627256979712",
-      "user": "elonmusk",
-      "replied_at": "2026-02-21T14:24:12.434038",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "2025222515304329616",
-      "user": "elonmusk",
-      "replied_at": "2026-02-21T15:22:28.217931",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025140933214527841",
       "user": "d4rsh_tw",
       "replied_at": "2026-02-21T16:25:21.826071",
@@ -353,17 +341,23 @@
       "user": "notdecu",
       "replied_at": "2026-02-24T14:15:00.719388",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2026261290398949681",
+      "user": "d4rsh_tw",
+      "replied_at": "2026-02-24T15:55:22.637717",
+      "action": "quote"
     }
   ],
   "game_theory": {
     "regret": {
-      "reply": 241.20000000000036,
+      "reply": 241.00000000000037,
       "quote": 0.7999999999999998
     },
     "strategy_counts": {
       "reply": 709.0,
-      "quote": 206.0
+      "quote": 207.0
     },
-    "iterations": 927
+    "iterations": 928
   }
 }
