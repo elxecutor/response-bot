@@ -1,36 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2024806256079155547",
-      "user": "GBUnitedx",
-      "replied_at": "2026-02-21T00:14:50.213632",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "2024854619914944534",
-      "user": "Hisomtheboat",
-      "replied_at": "2026-02-21T00:34:43.801500",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "2024871882248303025",
-      "user": "Polymarket",
-      "replied_at": "2026-02-21T01:11:37.804411",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "2024959712534376673",
-      "user": "elijahmuraoka_",
-      "replied_at": "2026-02-21T01:22:21.039714",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "2024865050411065528",
-      "user": "tobdan_nika",
-      "replied_at": "2026-02-21T01:48:34.560434",
-      "action": "quote"
-    },
-    {
       "tweet_id": "2024863362446954697",
       "user": "premierleague",
       "replied_at": "2026-02-21T04:05:21.697669",
@@ -383,17 +353,23 @@
       "user": "chesterzelaya",
       "replied_at": "2026-02-23T23:32:40.181081",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2026082775259136204",
+      "user": "elonmusk",
+      "replied_at": "2026-02-24T01:54:20.965715",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 240.50000000000037,
-      "quote": 0.30000000000000027
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 700.0,
+      "reply": 701.0,
       "quote": 205.0
     },
-    "iterations": 917
+    "iterations": 918
   }
 }
