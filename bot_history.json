@@ -347,17 +347,23 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-02-24T21:31:51.990061",
       "action": "quote"
+    },
+    {
+      "tweet_id": "2026358928280350987",
+      "user": "Pumpfun",
+      "replied_at": "2026-02-24T22:30:43.613675",
+      "action": "reply"
     }
   ],
   "game_theory": {
     "regret": {
       "reply": 243.6000000000004,
-      "quote": 0.09999999999999998
+      "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 712.0,
+      "reply": 713.0,
       "quote": 209.0
     },
-    "iterations": 933
+    "iterations": 934
   }
 }
