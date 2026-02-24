@@ -1,12 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2024887565573103621",
-      "user": "FabrizioRomano",
-      "replied_at": "2026-02-21T05:39:34.135438",
-      "action": "quote"
-    },
-    {
       "tweet_id": "2024875466205937685",
       "user": "forloopcodes",
       "replied_at": "2026-02-21T06:38:32.582439",
@@ -359,6 +353,12 @@
       "user": "FabrizioRomano",
       "replied_at": "2026-02-24T04:17:25.285680",
       "action": "reply"
+    },
+    {
+      "tweet_id": "2026068466814554539",
+      "user": "chesterzelaya",
+      "replied_at": "2026-02-24T05:57:35.971401",
+      "action": "reply"
     }
   ],
   "game_theory": {
@@ -367,9 +367,9 @@
       "quote": 0.0
     },
     "strategy_counts": {
-      "reply": 702.0,
+      "reply": 703.0,
       "quote": 205.0
     },
-    "iterations": 919
+    "iterations": 920
   }
 }
