@@ -1,24 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2025527142998544465",
-      "user": "tobdan_nika",
-      "replied_at": "2026-02-22T16:27:14.633429",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "2025601379805352006",
-      "user": "FabrizioRomano",
-      "replied_at": "2026-02-22T17:23:13.017997",
-      "action": "quote"
-    },
-    {
-      "tweet_id": "2025615545199149485",
-      "user": "d4rsh_tw",
-      "replied_at": "2026-02-22T18:31:46.278923",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025621820976886139",
       "user": "d4rsh_tw",
       "replied_at": "2026-02-22T19:22:27.869017",
@@ -279,7 +261,7 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 240.80000000000044,
+      "reply": 240.10000000000045,
       "quote": 0.0
     },
     "strategy_counts": {
