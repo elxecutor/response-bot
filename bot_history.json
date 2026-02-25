@@ -1,12 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2025510709694525587",
-      "user": "rqobela",
-      "replied_at": "2026-02-22T11:19:11.618810",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025537596349456478",
       "user": "sadkatwt",
       "replied_at": "2026-02-22T12:43:11.550962",
@@ -309,7 +303,7 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 241.85000000000042,
+      "reply": 241.50000000000043,
       "quote": 0.0
     },
     "strategy_counts": {
