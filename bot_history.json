@@ -1,12 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2025302311212622205",
-      "user": "ottabag",
-      "replied_at": "2026-02-22T09:27:57.558567",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025505851792904673",
       "user": "ManUtd",
       "replied_at": "2026-02-22T10:22:33.430346",
@@ -321,7 +315,7 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 242.20000000000041,
+      "reply": 241.85000000000042,
       "quote": 0.04999999999999993
     },
     "strategy_counts": {
