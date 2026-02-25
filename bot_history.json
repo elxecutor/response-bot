@@ -1,12 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2025507606752547133",
-      "user": "premierleague",
-      "replied_at": "2026-02-22T13:41:23.339790",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025552402263445959",
       "user": "premierleague",
       "replied_at": "2026-02-22T14:23:42.197395",
