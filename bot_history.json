@@ -1,18 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2025552402263445959",
-      "user": "premierleague",
-      "replied_at": "2026-02-22T14:23:42.197395",
-      "action": "reply"
-    },
-    {
-      "tweet_id": "2025447972377690355",
-      "user": "d4rsh_tw",
-      "replied_at": "2026-02-22T15:22:25.699058",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025527142998544465",
       "user": "tobdan_nika",
       "replied_at": "2026-02-22T16:27:14.633429",
@@ -291,7 +279,7 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 241.15000000000043,
+      "reply": 240.80000000000044,
       "quote": 0.0
     },
     "strategy_counts": {
