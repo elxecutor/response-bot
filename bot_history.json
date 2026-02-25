@@ -1,12 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2025537596349456478",
-      "user": "sadkatwt",
-      "replied_at": "2026-02-22T12:43:11.550962",
-      "action": "reply"
-    },
-    {
       "tweet_id": "2025507606752547133",
       "user": "premierleague",
       "replied_at": "2026-02-22T13:41:23.339790",
@@ -303,7 +297,7 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 241.50000000000043,
+      "reply": 241.15000000000043,
       "quote": 0.0
     },
     "strategy_counts": {
