@@ -1,12 +1,6 @@
 {
   "replied_tweets": [
     {
-      "tweet_id": "2025259151195001226",
-      "user": "notdecu",
-      "replied_at": "2026-02-22T01:56:39.218241",
-      "action": "quote"
-    },
-    {
       "tweet_id": "2025310400888406054",
       "user": "travonsol",
       "replied_at": "2026-02-22T04:18:42.526026",
@@ -357,7 +351,7 @@
   ],
   "game_theory": {
     "regret": {
-      "reply": 243.6000000000004,
+      "reply": 243.2500000000004,
       "quote": 0.3999999999999999
     },
     "strategy_counts": {
